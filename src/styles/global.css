@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+/* Google Fonts Import - Outfit & Inter */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;700;800&display=swap");
+
+@theme {
+  /* Strict Color Palette */
+  --color-white: #ffffff;
+  --color-black: #050505;
+  --color-dark: #0a0a0a;
+  --color-light: #fafafa;
+  --color-accent: #2563eb;
+
+  /* Typography Scale */
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Outfit", system-ui, sans-serif;
+
+  /* Spacing Scale */
+  --spacing-container: 1rem;
+}
+
+/* Base Styles */
+:root {
+  color-scheme: light dark;
+}
+
+html {
+  background-color: var(--color-light);
+  color: var(--color-black);
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+}
+
+html.dark {
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Utilities */
+.bg-white {
+  background-color: var(--color-white);
+  color: var(--color-black);
+}
+.bg-black {
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
+.bg-dark {
+  background-color: var(--color-dark);
+  color: var(--color-white);
+}
+.bg-light {
+  background-color: var(--color-light);
+  color: var(--color-black);
+}
+.text-white {
+  color: var(--color-white);
+}
+.text-black {
+  color: var(--color-black);
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
+
+@media (prefers-color-scheme: dark) {
+  ::selection {
+    background-color: var(--color-white);
+    color: var(--color-black);
+  }
+}

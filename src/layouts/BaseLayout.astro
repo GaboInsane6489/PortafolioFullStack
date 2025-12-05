@@ -1,0 +1,84 @@
+---
+import '../styles/global.css';
+import { getLangFromUrl } from '../utils/i18n.js';
+
+const lang = getLangFromUrl(Astro.url);
+const { 
+  title = "Gabriel González | Full Stack Developer", 
+  description = "Full Stack Developer specializing in high-performance, accessible web applications. Building modern web experiences with Astro, React, and cutting-edge technologies." 
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const socialImage = new URL('/og-image.jpg', Astro.site);
+---
+
+<!DOCTYPE html>
+<html lang={lang} class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'es_ES'} />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={socialImage} />
+    
+    <!-- Additional SEO -->
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Gabriel González" />
+    <meta name="keywords" content="Full Stack Developer, Web Developer, React, Astro, JavaScript, Frontend, Backend, Portfolio" />
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Gabriel González",
+      "url": canonicalURL.toString(),
+      "jobTitle": "Full Stack Developer",
+      "description": description,
+      "sameAs": [
+        "https://github.com/gabriel-g",
+        "https://linkedin.com/in/gabriel-g"
+      ],
+      "knowsAbout": ["Web Development", "JavaScript", "React", "Astro", "Full Stack Development"]
+    })} />
+    
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Gabriel González Portfolio",
+      "url": canonicalURL.toString(),
+      "description": description,
+      "inLanguage": lang
+    })} />
+  </head>
+  <body class="bg-white text-black dark:bg-black dark:text-white antialiased transition-colors duration-300">
+    <a 
+      href="#main-content" 
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-black focus:text-white dark:focus:bg-white dark:focus:text-black focus:rounded"
+    >
+      Skip to main content
+    </a>
+    
+    <slot />
+    
+  </body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Full Stack Developer",
+    "subtitle": "Building fast, accessible web experiences",
+    "cta": "View Work"
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  }
+}
