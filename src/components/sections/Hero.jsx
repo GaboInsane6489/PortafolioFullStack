@@ -14,13 +14,57 @@ export default function Hero({ lang = "en" }) {
       animate="animate"
       variants={staggerContainer}
     >
-      {/* Background Elements */}
+      {/* Enhanced Background Elements */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute top-20 left-10 w-64 h-64 bg-black/5 dark:bg-white/5 rounded-full blur-3xl opacity-50 animate-pulse" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-black/3 dark:bg-white/3 rounded-full blur-3xl opacity-30" />
+        {/* Mesh gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-blue-950 dark:via-purple-950 dark:to-pink-950 opacity-30" />
+
+        {/* Animated blur circles */}
+        <motion.div
+          className="absolute top-20 left-10 w-64 h-64 bg-gradient-to-br from-blue-400 to-purple-600 rounded-full blur-3xl opacity-20"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.2, 0.3, 0.2],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-pink-400 to-orange-600 rounded-full blur-3xl opacity-20"
+          animate={{
+            scale: [1, 1.1, 1],
+            opacity: [0.2, 0.25, 0.2],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1,
+          }}
+        />
       </div>
 
       <div className="container mx-auto px-4 z-10 text-center">
+        {/* Profile Image */}
+        <motion.div variants={staggerItem} className="mb-8 inline-block">
+          <motion.div
+            className="relative w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-white/20 dark:border-black/20 shadow-2xl"
+            whileHover={{ scale: 1.05, rotate: 5 }}
+            transition={{ type: "spring", stiffness: 300 }}
+          >
+            <img
+              src="/assets/images/profile.webp"
+              alt="Gabriel González"
+              className="w-full h-full object-cover"
+            />
+            {/* Glassmorphism overlay on hover */}
+            <motion.div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-sm opacity-0 hover:opacity-100 transition-opacity" />
+          </motion.div>
+        </motion.div>
+
         <motion.div variants={staggerItem} className="mb-6 inline-block">
           <span className="px-4 py-2 rounded-full border border-black/10 dark:border-white/10 text-sm font-medium bg-white/50 dark:bg-black/50 backdrop-blur-sm">
             Available for new opportunities
@@ -33,7 +77,7 @@ export default function Hero({ lang = "en" }) {
         >
           FULL STACK
           <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-black via-gray-500 to-black dark:from-white dark:via-gray-400 dark:to-white">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400">
             DEVELOPER
           </span>
         </motion.h1>
@@ -51,10 +95,10 @@ export default function Hero({ lang = "en" }) {
         >
           <a
             href="#projects"
-            className="group relative px-8 py-4 bg-black text-white dark:bg-white dark:text-black rounded-full font-bold text-lg overflow-hidden transition-all hover:scale-105"
+            className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-bold text-lg overflow-hidden transition-all hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/50"
           >
             <span className="relative z-10">{t("hero.cta1")}</span>
-            <div className="absolute inset-0 bg-gray-800 dark:bg-gray-200 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
           </a>
 
           <a

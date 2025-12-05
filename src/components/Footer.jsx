@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import Icon from "./ui/Icon.jsx";
 import { useTranslations } from "../utils/i18n.js";
 
@@ -12,18 +13,21 @@ export default function Footer({ lang = "en" }) {
       icon: "github",
       url: "https://github.com/GaboInsame6489",
       label: "Visit Gabriel González on GitHub",
+      color: "#333333",
     },
     {
       name: "LinkedIn",
       icon: "linkedin",
       url: "https://www.linkedin.com/in/gabriel-alexander-gonzález-garcía-31476636a/",
       label: "Connect with Gabriel González on LinkedIn",
+      color: "#0077B5",
     },
     {
       name: "Email",
       icon: "mail",
       url: "mailto:gabrielgg2005ve@gmail.com",
       label: "Send an email to Gabriel González",
+      color: "#EA4335",
     },
   ];
 
@@ -47,17 +51,30 @@ export default function Footer({ lang = "en" }) {
             aria-label="Social media links"
           >
             {socialLinks.map((link) => (
-              <a
+              <motion.a
                 key={link.name}
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:opacity-70 transition-opacity"
+                className="relative group"
                 aria-label={link.label}
                 role="listitem"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <Icon name={link.icon} size={20} />
-              </a>
+                {/* Glow effect */}
+                <motion.div
+                  className="absolute inset-0 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ backgroundColor: link.color }}
+                  initial={{ scale: 0.8 }}
+                  whileHover={{ scale: 1.2 }}
+                />
+
+                {/* Icon */}
+                <div className="relative z-10">
+                  <Icon name={link.icon} size={24} />
+                </div>
+              </motion.a>
             ))}
           </div>
 

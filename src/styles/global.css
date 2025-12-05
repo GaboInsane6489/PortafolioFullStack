@@ -4,12 +4,37 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;700;800&display=swap");
 
 @theme {
-  /* Strict Color Palette */
+  /* Base Colors */
   --color-white: #ffffff;
   --color-black: #050505;
   --color-dark: #0a0a0a;
   --color-light: #fafafa;
+
+  /* Brand Colors - Gradient System */
+  --color-primary-from: #3b82f6; /* blue-500 */
+  --color-primary-to: #8b5cf6; /* purple-500 */
+  --color-secondary-from: #ec4899; /* pink-500 */
+  --color-secondary-to: #f59e0b; /* amber-500 */
+
+  /* Accent Colors */
   --color-accent: #2563eb;
+  --color-accent-blue: #2563eb;
+  --color-accent-purple: #7c3aed;
+  --color-accent-pink: #db2777;
+  --color-accent-green: #059669;
+
+  /* Semantic Colors */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+
+  /* Glassmorphism */
+  --glass-bg-light: rgba(255, 255, 255, 0.1);
+  --glass-bg-dark: rgba(0, 0, 0, 0.1);
+  --glass-border-light: rgba(255, 255, 255, 0.2);
+  --glass-border-dark: rgba(0, 0, 0, 0.2);
+  --glass-blur: 12px;
 
   /* Typography Scale */
   --font-sans: "Inter", system-ui, sans-serif;

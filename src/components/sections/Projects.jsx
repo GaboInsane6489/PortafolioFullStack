@@ -80,24 +80,23 @@ export default function Projects({ lang = "en" }) {
             >
               {/* Project Image */}
               <div className="aspect-video relative overflow-hidden bg-gray-100 dark:bg-gray-900 border-b border-black/5 dark:border-white/5">
-                {project.id === 2 ? (
+                {project.id === 1 ? (
+                  <img
+                    src="/assets/images/projects/garcias.webp"
+                    alt={project.title}
+                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                  />
+                ) : project.id === 2 ? (
                   <img
                     src="/assets/images/projects/harrypotter.webp"
                     alt={project.title}
                     className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                   />
-                ) : project.id === 3 ? (
+                ) : (
                   /* Portfolio - abstract gradient */
                   <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-neutral-900 to-black text-white p-8">
                     <span className="font-display font-bold text-6xl opacity-20 group-hover:opacity-40 transition-opacity">
                       PF
-                    </span>
-                  </div>
-                ) : (
-                  /* Instalaciones Garcias - placeholder gradient */
-                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900 text-white p-8">
-                    <span className="font-display font-bold text-6xl opacity-30 group-hover:opacity-50 transition-opacity">
-                      IG
                     </span>
                   </div>
                 )}
