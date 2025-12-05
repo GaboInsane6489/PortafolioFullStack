@@ -13,21 +13,21 @@ export default function Footer({ lang = "en" }) {
       icon: "github",
       url: "https://github.com/GaboInsame6489",
       label: "Visit Gabriel González on GitHub",
-      color: "#333333",
+      color: "#8b5cf6",
     },
     {
       name: "LinkedIn",
       icon: "linkedin",
       url: "https://www.linkedin.com/in/gabriel-alexander-gonzález-garcía-31476636a/",
       label: "Connect with Gabriel González on LinkedIn",
-      color: "#0077B5",
+      color: "#6366f1",
     },
     {
       name: "Email",
       icon: "mail",
       url: "mailto:gabrielgg2005ve@gmail.com",
       label: "Send an email to Gabriel González",
-      color: "#EA4335",
+      color: "#3b82f6",
     },
   ];
 
