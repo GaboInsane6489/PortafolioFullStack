@@ -1,9 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { fadeUp, staggerContainer, staggerItem } from "../../utils/motion.js";
-import Icon from "../ui/Icon.jsx";
-import TechStack from "../ui/TechStack.jsx";
+import { fadeUp, staggerContainer } from "../../utils/motion.js";
 import { useTranslations } from "../../utils/i18n.js";
+import TechStack from "../ui/TechStack.jsx";
+import StatsCounter from "../ui/StatsCounter.jsx";
 
 /**
  * About Section Component
@@ -12,75 +12,50 @@ import { useTranslations } from "../../utils/i18n.js";
 export default function About({ lang = "en" }) {
   const t = useTranslations(lang);
 
-  const skills = [
-    // Frontend
-    "React",
-    "Astro",
-    "HTML5",
-    "CSS3",
-    "JavaScript",
-    "Tailwind CSS",
-    "Framer Motion",
-    // Backend
-    "Node.js",
-    "Express",
-    "Supabase",
-    "MongoDB",
-    "PHP",
-    // Tools & DevOps
-    "Git",
-    "GitHub",
-    "Vercel",
-    "Postman",
-  ];
-
   return (
-    <motion.section
+    <section
       id="about"
-      className="min-h-screen flex items-center py-16 md:py-20 px-4 bg-black"
-      initial="initial"
-      whileInView="animate"
-      viewport={{ once: true, margin: "-100px" }}
-      variants={fadeUp}
+      className="min-h-screen mb-20 flex items-center justify-center py-20 px-4 bg-black"
     >
-      <div className="container mx-auto max-w-5xl">
-        <motion.h2
-          className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 md:mb-12 text-center"
-          variants={fadeUp}
-        >
-          {t("about.title")}
-        </motion.h2>
-
+      <div className="container mx-auto max-w-6xl">
         <motion.div
-          className="space-y-8 md:space-y-10"
+          className="grid md:grid-cols-2 gap-12 items-center"
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
           variants={staggerContainer}
         >
-          {/* Bio Content */}
-          <motion.div
-            variants={staggerItem}
-            className="max-w-3xl mx-auto text-center"
-          >
-            <div className="space-y-3 md:space-y-4 text-sm md:text-base lg:text-lg text-gray-600 dark:text-gray-400 leading-relaxed font-light">
-              <p>{t("about.bio1")}</p>
-              <p>{t("about.bio2")}</p>
+          {/* Text Content */}
+          <motion.div variants={fadeUp}>
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">
+              {t("about.title")}
+            </h2>
+            <div className="prose prose-invert prose-lg text-gray-400 mb-8">
+              <p className="mb-4">{t("about.p1")}</p>
+              <p className="mb-6">{t("about.p2")}</p>
+
+              <div className="flex flex-col gap-2 mb-8">
+                <span className="flex items-center gap-2 text-purple-400">
+                  <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
+                  {t("about.location")}
+                </span>
+                <span className="flex items-center gap-2 text-blue-400">
+                  <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                  {t("about.status")}
+                </span>
+              </div>
             </div>
 
-            {/* Location */}
-            <div className="pt-4 md:pt-6 text-xs md:text-sm text-gray-500 flex items-center justify-center gap-2">
-              <Icon name="location" size={16} />
-              Distrito Federal, Venezuela
-            </div>
-          </motion.div>
+            {/* Stats Counter */}
+            <StatsCounter lang={lang} />
 
-          {/* Skills Grid */}
-          <motion.div variants={staggerItem} className="pt-4 md:pt-6">
-            <h3 className="text-xl md:text-2xl font-display font-bold mb-6 md:mb-8 text-center">
+            <h3 className="text-2xl font-bold mb-6 text-white mt-12">
               {t("about.skills")}
             </h3>
-            <TechStack skills={skills} />
+            <TechStack />
           </motion.div>
         </motion.div>
       </div>
-    </motion.section>
+    </section>
   );
 }
