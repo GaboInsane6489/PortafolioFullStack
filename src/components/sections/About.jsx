@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { fadeUp, staggerContainer } from "../../utils/motion.js";
 import { useTranslations } from "../../utils/i18n.js";
-import TechStack from "../ui/TechStack.jsx";
+import TechGrid from "../ui/TechGrid.jsx";
 import StatsCounter from "../ui/StatsCounter.jsx";
 
 /**
@@ -17,9 +17,9 @@ export default function About({ lang = "en" }) {
       id="about"
       className="min-h-screen mb-20 flex items-center justify-center py-20 px-4 bg-black"
     >
-      <div className="container mx-auto max-w-6xl">
+      <div className="container mx-auto max-w-7xl">
         <motion.div
-          className="grid md:grid-cols-2 gap-12 items-center"
+          className="grid md:grid-cols-2 gap-12 items-center mb-24"
           initial="initial"
           whileInView="animate"
           viewport={{ once: true }}
@@ -48,12 +48,20 @@ export default function About({ lang = "en" }) {
 
             {/* Stats Counter */}
             <StatsCounter lang={lang} />
-
-            <h3 className="text-2xl font-bold mb-6 text-white mt-12">
-              {t("about.skills")}
-            </h3>
-            <TechStack />
           </motion.div>
+        </motion.div>
+
+        {/* Tech Grid Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <h3 className="text-3xl font-bold mb-12 text-white text-center">
+            {t("about.skills")}
+          </h3>
+          <TechGrid />
         </motion.div>
       </div>
     </section>
