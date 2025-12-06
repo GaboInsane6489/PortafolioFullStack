@@ -20,11 +20,11 @@ const icons = {
   },
   menu: {
     viewBox: "0 0 24 24",
-    lines: ["M3 12h18", "M3 6h18", "M3 18h18"],
+    paths: ["M3 12h18", "M3 6h18", "M3 18h18"],
   },
   close: {
     viewBox: "0 0 24 24",
-    lines: ["M18 6L6 18", "M6 6l12 12"],
+    paths: ["M18 6L6 18", "M6 6l12 12"],
   },
   globe: {
     viewBox: "0 0 24 24",
@@ -75,7 +75,7 @@ const icons = {
   },
   x: {
     viewBox: "0 0 24 24",
-    lines: ["M18 6L6 18", "M6 6l12 12"],
+    paths: ["M18 6L6 18", "M6 6l12 12"],
   },
   // Technologies
   react: {

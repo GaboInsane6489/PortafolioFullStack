@@ -84,7 +84,7 @@ export default function Hero({ lang = "en" }) {
         </motion.h1>
 
         <motion.p
-          className="text-base md:text-lg lg:text-xl text-gray-400 max-w-2xl mx-auto mb-8 md:mb-10 leading-relaxed px-4"
+          className="text-base md:text-lg lg:text-xl text-gray-300 max-w-2xl mx-auto mb-8 md:mb-10 leading-relaxed px-4"
           variants={staggerItem}
         >
           {t("hero.subtitle")}
@@ -96,6 +96,7 @@ export default function Hero({ lang = "en" }) {
         >
           <a
             href="#projects"
+            aria-label={t("hero.cta1")}
             className="w-full sm:w-auto group relative px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-full font-bold text-sm md:text-base overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(168,85,247,0.4)]"
           >
             <span className="relative z-10">{t("hero.cta1")}</span>
@@ -104,6 +105,7 @@ export default function Hero({ lang = "en" }) {
 
           <a
             href="#contact"
+            aria-label={t("hero.cta2")}
             className="w-full sm:w-auto group flex items-center justify-center gap-2 text-sm md:text-base font-medium text-gray-400 hover:text-white transition-colors"
           >
             {t("hero.cta2")}

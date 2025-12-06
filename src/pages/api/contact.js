@@ -1,3 +1,5 @@
+import { createClient } from "@supabase/supabase-js";
+
 // Rate limiting store (in-memory for serverless)
 const rateLimitStore = new Map();
 

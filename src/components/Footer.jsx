@@ -12,21 +12,21 @@ export default function Footer({ lang = "en" }) {
       name: "GitHub",
       icon: "github",
       url: "https://github.com/GaboInsame6489",
-      label: "GitHub",
+      label: "GitHub Profile",
       color: "#8b5cf6",
     },
     {
       name: "LinkedIn",
       icon: "linkedin",
       url: "https://www.linkedin.com/in/gabriel-alexander-gonzález-garcía-31476636a/",
-      label: "LinkedIn",
+      label: "LinkedIn Profile",
       color: "#6366f1",
     },
     {
       name: "Email",
       icon: "mail",
       url: "mailto:gabrielgg2005ve@gmail.com",
-      label: "Email",
+      label: "Send Email",
       color: "#3b82f6",
     },
   ];
@@ -47,7 +47,7 @@ export default function Footer({ lang = "en" }) {
                 amazing together.
               </span>
             </h2>
-            <p className="text-gray-400 max-w-md text-lg">
+            <p className="text-gray-300 max-w-md text-lg">
               Open for freelance opportunities and full-time roles. Let's create
               digital experiences that matter.
             </p>
@@ -62,6 +62,7 @@ export default function Footer({ lang = "en" }) {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={link.label}
                   className="group relative p-4 bg-white/5 rounded-2xl border border-white/10 hover:border-purple-500/50 transition-all duration-300"
                   whileHover={{ y: -5 }}
                   whileTap={{ scale: 0.95 }}
@@ -83,7 +84,7 @@ export default function Footer({ lang = "en" }) {
               >
                 gabrielgg2005ve@gmail.com
               </a>
-              <p className="text-sm text-gray-500 mt-2">
+              <p className="text-sm text-gray-400 mt-2">
                 Distrito Federal, Venezuela
               </p>
             </div>
@@ -91,15 +92,21 @@ export default function Footer({ lang = "en" }) {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
           <div>&copy; {year} Gabriel González. All rights reserved.</div>
           <div className="flex gap-6">
-            <span className="hover:text-white cursor-pointer transition-colors">
+            <a
+              href="#"
+              className="hover:text-white cursor-pointer transition-colors"
+            >
               Privacy Policy
-            </span>
-            <span className="hover:text-white cursor-pointer transition-colors">
+            </a>
+            <a
+              href="#"
+              className="hover:text-white cursor-pointer transition-colors"
+            >
               Terms of Service
-            </span>
+            </a>
           </div>
         </div>
       </div>
