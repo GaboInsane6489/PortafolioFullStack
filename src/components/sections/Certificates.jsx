@@ -48,7 +48,7 @@ export default function Certificates({ lang = "en" }) {
   return (
     <motion.section
       id="certificates"
-      className="py-24 px-4 bg-white dark:bg-black"
+      className="py-24 px-4 bg-black"
       initial="initial"
       whileInView="animate"
       viewport={{ once: true, margin: "-100px" }}
@@ -56,7 +56,7 @@ export default function Certificates({ lang = "en" }) {
     >
       <div className="container mx-auto max-w-7xl">
         <motion.h2
-          className="text-4xl md:text-5xl font-bold mb-12"
+          className="text-4xl md:text-5xl font-bold mb-12 text-white"
           variants={fadeUp}
         >
           {lang === "en" ? "Certifications" : "Certificaciones"}
@@ -75,19 +75,19 @@ export default function Certificates({ lang = "en" }) {
               whileTap={{ scale: 0.98 }}
               onClick={() => setSelectedCert(cert)}
             >
-              <div className="aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 rounded-xl overflow-hidden border border-black/10 dark:border-white/10 hover:border-black dark:hover:border-white transition-colors flex items-center justify-center relative">
+              <div className="aspect-[4/3] bg-gray-900 rounded-xl overflow-hidden border border-white/10 hover:border-purple-500 transition-colors flex items-center justify-center relative">
                 {cert.image ? (
                   <img
                     src={cert.image}
                     alt={cert.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
                   />
                 ) : (
                   <div className="text-center p-6">
-                    <div className="text-4xl font-bold text-black/20 dark:text-white/20 mb-2">
+                    <div className="text-4xl font-bold text-white/20 mb-2">
                       {cert.id}
                     </div>
-                    <div className="text-xs font-medium opacity-60">
+                    <div className="text-xs font-medium text-gray-500">
                       {lang === "en" ? "Certificate" : "Certificado"}
                     </div>
                   </div>
@@ -95,10 +95,10 @@ export default function Certificates({ lang = "en" }) {
               </div>
 
               <div className="mt-3">
-                <h3 className="font-semibold text-sm line-clamp-2 group-hover:underline">
+                <h3 className="font-semibold text-sm line-clamp-2 text-white group-hover:text-purple-400 transition-colors">
                   {cert.title}
                 </h3>
-                <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                <p className="text-xs text-gray-400 mt-1">
                   {cert.issuer} • {cert.date}
                 </p>
               </div>
