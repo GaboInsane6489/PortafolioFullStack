@@ -9,22 +9,23 @@ export default function Hero({ lang = "en" }) {
 
   return (
     <motion.section
-      className="relative min-h-screen flex items-center justify-center px-4 py-16 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center px-4 py-16 overflow-hidden bg-black"
       initial="initial"
       animate="animate"
       variants={staggerContainer}
     >
       {/* Enhanced Background Elements */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* Mesh gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-50 via-indigo-50 to-blue-50 dark:from-purple-950/30 dark:via-indigo-950/30 dark:to-blue-950/30" />
+        {/* Mesh gradient background - Dark only */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(168,85,247,0.1),transparent_40%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(59,130,246,0.1),transparent_40%)]" />
 
         {/* Animated blur circles */}
         <motion.div
-          className="absolute top-1/4 left-10 w-48 h-48 md:w-64 md:h-64 bg-gradient-to-br from-purple-400 to-indigo-600 rounded-full blur-3xl opacity-20"
+          className="absolute top-1/4 left-10 w-48 h-48 md:w-64 md:h-64 bg-purple-600/20 rounded-full blur-[100px]"
           animate={{
             scale: [1, 1.2, 1],
-            opacity: [0.2, 0.3, 0.2],
+            opacity: [0.3, 0.5, 0.3],
           }}
           transition={{
             duration: 8,
@@ -33,10 +34,10 @@ export default function Hero({ lang = "en" }) {
           }}
         />
         <motion.div
-          className="absolute bottom-1/4 right-10 w-64 h-64 md:w-96 md:h-96 bg-gradient-to-br from-indigo-400 to-blue-600 rounded-full blur-3xl opacity-20"
+          className="absolute bottom-1/4 right-10 w-64 h-64 md:w-96 md:h-96 bg-blue-600/20 rounded-full blur-[100px]"
           animate={{
             scale: [1, 1.1, 1],
-            opacity: [0.2, 0.25, 0.2],
+            opacity: [0.3, 0.4, 0.3],
           }}
           transition={{
             duration: 10,
@@ -51,7 +52,7 @@ export default function Hero({ lang = "en" }) {
         {/* Profile Image */}
         <motion.div variants={staggerItem} className="mb-6 inline-block">
           <motion.div
-            className="relative w-24 h-24 md:w-28 md:h-28 mx-auto rounded-full overflow-hidden border-4 border-purple-500/20 dark:border-purple-400/20 shadow-2xl shadow-purple-500/20"
+            className="relative w-24 h-24 md:w-28 md:h-28 mx-auto rounded-full overflow-hidden border-2 border-purple-500/50 shadow-[0_0_30px_rgba(168,85,247,0.3)]"
             whileHover={{ scale: 1.05, rotate: 5 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
@@ -61,29 +62,29 @@ export default function Hero({ lang = "en" }) {
               className="w-full h-full object-cover"
             />
             {/* Glassmorphism overlay on hover */}
-            <motion.div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-indigo-500/20 backdrop-blur-sm opacity-0 hover:opacity-100 transition-opacity" />
+            <motion.div className="absolute inset-0 bg-purple-500/10 backdrop-blur-[1px] opacity-0 hover:opacity-100 transition-opacity" />
           </motion.div>
         </motion.div>
 
-        <motion.div variants={staggerItem} className="mb-4 inline-block">
-          <span className="px-3 py-1.5 md:px-4 md:py-2 rounded-full border border-purple-500/20 dark:border-purple-400/20 text-xs md:text-sm font-medium bg-white/50 dark:bg-black/50 backdrop-blur-sm">
+        <motion.div variants={staggerItem} className="mb-6 inline-block">
+          <span className="px-4 py-2 rounded-full border border-purple-500/30 text-xs md:text-sm font-medium bg-purple-500/10 text-purple-200 backdrop-blur-md shadow-[0_0_15px_rgba(168,85,247,0.1)]">
             Available for new opportunities
           </span>
         </motion.div>
 
         <motion.h1
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter mb-4 md:mb-6 leading-tight px-4"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter mb-4 md:mb-6 leading-tight px-4 text-white"
           variants={staggerItem}
         >
           FULL STACK
           <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 dark:from-purple-400 dark:via-indigo-400 dark:to-blue-400">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 filter drop-shadow-[0_0_20px_rgba(168,85,247,0.3)]">
             DEVELOPER
           </span>
         </motion.h1>
 
         <motion.p
-          className="text-base md:text-lg lg:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8 md:mb-10 leading-relaxed px-4"
+          className="text-base md:text-lg lg:text-xl text-gray-400 max-w-2xl mx-auto mb-8 md:mb-10 leading-relaxed px-4"
           variants={staggerItem}
         >
           {t("hero.subtitle")}
@@ -95,15 +96,15 @@ export default function Hero({ lang = "en" }) {
         >
           <a
             href="#projects"
-            className="w-full sm:w-auto group relative px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-full font-bold text-sm md:text-base overflow-hidden transition-all hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/50"
+            className="w-full sm:w-auto group relative px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-full font-bold text-sm md:text-base overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(168,85,247,0.4)]"
           >
             <span className="relative z-10">{t("hero.cta1")}</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </a>
 
           <a
             href="#contact"
-            className="w-full sm:w-auto group flex items-center justify-center gap-2 text-sm md:text-base font-medium hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+            className="w-full sm:w-auto group flex items-center justify-center gap-2 text-sm md:text-base font-medium text-gray-400 hover:text-white transition-colors"
           >
             {t("hero.cta2")}
             <Icon
@@ -127,7 +128,7 @@ export default function Hero({ lang = "en" }) {
         >
           <Icon
             name="chevronDown"
-            className="w-5 h-5 md:w-6 md:h-6 opacity-50 text-purple-600 dark:text-purple-400"
+            className="w-6 h-6 text-purple-500 animate-bounce"
           />
         </motion.div>
       </div>
