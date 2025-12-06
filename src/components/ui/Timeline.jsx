@@ -72,6 +72,7 @@ const TimelineItem = ({ item, index, isLast }) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white/50 hover:text-white transition-colors"
+                aria-label="External Link"
               >
                 <Icon name="externalLink" size={14} />
               </a>
