@@ -65,6 +65,18 @@ const icons = {
     viewBox: "0 0 24 24",
     path: "M20 6L9 17l-5-5",
   },
+  arrowLeft: {
+    viewBox: "0 0 24 24",
+    path: "M19 12H5M12 19l-7-7 7-7",
+  },
+  arrowRight: {
+    viewBox: "0 0 24 24",
+    path: "M5 12h14M12 5l7 7-7 7",
+  },
+  x: {
+    viewBox: "0 0 24 24",
+    lines: ["M18 6L6 18", "M6 6l12 12"],
+  },
 };
 
 export default icons;
