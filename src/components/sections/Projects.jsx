@@ -53,7 +53,7 @@ export default function Projects({ lang = "en" }) {
   return (
     <motion.section
       id="projects"
-      className="min-h-screen flex items-center py-16 md:py-20 px-4 bg-light dark:bg-dark"
+      className="min-h-screen flex items-center py-16 md:py-20 px-4 bg-black"
       initial="initial"
       whileInView="animate"
       viewport={{ once: true, margin: "-100px" }}
@@ -74,7 +74,7 @@ export default function Projects({ lang = "en" }) {
           {projects.map((project) => (
             <motion.article
               key={project.id}
-              className="group bg-white dark:bg-black rounded-2xl md:rounded-3xl overflow-hidden border border-purple-500/10 dark:border-purple-400/10 hover:border-purple-500 dark:hover:border-purple-400 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/20"
+              className="group bg-black rounded-2xl md:rounded-3xl overflow-hidden border border-purple-500/10 hover:border-purple-500 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/20"
               variants={staggerItem}
               whileHover={{ y: -8 }}
             >
@@ -118,12 +118,12 @@ export default function Projects({ lang = "en" }) {
 
               <div className="p-5 md:p-6">
                 {/* Project Title */}
-                <h3 className="text-lg md:text-xl font-bold mb-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                <h3 className="text-lg md:text-xl font-bold mb-2 text-white group-hover:text-purple-400 transition-colors">
                   {project.title}
                 </h3>
 
                 {/* Project Description */}
-                <p className="text-gray-600 dark:text-gray-400 mb-4 text-xs md:text-sm leading-relaxed line-clamp-3">
+                <p className="text-gray-400 mb-4 text-xs md:text-sm leading-relaxed line-clamp-3">
                   {project.description}
                 </p>
 

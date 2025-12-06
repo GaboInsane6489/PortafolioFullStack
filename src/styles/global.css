@@ -6,9 +6,9 @@
 @theme {
   /* Base Colors */
   --color-white: #ffffff;
-  --color-black: #0a0a0f;
-  --color-dark: #050508;
-  --color-light: #fafafa;
+  --color-black: #000000; /* Intense Black */
+  --color-dark: #050505;
+  --color-light: #0a0a0f;
 
   /* Purple/Morado/Blue Palette */
   --color-primary: #8b5cf6; /* purple-500 */
@@ -35,10 +35,10 @@
   --color-info: #3b82f6;
 
   /* Glassmorphism */
-  --glass-bg-light: rgba(255, 255, 255, 0.1);
-  --glass-bg-dark: rgba(10, 10, 15, 0.3);
-  --glass-border-light: rgba(255, 255, 255, 0.2);
-  --glass-border-dark: rgba(139, 92, 246, 0.2);
+  --glass-bg-light: rgba(255, 255, 255, 0.05);
+  --glass-bg-dark: rgba(20, 10, 30, 0.6);
+  --glass-border-light: rgba(255, 255, 255, 0.1);
+  --glass-border-dark: rgba(139, 92, 246, 0.3);
   --glass-blur: 12px;
 
   /* Typography Scale */
@@ -55,8 +55,8 @@
 }
 
 html {
-  background-color: var(--color-light);
-  color: var(--color-black);
+  background-color: var(--color-black);
+  color: var(--color-white);
   scroll-behavior: smooth;
   font-family: var(--font-sans);
   font-size: 16px;
@@ -99,8 +99,8 @@ h6 {
 
 /* Utilities */
 .bg-white {
-  background-color: var(--color-white);
-  color: var(--color-black);
+  background-color: var(--color-black);
+  color: var(--color-white);
 }
 .bg-black {
   background-color: var(--color-black);
@@ -111,14 +111,14 @@ h6 {
   color: var(--color-white);
 }
 .bg-light {
-  background-color: var(--color-light);
-  color: var(--color-black);
+  background-color: var(--color-black);
+  color: var(--color-white);
 }
 .text-white {
   color: var(--color-white);
 }
 .text-black {
-  color: var(--color-black);
+  color: var(--color-white);
 }
 
 /* Selection */
@@ -154,5 +154,5 @@ h6 {
 }
 
 html.dark ::-webkit-scrollbar-track {
-  background: var(--color-dark);
+  background: var(--color-black);
 }

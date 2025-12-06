@@ -37,7 +37,7 @@ export default function About({ lang = "en" }) {
   return (
     <motion.section
       id="about"
-      className="min-h-screen flex items-center py-16 md:py-20 px-4 bg-white dark:bg-black"
+      className="min-h-screen flex items-center py-16 md:py-20 px-4 bg-black"
       initial="initial"
       whileInView="animate"
       viewport={{ once: true, margin: "-100px" }}

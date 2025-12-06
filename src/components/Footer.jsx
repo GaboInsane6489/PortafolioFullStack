@@ -12,77 +12,94 @@ export default function Footer({ lang = "en" }) {
       name: "GitHub",
       icon: "github",
       url: "https://github.com/GaboInsame6489",
-      label: "Visit Gabriel González on GitHub",
+      label: "GitHub",
       color: "#8b5cf6",
     },
     {
       name: "LinkedIn",
       icon: "linkedin",
       url: "https://www.linkedin.com/in/gabriel-alexander-gonzález-garcía-31476636a/",
-      label: "Connect with Gabriel González on LinkedIn",
+      label: "LinkedIn",
       color: "#6366f1",
     },
     {
       name: "Email",
       icon: "mail",
       url: "mailto:gabrielgg2005ve@gmail.com",
-      label: "Send an email to Gabriel González",
+      label: "Email",
       color: "#3b82f6",
     },
   ];
 
   return (
-    <footer className="bg-black text-white dark:bg-white dark:text-black py-12 border-t border-white/10 dark:border-black/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="text-center md:text-left">
-            <span className="text-lg font-bold tracking-tighter">
-              Gabriel González
-            </span>
-            <p className="text-sm opacity-60 mt-1">Full Stack Developer</p>
-            <p className="text-xs opacity-40 mt-1">
-              Distrito Federal, Venezuela
+    <footer className="bg-black text-white pt-20 pb-10 border-t border-white/10 overflow-hidden relative">
+      {/* Background Glow */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-900/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-blue-900/10 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid md:grid-cols-2 gap-12 mb-16">
+          {/* CTA Section */}
+          <div>
+            <h2 className="text-4xl md:text-5xl font-display font-bold mb-6 tracking-tight">
+              Let's build something <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500">
+                amazing together.
+              </span>
+            </h2>
+            <p className="text-gray-400 max-w-md text-lg">
+              Open for freelance opportunities and full-time roles. Let's create
+              digital experiences that matter.
             </p>
           </div>
 
-          <div
-            className="flex gap-6"
-            role="list"
-            aria-label="Social media links"
-          >
-            {socialLinks.map((link) => (
-              <motion.a
-                key={link.name}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative group"
-                aria-label={link.label}
-                role="listitem"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
+          {/* Social Links & Info */}
+          <div className="flex flex-col justify-end items-start md:items-end space-y-8">
+            <div className="flex gap-6">
+              {socialLinks.map((link) => (
+                <motion.a
+                  key={link.name}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative p-4 bg-white/5 rounded-2xl border border-white/10 hover:border-purple-500/50 transition-all duration-300"
+                  whileHover={{ y: -5 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-blue-500/20 opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-300" />
+                  <Icon
+                    name={link.icon}
+                    size={24}
+                    className="relative z-10 group-hover:text-white transition-colors"
+                  />
+                </motion.a>
+              ))}
+            </div>
+
+            <div className="text-right">
+              <a
+                href="mailto:gabrielgg2005ve@gmail.com"
+                className="text-xl font-medium hover:text-purple-400 transition-colors"
               >
-                {/* Glow effect */}
-                <motion.div
-                  className="absolute inset-0 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{ backgroundColor: link.color }}
-                  initial={{ scale: 0.8 }}
-                  whileHover={{ scale: 1.2 }}
-                />
-
-                {/* Icon */}
-                <div className="relative z-10">
-                  <Icon name={link.icon} size={24} />
-                </div>
-              </motion.a>
-            ))}
+                gabrielgg2005ve@gmail.com
+              </a>
+              <p className="text-sm text-gray-500 mt-2">
+                Distrito Federal, Venezuela
+              </p>
+            </div>
           </div>
+        </div>
 
-          <div className="text-sm opacity-60 text-center md:text-right">
-            &copy; {year} Gabriel González.
-            <br className="md:hidden" />
-            <span className="hidden md:inline"> </span>
-            {t("footer.rights")}
+        {/* Bottom Bar */}
+        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+          <div>&copy; {year} Gabriel González. All rights reserved.</div>
+          <div className="flex gap-6">
+            <span className="hover:text-white cursor-pointer transition-colors">
+              Privacy Policy
+            </span>
+            <span className="hover:text-white cursor-pointer transition-colors">
+              Terms of Service
+            </span>
           </div>
         </div>
       </div>

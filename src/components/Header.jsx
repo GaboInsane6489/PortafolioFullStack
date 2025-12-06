@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
 import LanguageToggle from "./LanguageToggle";
-import Icon from "./ui/Icon.jsx";
+import Logo from "./ui/Logo.jsx";
 import { useTranslations } from "../utils/i18n.js";
 
 export default function Header({ lang = "en" }) {
@@ -26,75 +26,78 @@ export default function Header({ lang = "en" }) {
     <>
       {/* Scroll Progress Bar */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 origin-left z-50"
+        className="fixed top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 origin-left z-50"
         style={{ scaleX }}
       />
 
-      <header className="fixed top-0 w-full z-40 bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-black/5 dark:border-white/5">
+      <header className="fixed top-0 w-full z-40 bg-black/90 backdrop-blur-xl border-b border-white/5 transition-all duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex justify-between items-center h-20">
+            {/* Logo Section */}
             <div className="flex-shrink-0">
               <a
                 href="/"
-                className="text-xl font-bold tracking-tighter hover:opacity-70 transition-opacity"
+                className="group flex items-center gap-3"
                 aria-label="Gabriel González - Home"
               >
-                gabriel-g
+                <Logo className="w-10 h-10 group-hover:scale-110 transition-transform duration-300" />
+                <span className="text-xl font-display font-bold tracking-tight text-white group-hover:text-purple-400 transition-colors">
+                  Gabriel González
+                </span>
               </a>
             </div>
 
             {/* Desktop Navigation */}
             <nav
-              className="hidden md:flex space-x-8"
+              className="hidden md:flex items-center space-x-8"
               aria-label="Main navigation"
             >
               {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  className="text-sm font-medium hover:opacity-70 transition-opacity"
+                  className="relative group py-2"
                 >
-                  {link.label}
+                  <span className="text-sm font-medium text-gray-300 group-hover:text-white transition-colors">
+                    {link.label}
+                  </span>
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-right group-hover:origin-left duration-300" />
                 </a>
               ))}
+
+              <div className="pl-4 border-l border-white/10">
+                <LanguageToggle />
+              </div>
             </nav>
 
-            <div className="flex items-center space-x-4">
+            {/* Mobile Controls */}
+            <div className="flex md:hidden items-center space-x-4">
               <LanguageToggle />
 
-              {/* Mobile menu button */}
               <button
-                className="md:hidden p-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+                className="p-2 rounded-lg text-white hover:bg-white/10 transition-colors focus:outline-none"
                 onClick={() => setIsOpen(!isOpen)}
                 aria-label="Toggle menu"
                 aria-expanded={isOpen}
               >
-                <motion.div
-                  animate={isOpen ? "open" : "closed"}
-                  className="w-6 h-5 flex flex-col justify-between"
-                >
+                <div className="w-6 h-6 flex flex-col justify-center items-center gap-1.5">
                   <motion.span
-                    className="w-full h-0.5 bg-black dark:bg-white block"
-                    variants={{
-                      closed: { rotate: 0, y: 0 },
-                      open: { rotate: 45, y: 9 },
-                    }}
+                    animate={
+                      isOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }
+                    }
+                    className="w-full h-0.5 bg-white block origin-center transition-transform"
                   />
                   <motion.span
-                    className="w-full h-0.5 bg-black dark:bg-white block"
-                    variants={{
-                      closed: { opacity: 1 },
-                      open: { opacity: 0 },
-                    }}
+                    animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
+                    className="w-full h-0.5 bg-white block transition-opacity"
                   />
                   <motion.span
-                    className="w-full h-0.5 bg-black dark:bg-white block"
-                    variants={{
-                      closed: { rotate: 0, y: 0 },
-                      open: { rotate: -45, y: -9 },
-                    }}
+                    animate={
+                      isOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }
+                    }
+                    className="w-full h-0.5 bg-white block origin-center transition-transform"
                   />
-                </motion.div>
+                </div>
               </button>
             </div>
           </div>
@@ -104,21 +107,21 @@ export default function Header({ lang = "en" }) {
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              className="fixed inset-0 top-16 bg-white dark:bg-black z-40 md:hidden"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.2 }}
+              className="fixed inset-0 top-20 bg-black/95 backdrop-blur-2xl z-40 md:hidden border-t border-white/10"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "100vh" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
             >
-              <nav className="flex flex-col items-center gap-8 pt-12 px-4">
+              <nav className="flex flex-col items-center justify-center p-8 space-y-8 h-full pb-32">
                 {navLinks.map((link, index) => (
                   <motion.a
                     key={link.href}
                     href={link.href}
-                    className="text-2xl font-bold hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    className="text-3xl font-display font-bold text-white hover:text-purple-400 transition-colors"
                     onClick={() => setIsOpen(false)}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
                   >
                     {link.label}
