@@ -118,7 +118,7 @@ export default function Contact({ lang = "en" }) {
   return (
     <motion.section
       id="contact"
-      className="py-24 px-4 bg-white dark:bg-black"
+      className="py-24 px-4 bg-black"
       initial="initial"
       whileInView="animate"
       viewport={{ once: true, margin: "-100px" }}
@@ -126,16 +126,13 @@ export default function Contact({ lang = "en" }) {
     >
       <div className="container mx-auto max-w-2xl">
         <motion.h2
-          className="text-4xl md:text-5xl font-bold mb-4 text-center"
+          className="text-4xl md:text-5xl font-bold mb-4 text-center text-white"
           variants={fadeUp}
         >
           {lang === "en" ? "Get In Touch" : "Contacto"}
         </motion.h2>
 
-        <motion.p
-          className="text-center text-gray-600 dark:text-gray-400 mb-12"
-          variants={fadeUp}
-        >
+        <motion.p className="text-center text-gray-400 mb-12" variants={fadeUp}>
           {lang === "en"
             ? "Have a project in mind? Let's work together to create something amazing."
             : "¿Tienes un proyecto en mente? Trabajemos juntos para crear algo increíble."}
@@ -148,7 +145,10 @@ export default function Contact({ lang = "en" }) {
         >
           {/* Name */}
           <div>
-            <label htmlFor="name" className="block text-sm font-medium mb-2">
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium mb-2 text-gray-300"
+            >
               {lang === "en" ? "Name" : "Nombre"}{" "}
               <span className="text-red-500">*</span>
             </label>
@@ -159,24 +159,33 @@ export default function Contact({ lang = "en" }) {
               value={formData.name}
               onChange={handleChange}
               disabled={status === "submitting"}
-              className={`w-full px-4 py-3 bg-light dark:bg-dark border rounded-lg focus:outline-none focus:ring-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+              className={`w-full px-4 py-3 bg-white/5 border rounded-xl focus:outline-none focus:ring-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-white placeholder-gray-500 ${
                 errors.name
                   ? "border-red-500 focus:ring-red-500"
-                  : "border-black/10 dark:border-white/10 focus:ring-black dark:focus:ring-white"
+                  : "border-white/10 focus:ring-purple-500 focus:border-purple-500 hover:border-white/20"
               }`}
+              placeholder={lang === "en" ? "Your name" : "Tu nombre"}
               aria-invalid={errors.name ? "true" : "false"}
               aria-describedby={errors.name ? "name-error" : undefined}
             />
             {errors.name && (
-              <p id="name-error" className="mt-1 text-sm text-red-500">
+              <motion.p
+                id="name-error"
+                className="mt-2 text-sm text-red-400"
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+              >
                 {errors.name}
-              </p>
+              </motion.p>
             )}
           </div>
 
           {/* Email */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium mb-2">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium mb-2 text-gray-300"
+            >
               {lang === "en" ? "Email" : "Correo"}{" "}
               <span className="text-red-500">*</span>
             </label>
@@ -187,24 +196,33 @@ export default function Contact({ lang = "en" }) {
               value={formData.email}
               onChange={handleChange}
               disabled={status === "submitting"}
-              className={`w-full px-4 py-3 bg-light dark:bg-dark border rounded-lg focus:outline-none focus:ring-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+              className={`w-full px-4 py-3 bg-white/5 border rounded-xl focus:outline-none focus:ring-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-white placeholder-gray-500 ${
                 errors.email
                   ? "border-red-500 focus:ring-red-500"
-                  : "border-black/10 dark:border-white/10 focus:ring-black dark:focus:ring-white"
+                  : "border-white/10 focus:ring-purple-500 focus:border-purple-500 hover:border-white/20"
               }`}
+              placeholder={lang === "en" ? "your@email.com" : "tu@correo.com"}
               aria-invalid={errors.email ? "true" : "false"}
               aria-describedby={errors.email ? "email-error" : undefined}
             />
             {errors.email && (
-              <p id="email-error" className="mt-1 text-sm text-red-500">
+              <motion.p
+                id="email-error"
+                className="mt-2 text-sm text-red-400"
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+              >
                 {errors.email}
-              </p>
+              </motion.p>
             )}
           </div>
 
           {/* Message */}
           <div>
-            <label htmlFor="message" className="block text-sm font-medium mb-2">
+            <label
+              htmlFor="message"
+              className="block text-sm font-medium mb-2 text-gray-300"
+            >
               {lang === "en" ? "Message" : "Mensaje"}{" "}
               <span className="text-red-500">*</span>
             </label>
@@ -215,26 +233,38 @@ export default function Contact({ lang = "en" }) {
               onChange={handleChange}
               disabled={status === "submitting"}
               rows={6}
-              className={`w-full px-4 py-3 bg-light dark:bg-dark border rounded-lg focus:outline-none focus:ring-2 resize-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+              className={`w-full px-4 py-3 bg-white/5 border rounded-xl focus:outline-none focus:ring-2 resize-none transition-all disabled:opacity-50 disabled:cursor-not-allowed text-white placeholder-gray-500 ${
                 errors.message
                   ? "border-red-500 focus:ring-red-500"
-                  : "border-black/10 dark:border-white/10 focus:ring-black dark:focus:ring-white"
+                  : "border-white/10 focus:ring-purple-500 focus:border-purple-500 hover:border-white/20"
               }`}
+              placeholder={
+                lang === "en"
+                  ? "Tell me about your project..."
+                  : "Cuéntame sobre tu proyecto..."
+              }
               aria-invalid={errors.message ? "true" : "false"}
               aria-describedby={errors.message ? "message-error" : undefined}
             />
             {errors.message && (
-              <p id="message-error" className="mt-1 text-sm text-red-500">
+              <motion.p
+                id="message-error"
+                className="mt-2 text-sm text-red-400"
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+              >
                 {errors.message}
-              </p>
+              </motion.p>
             )}
           </div>
 
           {/* Submit Button */}
-          <button
+          <motion.button
             type="submit"
             disabled={status === "submitting"}
-            className="w-full px-8 py-4 bg-black text-white dark:bg-white dark:text-black rounded-full font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white rounded-xl font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-purple-900/20 hover:shadow-purple-900/40"
+            whileHover={{ scale: status === "submitting" ? 1 : 1.02 }}
+            whileTap={{ scale: status === "submitting" ? 1 : 0.98 }}
           >
             {status === "submitting"
               ? lang === "en"
@@ -243,14 +273,14 @@ export default function Contact({ lang = "en" }) {
               : lang === "en"
                 ? "Send Message"
                 : "Enviar Mensaje"}
-          </button>
+          </motion.button>
 
           {/* Success Message */}
           {status === "success" && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg text-green-800 dark:text-green-200 text-sm text-center"
+              className="p-4 bg-green-500/10 border border-green-500/20 rounded-xl text-green-400 text-sm text-center backdrop-blur-sm"
               role="alert"
             >
               {lang === "en"
@@ -264,7 +294,7 @@ export default function Contact({ lang = "en" }) {
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-red-800 dark:text-red-200 text-sm text-center"
+              className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm text-center backdrop-blur-sm"
               role="alert"
             >
               ✗ {errorMessage}
