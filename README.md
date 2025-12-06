@@ -15,22 +15,23 @@ Professional portfolio showcasing full-stack development expertise with enterpri
 
 ## ✨ Features
 
-- 🎨 **Premium Design** — Glassmorphism, micro-interactions, and fluid animations
+- 🎨 **Premium "Intense Black" Design** — Deep black theme (#000000) with dark purple glassmorphism
+- ⚛️ **Custom SVG Assets** — Animated monogram logo and personalized icons
 - 🌐 **Internationalization** — Full ES/EN support with seamless language switching
 - ⚡ **Performance Optimized** — Lighthouse score 95+, code splitting, lazy loading
 - 🎭 **Motion-Driven UI** — Framer Motion with intersection observers and parallax
-- 📱 **Fully Responsive** — Mobile-first design with adaptive layouts
-- ♿ **Accessible** — WCAG AA+ compliant with semantic HTML
+- 📱 **Perfectly Responsive** — Optimized for all devices from mobile to 4K TVs
+- ♿ **Accessible** — WCAG AA+ compliant with high contrast (White on Black)
 - 🔒 **Secure** — Security headers, CSP, and environment variable protection
 - 📧 **Contact Form** — Supabase backend with rate limiting
 
-## �️ Tech Stack
+## 🛠️ Tech Stack
 
 ### Core
 
 - **[Astro 5.16.4](https://astro.build)** — SSR framework with islands architecture
 - **[React 19.2.1](https://react.dev)** — UI library for interactive components
-- **[Tailwind CSS 4.1.17](https://tailwindcss.com)** — Utility-first styling
+- **[Tailwind CSS 4.1.17](https://tailwindcss.com)** — Utility-first styling with custom dark theme
 
 ### Animation & Interaction
 
@@ -63,6 +64,9 @@ PortafolioFullStack/
 │   │   │   ├── Certificates.jsx
 │   │   │   └── Contact.jsx
 │   │   ├── ui/                # Reusable UI components
+│   │   │   ├── Icon.jsx
+│   │   │   ├── Logo.jsx       # Animated SVG Monogram
+│   │   │   └── TechStack.jsx
 │   │   ├── Header.jsx
 │   │   ├── Footer.jsx
 │   │   └── LanguageToggle.jsx
@@ -73,7 +77,7 @@ PortafolioFullStack/
 │   │   └── api/               # API endpoints
 │   ├── locales/               # i18n translations (ES/EN)
 │   ├── styles/
-│   │   └── global.css
+│   │   └── global.css         # Intense Black theme variables
 │   └── utils/
 │       ├── i18n.js            # Internationalization utilities
 │       └── motion.js          # Animation presets
@@ -159,16 +163,17 @@ RATE_LIMIT_MAX=5
 - 📦 **Bundle Size:** Optimized with code splitting
 - 🖼️ **Images:** WebP format with lazy loading
 
-## 🎨 Design Philosophy
+## 🎨 Design Philosophy - "Intense Black"
 
 Following modern design principles from `modern_methods_prompt.md`:
 
+- **Intense Black Theme** — Deep #000000 background for infinite depth
+- **High Contrast Typography** — Pure white text for maximum readability
+- **Dark Purple Glassmorphism** — Subtle purple tints with blur for depth
 - **Motion-Driven Interfaces** — Framer Motion variants with stagger effects
 - **Intersection Observer** — Viewport-based animations
 - **Premium Micro-Interactions** — Hover scaling, shadows, icon rotations
-- **Parallax & Depth** — Multi-layer movement with smooth curves
 - **Magnetic Interactions** — Cursor-aware buttons and spotlight gradients
-- **Modern Effects** — Glassmorphism, frosted surfaces, neon accents
 - **Performance Constraints** — 200-450ms transitions, GPU-optimized
 
 ## 📝 Scripts
