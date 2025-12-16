@@ -34,7 +34,7 @@ export default function Projects({ lang = "en" }) {
         lang === "en" ? "Image Optimization" : "Optimización de Imágenes",
         lang === "en" ? "Responsive Design" : "Diseño Responsivo",
       ],
-      image: "/assets/images/projects/garcias.webp",
+      image: "/assets/images/projects/garcias1.webp",
       gallery: [
         "/assets/images/projects/garcias1.webp",
         "/assets/images/projects/garcias2.webp",

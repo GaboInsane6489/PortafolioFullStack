@@ -1,307 +1,165 @@
-import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { fadeUp } from "../../utils/motion.js";
+import { useState } from "react";
 
-/**
- * Contact Section Component
- * Contact form with backend integration to Supabase
- */
 export default function Contact({ lang = "en" }) {
-  const [formData, setFormData] = useState({
+  const [form, setForm] = useState({
     name: "",
     email: "",
     message: "",
   });
 
-  const [errors, setErrors] = useState({});
-  const [status, setStatus] = useState("idle"); // idle, submitting, success, error
-  const [errorMessage, setErrorMessage] = useState("");
-
-  const validateForm = () => {
-    const newErrors = {};
-
-    if (!formData.name.trim()) {
-      newErrors.name =
-        lang === "en" ? "Name is required" : "El nombre es requerido";
-    }
-
-    if (!formData.email.trim()) {
-      newErrors.email =
-        lang === "en" ? "Email is required" : "El correo es requerido";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email =
-        lang === "en" ? "Invalid email format" : "Formato de correo inválido";
-    }
-
-    if (!formData.message.trim()) {
-      newErrors.message =
-        lang === "en" ? "Message is required" : "El mensaje es requerido";
-    } else if (formData.message.trim().length < 10) {
-      newErrors.message =
-        lang === "en"
-          ? "Message must be at least 10 characters"
-          : "El mensaje debe tener al menos 10 caracteres";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+  const t = {
+    title:
+      lang === "en"
+        ? "Let’s create something meaningful."
+        : "Creemos algo con sentido.",
+    subtitle:
+      lang === "en"
+        ? "If you have an idea, a project, or just a thought — write to me."
+        : "Si tienes una idea, un proyecto o solo un pensamiento — escríbeme.",
+    note:
+      lang === "en"
+        ? "Direct communication. No agencies. Reply within 24h."
+        : "Comunicación directa. Sin agencias. Respuesta en 24h.",
+    name: lang === "en" ? "Your name" : "Tu nombre",
+    email: "Email",
+    message:
+      lang === "en"
+        ? "Tell me what’s on your mind…"
+        : "Cuéntame qué tienes en mente…",
+    send: lang === "en" ? "Send message" : "Enviar mensaje",
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!validateForm()) {
-      return;
-    }
-
-    setStatus("submitting");
-    setErrorMessage("");
-
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        setStatus("success");
-        setFormData({ name: "", email: "", message: "" });
-
-        // Reset success message after 5 seconds
-        setTimeout(() => setStatus("idle"), 5000);
-      } else {
-        setStatus("error");
-        setErrorMessage(
-          data.error ||
-            (lang === "en"
-              ? "Failed to send message. Please try again."
-              : "Error al enviar el mensaje. Por favor intenta de nuevo.")
-        );
-      }
-    } catch (error) {
-      console.error("Form submission error:", error);
-      setStatus("error");
-      setErrorMessage(
-        lang === "en"
-          ? "Network error. Please check your connection and try again."
-          : "Error de red. Por favor verifica tu conexión e intenta de nuevo."
-      );
-    }
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-
-    // Clear error for this field when user starts typing
-    if (errors[name]) {
-      setErrors((prev) => ({
-        ...prev,
-        [name]: "",
-      }));
-    }
-
-    // Clear general error message
-    if (errorMessage) {
-      setErrorMessage("");
-    }
-  };
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
   return (
-    <motion.section
+    <section
       id="contact"
-      className="py-24 px-4 bg-black"
-      initial="initial"
-      whileInView="animate"
-      viewport={{ once: true, margin: "-100px" }}
-      variants={fadeUp}
+      className="relative bg-black px-6 py-24 overflow-hidden"
     >
-      <div className="container mx-auto max-w-2xl">
-        <motion.h2
-          className="text-4xl md:text-5xl font-bold mb-4 text-center text-white"
-          variants={fadeUp}
-        >
-          {lang === "en" ? "Get In Touch" : "Contacto"}
-        </motion.h2>
+      {/* Subtle grain / artistic noise */}
+      <div className="pointer-events-none absolute inset-0 opacity-[0.03] bg-[url('/noise.png')]" />
 
-        <motion.p className="text-center text-gray-400 mb-12" variants={fadeUp}>
-          {lang === "en"
-            ? "Have a project in mind? Let's work together to create something amazing."
-            : "¿Tienes un proyecto en mente? Trabajemos juntos para crear algo increíble."}
-        </motion.p>
-
-        <motion.form
-          onSubmit={handleSubmit}
-          className="space-y-6"
-          variants={fadeUp}
-        >
-          {/* Name */}
-          <div>
-            <label
-              htmlFor="name"
-              className="block text-sm font-medium mb-2 text-gray-300"
-            >
-              {lang === "en" ? "Name" : "Nombre"}{" "}
-              <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              disabled={status === "submitting"}
-              className={`w-full px-4 py-3 bg-white/5 border rounded-xl focus:outline-none focus:ring-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-white placeholder-gray-500 ${
-                errors.name
-                  ? "border-red-500 focus:ring-red-500"
-                  : "border-white/10 focus:ring-purple-500 focus:border-purple-500 hover:border-white/20"
-              }`}
-              placeholder={lang === "en" ? "Your name" : "Tu nombre"}
-              aria-invalid={errors.name ? "true" : "false"}
-              aria-describedby={errors.name ? "name-error" : undefined}
-            />
-            {errors.name && (
-              <motion.p
-                id="name-error"
-                className="mt-2 text-sm text-red-400"
-                initial={{ opacity: 0, y: -5 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                {errors.name}
-              </motion.p>
-            )}
-          </div>
-
-          {/* Email */}
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium mb-2 text-gray-300"
-            >
-              {lang === "en" ? "Email" : "Correo"}{" "}
-              <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              disabled={status === "submitting"}
-              className={`w-full px-4 py-3 bg-white/5 border rounded-xl focus:outline-none focus:ring-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-white placeholder-gray-500 ${
-                errors.email
-                  ? "border-red-500 focus:ring-red-500"
-                  : "border-white/10 focus:ring-purple-500 focus:border-purple-500 hover:border-white/20"
-              }`}
-              placeholder={lang === "en" ? "your@email.com" : "tu@correo.com"}
-              aria-invalid={errors.email ? "true" : "false"}
-              aria-describedby={errors.email ? "email-error" : undefined}
-            />
-            {errors.email && (
-              <motion.p
-                id="email-error"
-                className="mt-2 text-sm text-red-400"
-                initial={{ opacity: 0, y: -5 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                {errors.email}
-              </motion.p>
-            )}
-          </div>
-
-          {/* Message */}
-          <div>
-            <label
-              htmlFor="message"
-              className="block text-sm font-medium mb-2 text-gray-300"
-            >
-              {lang === "en" ? "Message" : "Mensaje"}{" "}
-              <span className="text-red-500">*</span>
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              disabled={status === "submitting"}
-              rows={6}
-              className={`w-full px-4 py-3 bg-white/5 border rounded-xl focus:outline-none focus:ring-2 resize-none transition-all disabled:opacity-50 disabled:cursor-not-allowed text-white placeholder-gray-500 ${
-                errors.message
-                  ? "border-red-500 focus:ring-red-500"
-                  : "border-white/10 focus:ring-purple-500 focus:border-purple-500 hover:border-white/20"
-              }`}
-              placeholder={
-                lang === "en"
-                  ? "Tell me about your project..."
-                  : "Cuéntame sobre tu proyecto..."
-              }
-              aria-invalid={errors.message ? "true" : "false"}
-              aria-describedby={errors.message ? "message-error" : undefined}
-            />
-            {errors.message && (
-              <motion.p
-                id="message-error"
-                className="mt-2 text-sm text-red-400"
-                initial={{ opacity: 0, y: -5 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                {errors.message}
-              </motion.p>
-            )}
-          </div>
-
-          {/* Submit Button */}
-          <motion.button
-            type="submit"
-            disabled={status === "submitting"}
-            className="w-full px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white rounded-xl font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-purple-900/20 hover:shadow-purple-900/40"
-            whileHover={{ scale: status === "submitting" ? 1 : 1.02 }}
-            whileTap={{ scale: status === "submitting" ? 1 : 0.98 }}
+      <div className="relative mx-auto max-w-6xl">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-16 items-start">
+          {/* Left — Editorial text */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="md:col-span-2"
           >
-            {status === "submitting"
-              ? lang === "en"
-                ? "Sending..."
-                : "Enviando..."
-              : lang === "en"
-                ? "Send Message"
-                : "Enviar Mensaje"}
-          </motion.button>
+            <h2 className="text-4xl leading-tight font-medium text-white">
+              {t.title}
+            </h2>
 
-          {/* Success Message */}
-          {status === "success" && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="p-4 bg-green-500/10 border border-green-500/20 rounded-xl text-green-400 text-sm text-center backdrop-blur-sm"
-              role="alert"
-            >
-              {lang === "en"
-                ? "✓ Message sent successfully! I'll get back to you soon."
-                : "✓ ¡Mensaje enviado exitosamente! Te responderé pronto."}
-            </motion.div>
-          )}
+            <p className="mt-6 text-sm text-gray-400 max-w-sm">{t.subtitle}</p>
 
-          {/* Error Message */}
-          {status === "error" && errorMessage && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm text-center backdrop-blur-sm"
-              role="alert"
-            >
-              ✗ {errorMessage}
-            </motion.div>
-          )}
-        </motion.form>
+            <p className="mt-10 text-xs text-gray-500 tracking-wide">
+              {t.note}
+            </p>
+          </motion.div>
+
+          {/* Right — Form */}
+          <motion.form
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+            className="md:col-span-3 space-y-14"
+          >
+            <ArtInput
+              label={t.name}
+              name="name"
+              value={form.name}
+              onChange={handleChange}
+            />
+
+            <ArtInput
+              label={t.email}
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+            />
+
+            <div>
+              <label className="block text-xs text-gray-400 mb-3">
+                {lang === "en" ? "Message" : "Mensaje"}
+              </label>
+              <textarea
+                name="message"
+                rows={4}
+                value={form.message}
+                onChange={handleChange}
+                placeholder={t.message}
+                className="
+                  w-full
+                  bg-transparent
+                  text-white
+                  text-sm
+                  placeholder-gray-600
+                  resize-none
+                  border-b border-white/20
+                  pb-3
+                  focus:outline-none
+                  focus:border-white
+                  transition-colors
+                "
+              />
+            </div>
+
+            {/* CTA */}
+            <div className="pt-6">
+              <button
+                type="submit"
+                className="
+                  group
+                  inline-flex
+                  items-center
+                  gap-4
+                  text-sm
+                  text-white
+                  tracking-wide
+                  transition-opacity
+                  hover:opacity-70
+                "
+              >
+                <span>{t.send}</span>
+                <span className="block h-px w-10 bg-white transition-all duration-300 group-hover:w-20" />
+              </button>
+            </div>
+          </motion.form>
+        </div>
       </div>
-    </motion.section>
+    </section>
+  );
+}
+
+/* -------------------------------- */
+/* Artistic Input */
+/* -------------------------------- */
+function ArtInput({ label, name, value, onChange }) {
+  return (
+    <div>
+      <label className="block text-xs text-gray-400 mb-3">{label}</label>
+      <input
+        name={name}
+        value={value}
+        onChange={onChange}
+        className="
+          w-full
+          bg-transparent
+          text-white
+          text-sm
+          border-b border-white/20
+          pb-3
+          focus:outline-none
+          focus:border-white
+          transition-colors
+        "
+      />
+    </div>
   );
 }
