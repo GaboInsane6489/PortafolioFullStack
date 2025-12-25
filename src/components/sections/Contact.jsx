@@ -1,34 +1,19 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import React, { useState } from "react";
+import { useTranslations, $lang } from "../../utils/i18n.js";
+import { useStore } from "@nanostores/react";
+import { createClient } from "@supabase/supabase-js";
+import Icon from "../ui/Icon.jsx";
 
-export default function Contact({ lang = "en" }) {
+export default function Contact() {
+  const lang = useStore($lang);
+  const t = useTranslations(lang);
+
   const [form, setForm] = useState({
     name: "",
     email: "",
     message: "",
   });
-
-  const t = {
-    title:
-      lang === "en"
-        ? "Let’s create something meaningful."
-        : "Creemos algo con sentido.",
-    subtitle:
-      lang === "en"
-        ? "If you have an idea, a project, or just a thought — write to me."
-        : "Si tienes una idea, un proyecto o solo un pensamiento — escríbeme.",
-    note:
-      lang === "en"
-        ? "Direct communication. No agencies. Reply within 24h."
-        : "Comunicación directa. Sin agencias. Respuesta en 24h.",
-    name: lang === "en" ? "Your name" : "Tu nombre",
-    email: "Email",
-    message:
-      lang === "en"
-        ? "Tell me what’s on your mind…"
-        : "Cuéntame qué tienes en mente…",
-    send: lang === "en" ? "Send message" : "Enviar mensaje",
-  };
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -52,13 +37,15 @@ export default function Contact({ lang = "en" }) {
             className="md:col-span-2"
           >
             <h2 className="text-4xl leading-tight font-medium text-white">
-              {t.title}
+              {t("contact.title")}
             </h2>
 
-            <p className="mt-6 text-sm text-gray-400 max-w-sm">{t.subtitle}</p>
+            <p className="mt-6 text-sm text-gray-400 max-w-sm">
+              {t("contact.subtitle")}
+            </p>
 
             <p className="mt-10 text-xs text-gray-500 tracking-wide">
-              {t.note}
+              {t("contact.note")}
             </p>
           </motion.div>
 
@@ -71,29 +58,33 @@ export default function Contact({ lang = "en" }) {
             className="md:col-span-3 space-y-14"
           >
             <ArtInput
-              label={t.name}
+              label={t("contact.name")}
               name="name"
               value={form.name}
               onChange={handleChange}
             />
 
             <ArtInput
-              label={t.email}
+              label={t("contact.email")}
               name="email"
               value={form.email}
               onChange={handleChange}
             />
 
             <div>
-              <label className="block text-xs text-gray-400 mb-3">
-                {lang === "en" ? "Message" : "Mensaje"}
+              <label
+                htmlFor="message"
+                className="block text-xs text-gray-400 mb-3"
+              >
+                {t("contact.messageLabel")}
               </label>
               <textarea
+                id="message"
                 name="message"
                 rows={4}
                 value={form.message}
                 onChange={handleChange}
-                placeholder={t.message}
+                placeholder={t("contact.message")}
                 className="
                   w-full
                   bg-transparent
@@ -126,7 +117,7 @@ export default function Contact({ lang = "en" }) {
                   hover:opacity-70
                 "
               >
-                <span>{t.send}</span>
+                <span>{t("contact.send")}</span>
                 <span className="block h-px w-10 bg-white transition-all duration-300 group-hover:w-20" />
               </button>
             </div>
@@ -143,8 +134,11 @@ export default function Contact({ lang = "en" }) {
 function ArtInput({ label, name, value, onChange }) {
   return (
     <div>
-      <label className="block text-xs text-gray-400 mb-3">{label}</label>
+      <label htmlFor={name} className="block text-xs text-gray-400 mb-3">
+        {label}
+      </label>
       <input
+        id={name}
         name={name}
         value={value}
         onChange={onChange}

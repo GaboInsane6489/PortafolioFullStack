@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import Icon from "./Icon.jsx";
 
@@ -16,12 +16,14 @@ const techs = [
     color: "#38B2AC",
     category: "Frontend",
   },
+
   // Backend
   { name: "Node.js", icon: "node", color: "#339933", category: "Backend" },
   { name: "Express", icon: "express", color: "#ffffff", category: "Backend" },
   { name: "MongoDB", icon: "mongodb", color: "#47A248", category: "Backend" },
   { name: "PHP", icon: "php", color: "#777BB4", category: "Backend" },
   { name: "Supabase", icon: "supabase", color: "#3ECF8E", category: "Backend" },
+
   // Tools
   { name: "Git", icon: "git", color: "#F05032", category: "Tools" },
   { name: "GitHub", icon: "github", color: "#FFFFFF", category: "Tools" },
@@ -47,7 +49,11 @@ export default function TechGrid() {
               onClick={() => setActiveTab(tab)}
               className={`
                 relative px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300
-                ${activeTab === tab ? "text-white shadow-lg" : "text-gray-400 hover:text-white hover:bg-white/5"}
+                ${
+                  activeTab === tab
+                    ? "text-white shadow-lg"
+                    : "text-gray-400 hover:text-white hover:bg-white/5"
+                }
               `}
             >
               {activeTab === tab && (

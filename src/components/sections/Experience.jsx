@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { useTranslations, $lang } from "../../utils/i18n.js";
+import { useStore } from "@nanostores/react";
 
 /**
  * Experience / Professional Journey
@@ -28,76 +30,46 @@ const item = {
   },
 };
 
-export default function Experience({ lang = "en" }) {
-  const t = {
-    title: lang === "en" ? "Professional Journey" : "Trayectoria Profesional",
-    intro:
-      lang === "en"
-        ? "I design and build real-world products with a strong focus on performance, clarity, and long-term maintainability."
-        : "Diseño y construyo productos reales con un fuerte enfoque en rendimiento, claridad y mantenibilidad a largo plazo.",
-    meta: lang === "en" ? "Selected experience" : "Experiencia seleccionada",
-  };
+export default function Experience() {
+  const lang = useStore($lang);
+  const t = useTranslations(lang);
 
   const experiences = [
     {
-      role: lang === "en" ? "Full Stack Developer" : "Desarrollador Full Stack",
+      role: t("experience.exp1.role"),
       company: "HarryPotterHead",
       link: "https://www.linkedin.com/company/harrypotterhead/",
-      date: lang === "en" ? "Nov 2024 — Present" : "Nov 2024 — Presente",
-      narrative:
-        lang === "en"
-          ? "Working on a live production platform with thousands of users, collaborating directly with the product owner to ship features, improve performance, and evolve the architecture."
-          : "Trabajo en una plataforma en producción con miles de usuarios, colaborando directamente con el propietario del producto para lanzar funcionalidades, mejorar rendimiento y evolucionar la arquitectura.",
-      highlights:
-        lang === "en"
-          ? [
-              "End-to-end feature development across frontend and backend",
-              "Refactoring legacy codebases to improve scalability",
-              "Performance, accessibility, and technical SEO optimization",
-              "Architecture decisions and production deployments",
-            ]
-          : [
-              "Desarrollo de funcionalidades end-to-end en frontend y backend",
-              "Refactorización de código legado para mejorar escalabilidad",
-              "Optimización de rendimiento, accesibilidad y SEO técnico",
-              "Decisiones de arquitectura y despliegues en producción",
-            ],
-      focus:
-        lang === "en"
-          ? ["Production systems", "Performance", "SEO", "Code quality"]
-          : ["Producción", "Rendimiento", "SEO", "Calidad de código"],
+      date: t("experience.exp1.date"),
+      narrative: t("experience.exp1.narrative"),
+      highlights: [
+        t("experience.exp1.highlight1"),
+        t("experience.exp1.highlight2"),
+        t("experience.exp1.highlight3"),
+        t("experience.exp1.highlight4"),
+      ],
+      focus: [
+        t("experience.exp1.focus1"),
+        t("experience.exp1.focus2"),
+        t("experience.exp1.focus3"),
+        t("experience.exp1.focus4"),
+      ],
     },
     {
-      role:
-        lang === "en"
-          ? "Full Stack Programming Student"
-          : "Estudiante de Programación Full Stack",
-      company:
-        lang === "en"
-          ? "University Full Stack Program"
-          : "Programa Universitario Full Stack",
+      role: t("experience.exp2.role"),
+      company: t("experience.exp2.company"),
       link: null,
-      date: "2023 — 2024",
-      narrative:
-        lang === "en"
-          ? "Completed a university-backed full stack program, building complete applications and establishing a solid foundation in modern web development."
-          : "Completé un programa full stack con respaldo universitario, construyendo aplicaciones completas y estableciendo una base sólida en desarrollo web moderno.",
-      highlights:
-        lang === "en"
-          ? [
-              "Built full-stack applications from scratch",
-              "Learned clean code and deployment best practices",
-              "Worked with modern frameworks and tooling",
-            ]
-          : [
-              "Construcción de aplicaciones full stack desde cero",
-              "Aprendizaje de buenas prácticas de código y despliegue",
-              "Trabajo con frameworks y herramientas modernas",
-            ],
-      focus:
-        lang === "en"
-          ? ["Foundations", "Modern stack", "Best practices"]
-          : ["Fundamentos", "Stack moderno", "Buenas prácticas"],
+      date: t("experience.exp2.date"),
+      narrative: t("experience.exp2.narrative"),
+      highlights: [
+        t("experience.exp2.highlight1"),
+        t("experience.exp2.highlight2"),
+        t("experience.exp2.highlight3"),
+      ],
+      focus: [
+        t("experience.exp2.focus1"),
+        t("experience.exp2.focus2"),
+        t("experience.exp2.focus3"),
+      ],
     },
   ];
 
@@ -118,10 +90,10 @@ export default function Experience({ lang = "en" }) {
           className="mb-20 max-w-2xl"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-white">
-            {t.title}
+            {t("experience.title")}
           </h2>
           <p className="mt-4 text-sm leading-relaxed text-white/60">
-            {t.intro}
+            {t("experience.intro")}
           </p>
         </motion.header>
 
@@ -142,7 +114,7 @@ export default function Experience({ lang = "en" }) {
               {/* Meta */}
               <div className="text-xs uppercase tracking-wide text-white/40">
                 <p className="mb-2">{exp.date}</p>
-                <p>{t.meta}</p>
+                <p>{t("experience.meta")}</p>
               </div>
 
               {/* Content */}

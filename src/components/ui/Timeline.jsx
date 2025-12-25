@@ -17,7 +17,7 @@ const TimelineItem = ({ item, index, isLast }) => {
     >
       {/* Date/Period (Desktop) */}
       <div
-        className={`hidden md:block w-5/12 text-right ${isEven ? "text-right" : "text-left"}`}
+        className={`hidden md:block w-5/12 ${isEven ? "text-right" : "text-left"}`}
       >
         <span className="text-purple-400 font-bold font-display text-lg">
           {item.date}

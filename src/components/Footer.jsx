@@ -1,9 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Icon from "./ui/Icon.jsx";
-import { useTranslations } from "../utils/i18n.js";
+import { useTranslations, $lang } from "../utils/i18n.js";
+import { useStore } from "@nanostores/react";
 
-export default function Footer({ lang = "en" }) {
+export default function Footer() {
+  const lang = useStore($lang);
   const t = useTranslations(lang);
   const year = new Date().getFullYear();
 
@@ -42,6 +44,7 @@ export default function Footer({ lang = "en" }) {
           {/* CTA Section */}
           <div>
             <h2 className="text-4xl md:text-5xl font-display font-bold mb-6 tracking-tight">
+              {/* Podrías también internacionalizar este texto si lo agregas a en.json/es.json */}
               Let's build something <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500">
                 amazing together.
@@ -93,7 +96,9 @@ export default function Footer({ lang = "en" }) {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
-          <div>&copy; {year} Gabriel González. All rights reserved.</div>
+          <div>
+            &copy; {year} Gabriel González. {t("footer.rights")}
+          </div>
           <div className="flex gap-6">
             <a
               href="#"

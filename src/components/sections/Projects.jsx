@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { fadeUp, staggerContainer, staggerItem } from "../../utils/motion.js";
-import { useTranslations } from "../../utils/i18n.js";
+import { useTranslations, $lang } from "../../utils/i18n.js";
+import { useStore } from "@nanostores/react";
 import Icon from "../ui/Icon.jsx";
 import ProjectModal from "../ui/ProjectModal.jsx";
 
@@ -9,7 +10,8 @@ import ProjectModal from "../ui/ProjectModal.jsx";
  * Projects Section Component
  * Showcase of Gabriel's real projects
  */
-export default function Projects({ lang = "en" }) {
+export default function Projects() {
+  const lang = useStore($lang);
   const t = useTranslations(lang);
   const [selectedProject, setSelectedProject] = useState(null);
 
@@ -17,22 +19,14 @@ export default function Projects({ lang = "en" }) {
     {
       id: 1,
       title: "Instalaciones Garcia's",
-      description:
-        lang === "en"
-          ? "Full-stack web application for a professional installation services company. Features service catalog, interactive contact forms, admin dashboard, and cloud deployment."
-          : "Aplicación web full-stack para empresa de servicios de instalación. Incluye catálogo de servicios, formularios interactivos, panel de administración y despliegue en la nube.",
-      longDescription:
-        lang === "en"
-          ? "A comprehensive digital solution for a local installation business. The platform streamlines client acquisition through an intuitive service catalog and quote request system. It features a custom admin dashboard for managing inquiries and services, built with React and Supabase for real-time data handling. The UI is designed with a mobile-first approach, ensuring accessibility for all customers."
-          : "Una solución digital integral para un negocio local de instalaciones. La plataforma agiliza la captación de clientes a través de un catálogo de servicios intuitivo y un sistema de solicitud de presupuestos. Cuenta con un panel de administración personalizado para gestionar consultas y servicios, construido con React y Supabase para el manejo de datos en tiempo real. La interfaz está diseñada con un enfoque mobile-first.",
+      description: t("projects.garcias.description"),
+      longDescription: t("projects.garcias.longDescription"),
       tech: ["Astro", "React", "Express", "Supabase", "Vercel"],
       features: [
-        lang === "en"
-          ? "Real-time Quote System"
-          : "Sistema de Presupuestos en Tiempo Real",
-        lang === "en" ? "Admin Dashboard" : "Panel de Administración",
-        lang === "en" ? "Image Optimization" : "Optimización de Imágenes",
-        lang === "en" ? "Responsive Design" : "Diseño Responsivo",
+        t("projects.garcias.feature1"),
+        t("projects.garcias.feature2"),
+        t("projects.garcias.feature3"),
+        t("projects.garcias.feature4"),
       ],
       image: "/assets/images/projects/garcias1.webp",
       gallery: [
@@ -50,20 +44,14 @@ export default function Projects({ lang = "en" }) {
     {
       id: 2,
       title: "Harry Potter Head Forum",
-      description:
-        lang === "en"
-          ? "Dynamic modular web forum system with multimedia content, interactive features, and community engagement tools. Serving an active community with continuous improvements."
-          : "Sistema de foro web modular dinámico con contenido multimedia y herramientas de participación comunitaria. Sirviendo a una comunidad activa con mejoras continuas.",
-      longDescription:
-        lang === "en"
-          ? "A customized Simple Machines Forum (SMF) implementation for a large Harry Potter fan community. This project involved extensive PHP modification to create custom themes, interactive modules, and gamification features. It supports a high volume of concurrent users and features a custom-built spell casting system and house points tracker."
-          : "Una implementación personalizada de Simple Machines Forum (SMF) para una gran comunidad de fans de Harry Potter. Este proyecto implicó una extensa modificación de PHP para crear temas personalizados, módulos interactivos y características de gamificación. Soporta un alto volumen de usuarios concurrentes y cuenta con un sistema de lanzamiento de hechizos y puntos de casa personalizado.",
+      description: t("projects.hph.description"),
+      longDescription: t("projects.hph.longDescription"),
       tech: ["PHP", "JavaScript", "HTML/CSS", "Laragon", "Git"],
       features: [
-        lang === "en" ? "Custom SMF Themes" : "Temas SMF Personalizados",
-        lang === "en" ? "Gamification System" : "Sistema de Gamificación",
-        lang === "en" ? "High Performance" : "Alto Rendimiento",
-        lang === "en" ? "Community Modules" : "Módulos Comunitarios",
+        t("projects.hph.feature1"),
+        t("projects.hph.feature2"),
+        t("projects.hph.feature3"),
+        t("projects.hph.feature4"),
       ],
       image: "/assets/images/projects/harrypotter.webp",
       gallery: [
@@ -80,31 +68,20 @@ export default function Projects({ lang = "en" }) {
     },
     {
       id: 3,
-      title: lang === "en" ? "Full Stack Portfolio" : "Portafolio Full Stack",
-      description:
-        lang === "en"
-          ? "Professional portfolio website showcasing projects and skills. Built with Astro and React, featuring SSR, i18n (EN/ES), and optimized for perfect Lighthouse scores."
-          : "Sitio web de portafolio profesional mostrando proyectos y habilidades. Construido con Astro y React, con SSR, i18n (EN/ES), y optimizado para Lighthouse.",
-      longDescription:
-        lang === "en"
-          ? "My personal showcase designed to demonstrate modern web development capabilities. Built with performance and aesthetics in mind, utilizing Astro for fast static generation and React for dynamic interactive islands. It features a custom internationalization system, comprehensive accessibility compliance, and a 'Intense Black' premium design theme."
-          : "Mi escaparate personal diseñado para demostrar capacidades de desarrollo web moderno. Construido teniendo en cuenta el rendimiento y la estética, utilizando Astro para la generación estática rápida y React para islas interactivas dinámicas. Cuenta con un sistema de internacionalización personalizado, cumplimiento integral de accesibilidad y un tema de diseño premium 'Black Intense'.",
+      title: t("projects.portfolio.title"),
+      description: t("projects.portfolio.description"),
+      longDescription: t("projects.portfolio.longDescription"),
       tech: ["Astro", "React", "Supabase", "Framer Motion", "Tailwind"],
       features: [
-        lang === "en"
-          ? "Server-Side Rendering"
-          : "Renderizado del Lado del Servidor",
-        lang === "en" ? "Internationalization" : "Internacionalización",
-        lang === "en"
-          ? "Perfect Lighthouse Score"
-          : "Puntuación Perfecta en Lighthouse",
-        lang === "en" ? "Glassmorphism UI" : "Interfaz Glassmorphism",
+        t("projects.portfolio.feature1"),
+        t("projects.portfolio.feature2"),
+        t("projects.portfolio.feature3"),
+        t("projects.portfolio.feature4"),
       ],
       image: "", // CSS gradient fallback
       gallery: [
         "/assets/images/projects/certificate-fullstack.webp",
         "/assets/images/projects/github-contributions.webp",
-        // Add more if available or reuse profile pic as placeholder if needed
       ],
       github: "https://github.com/GaboInsame6489/portfolio",
       live: "https://gabriel-g.dev",
@@ -116,7 +93,7 @@ export default function Projects({ lang = "en" }) {
     <>
       <motion.section
         id="projects"
-        className="min-h-screen flex items-center py-16 md:py-20 px-4 bg-black"
+        className="min-h-screen flex items-center py-16 md:py-20 px-4 bg-black/20 backdrop-blur-sm"
         initial="initial"
         whileInView="animate"
         viewport={{ once: true, margin: "-100px" }}
@@ -152,7 +129,6 @@ export default function Projects({ lang = "en" }) {
                       className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                     />
                   ) : (
-                    /* Portfolio - abstract gradient */
                     <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900 text-white p-8">
                       <span className="font-display font-bold text-5xl md:text-6xl opacity-20 group-hover:opacity-40 transition-opacity">
                         PF
@@ -163,7 +139,7 @@ export default function Projects({ lang = "en" }) {
                   {/* Overlay actions */}
                   <div className="absolute inset-0 bg-gradient-to-t from-purple-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
                     <span className="px-6 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white font-medium transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                      {lang === "en" ? "View Details" : "Ver Detalles"}
+                      {t("projects.viewDetails")}
                     </span>
                   </div>
                 </div>

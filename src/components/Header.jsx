@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
+import { useStore } from "@nanostores/react";
 import LanguageToggle from "./LanguageToggle";
 import Logo from "./ui/Logo.jsx";
-import { useTranslations } from "../utils/i18n.js";
+import { useTranslations, $lang } from "../utils/i18n.js";
 
-export default function Header({ lang = "en" }) {
+export default function Header() {
+  const lang = useStore($lang);
   const t = useTranslations(lang);
   const [isOpen, setIsOpen] = useState(false);
 

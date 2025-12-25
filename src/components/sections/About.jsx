@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useRef, useState } from "react";
 import {
   motion,
   useScroll,
@@ -8,7 +8,8 @@ import {
   useMotionValue,
 } from "framer-motion";
 import { fadeUp, staggerContainer } from "../../utils/motion.js";
-import { useTranslations } from "../../utils/i18n.js";
+import { useTranslations, $lang } from "../../utils/i18n.js";
+import { useStore } from "@nanostores/react";
 import TechGrid from "../ui/TechGrid.jsx";
 import StatsCounter from "../ui/StatsCounter.jsx";
 import Icon from "../ui/Icon.jsx";
@@ -83,7 +84,8 @@ const MagneticButton = ({ children, className, href, download }) => {
 
 /* --- Main Component --- */
 
-export default function About({ lang = "en" }) {
+export default function About() {
+  const lang = useStore($lang);
   const t = useTranslations(lang);
   const ref = useRef(null);
 
@@ -157,7 +159,7 @@ export default function About({ lang = "en" }) {
           </motion.div>
 
           <motion.div variants={fadeUp}>
-            <StatsCounter lang={lang} />
+            <StatsCounter />
           </motion.div>
 
           <motion.div variants={fadeUp} className="flex gap-4 pt-4">
@@ -165,7 +167,7 @@ export default function About({ lang = "en" }) {
               href="#contact"
               className="px-8 py-3 rounded-full font-semibold text-white bg-gradient-to-r from-purple-600 to-blue-600 shadow-lg"
             >
-              {lang === "en" ? "Let's talk" : "Hablemos"}
+              {t("about.ctaTalk")}
             </MagneticButton>
 
             <MagneticButton
@@ -173,7 +175,7 @@ export default function About({ lang = "en" }) {
               download
               className="px-8 py-3 rounded-full border border-white/15 text-white/80 hover:text-white transition"
             >
-              Download CV
+              {t("about.ctaDownload")}
             </MagneticButton>
           </motion.div>
         </motion.div>
@@ -202,7 +204,7 @@ export default function About({ lang = "en" }) {
               <span className="absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75 animate-ping" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
             </span>
-            Open to work
+            {t("about.openToWork")}
           </div>
         </motion.div>
       </div>
@@ -211,10 +213,10 @@ export default function About({ lang = "en" }) {
       <div className="mt-40">
         <div className="text-center mb-16">
           <span className="text-purple-400 uppercase tracking-widest text-xs">
-            Stack
+            {t("about.stackLabel")}
           </span>
           <h3 className="text-4xl font-display font-bold mt-4">
-            Technologies & Tools
+            {t("about.stackTitle")}
           </h3>
         </div>
         <TechGrid />

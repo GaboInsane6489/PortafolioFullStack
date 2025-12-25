@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslations, $lang } from "../../utils/i18n.js";
+import { useStore } from "@nanostores/react";
+import { fadeUp, staggerContainer, staggerItem } from "../../utils/motion.js";
+import Icon from "../ui/Icon.jsx";
 
 const container = {
   hidden: {},
@@ -17,29 +21,16 @@ const item = {
   },
 };
 
-export default function Certificates({ lang = "en" }) {
+export default function Certificates() {
+  const lang = useStore($lang);
+  const t = useTranslations(lang);
   const [active, setActive] = useState(null);
-
-  const t = {
-    title: lang === "en" ? "Certifications" : "Certificaciones",
-    hint:
-      lang === "en"
-        ? "Select a certification to view details"
-        : "Selecciona una certificación para ver detalles",
-    verify: lang === "en" ? "Verify" : "Verificar",
-    close: lang === "en" ? "Close" : "Cerrar",
-    view: lang === "en" ? "View certificate" : "Ver certificado",
-    preview:
-      lang === "en"
-        ? "Preview — open verification for full document"
-        : "Vista previa — abre la verificación para ver el documento completo",
-  };
 
   const certificates = [
     {
       id: 1,
-      title: lang === "en" ? "Full Stack Development" : "Desarrollo Full Stack",
-      issuer: "University Full Stack Program",
+      title: t("certificates.fullstack.title"),
+      issuer: t("certificates.fullstack.issuer"),
       date: "2024",
       skills: ["React", "Node.js", "MongoDB", "Express"],
       image: "/assets/images/certificates/FullStackCertificate.jpeg",
@@ -47,24 +38,24 @@ export default function Certificates({ lang = "en" }) {
     },
     {
       id: 2,
-      title: "Modern JavaScript",
-      issuer: "Tech Academy",
+      title: t("certificates.javascript.title"),
+      issuer: t("certificates.javascript.issuer"),
       date: "2024",
       skills: ["ES2023", "Async/Await", "Modules"],
       verifyUrl: "#",
     },
     {
       id: 3,
-      title: lang === "en" ? "Web Performance" : "Rendimiento Web",
-      issuer: "Performance Institute",
+      title: t("certificates.performance.title"),
+      issuer: t("certificates.performance.issuer"),
       date: "2024",
       skills: ["Lighthouse", "CWV", "Optimization"],
       verifyUrl: "#",
     },
     {
       id: 4,
-      title: lang === "en" ? "Accessibility (A11y)" : "Accesibilidad (A11y)",
-      issuer: "W3C",
+      title: t("certificates.accessibility.title"),
+      issuer: t("certificates.accessibility.issuer"),
       date: "2024",
       skills: ["WCAG", "ARIA", "Screen Readers"],
       verifyUrl: "#",
@@ -72,7 +63,10 @@ export default function Certificates({ lang = "en" }) {
   ];
 
   return (
-    <section id="certificates" className="relative py-24 px-6 bg-black">
+    <section
+      id="certificates"
+      className="relative py-24 px-6 bg-black/20 backdrop-blur-sm"
+    >
       <div className="mx-auto max-w-6xl">
         {/* Header */}
         <motion.header
@@ -83,9 +77,11 @@ export default function Certificates({ lang = "en" }) {
           className="mb-14"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-white">
-            {t.title}
+            {t("certificates.title")}
           </h2>
-          <p className="mt-2 text-sm text-gray-400 max-w-md">{t.hint}</p>
+          <p className="mt-2 text-sm text-gray-400 max-w-md">
+            {t("certificates.hint")}
+          </p>
         </motion.header>
 
         {/* Grid */}
@@ -130,7 +126,7 @@ export default function Certificates({ lang = "en" }) {
               </div>
 
               <span className="mt-3 block text-[10px] text-gray-500 group-hover:text-gray-400 transition-colors">
-                {t.view}
+                {t("certificates.view")}
               </span>
             </motion.li>
           ))}
@@ -177,7 +173,7 @@ export default function Certificates({ lang = "en" }) {
                     </div>
 
                     <p className="mt-2 text-center text-[10px] text-gray-500">
-                      {t.preview}
+                      {t("certificates.preview")}
                     </p>
                   </>
                 )}
@@ -202,14 +198,14 @@ export default function Certificates({ lang = "en" }) {
                   rel="noopener noreferrer"
                   className="rounded-lg bg-[var(--color-primary)] px-4 py-2 text-xs font-medium text-white hover:bg-[var(--color-primary-dark)] transition-colors"
                 >
-                  {t.verify}
+                  {t("certificates.verify")}
                 </a>
 
                 <button
                   onClick={() => setActive(null)}
                   className="text-xs text-gray-400 hover:text-white transition-colors"
                 >
-                  {t.close}
+                  {t("certificates.close")}
                 </button>
               </div>
             </motion.div>

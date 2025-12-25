@@ -1,3 +1,4 @@
+import { atom } from "nanostores";
 import en from "../locales/en.js";
 import es from "../locales/es.js";
 
@@ -36,9 +37,11 @@ export function getLang() {
   return DEFAULT_LANG;
 }
 
+export const $lang = atom(getLang());
+
 export function setLang(lang) {
   if (typeof localStorage !== "undefined") {
     localStorage.setItem("locale", lang);
   }
-  // Reload or redirect logic can be handled by the component
+  $lang.set(lang);
 }

@@ -71,9 +71,7 @@ export default function TechStack({ skills = [], className = "" }) {
           >
             <div
               className="relative p-4 rounded-xl bg-white dark:bg-black border border-black/10 dark:border-white/10 transition-all duration-300 group-hover:border-black dark:group-hover:border-white group-hover:shadow-lg"
-              style={{
-                "--tech-color": tech.color,
-              }}
+              style={{ "--tech-color": tech.color }}
             >
               <IconComponent
                 className="w-8 h-8 transition-all duration-300 text-black/70 dark:text-white/70 group-hover:scale-110"
