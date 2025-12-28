@@ -1,38 +1,92 @@
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useTranslations, $lang } from "../../utils/i18n.js";
 import { useStore } from "@nanostores/react";
+import Icon from "../ui/Icon.jsx";
 
-/**
- * Experience / Professional Journey
- * Editorial + cinematic narrative
- * Brand-aligned with global theme
- */
+const ExperienceCard = ({ exp, index }) => {
+  const isEven = index % 2 === 0;
 
-const container = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.2,
-    },
-  },
-};
+  return (
+    <div
+      className={`relative flex items-center justify-between md:justify-normal w-full mb-8 ${isEven ? "md:flex-row-reverse" : ""}`}
+    >
+      {/* Timeline Node */}
+      <div className="absolute left-[18px] md:left-1/2 w-4 h-4 bg-black border-2 border-purple-500 rounded-full transform -translate-x-1/2 z-10 shadow-[0_0_15px_rgba(168,85,247,0.5)]">
+        <div className="absolute inset-0 rounded-full bg-purple-400 animate-ping opacity-20"></div>
+      </div>
 
-const item = {
-  hidden: { opacity: 0, y: 24 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.22, 1, 0.36, 1], // cinematic easing
-    },
-  },
+      {/* Spacer for desktop centering */}
+      <div className="hidden md:block w-5/12" />
+
+      {/* Content Card */}
+      <motion.div
+        initial={{ opacity: 0, y: 20, x: isEven ? -20 : 20 }}
+        whileInView={{ opacity: 1, y: 0, x: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.5, delay: index * 0.1 }}
+        className="w-[calc(100%-48px)] md:w-5/12 ml-12 md:ml-0 group"
+      >
+        <div className="relative p-6 md:p-8 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-purple-500/30 transition-all duration-300 hover:shadow-[0_10px_40px_-10px_rgba(168,85,247,0.15)] overflow-hidden">
+          {/* Hover Gradient */}
+          <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+          <div className="relative z-10">
+            <div className="flex flex-wrap items-center gap-3 text-xs font-bold uppercase tracking-wider text-purple-400 mb-2">
+              <span>{exp.date}</span>
+              <span className="w-1 h-1 bg-white/20 rounded-full" />
+              <span>{exp.company}</span>
+            </div>
+
+            <h3 className="text-xl md:text-2xl font-display font-bold text-white mb-4 group-hover:text-purple-200 transition-colors">
+              {exp.role}
+            </h3>
+
+            <p className="text-gray-400 text-sm leading-relaxed mb-6">
+              {exp.narrative}
+            </p>
+
+            <div className="space-y-3">
+              {exp.highlights.slice(0, 3).map((item, i) => (
+                <div
+                  key={i}
+                  className="flex items-start gap-3 text-sm text-gray-300"
+                >
+                  <Icon
+                    name="check"
+                    className="text-purple-500 mt-0.5 shrink-0"
+                    size={14}
+                  />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-6 flex flex-wrap gap-2">
+              {exp.focus.map((tag) => (
+                <span
+                  key={tag}
+                  className="px-2.5 py-1 rounded-md bg-white/5 border border-white/5 text-[10px] uppercase tracking-wide text-gray-400 group-hover:border-white/10 group-hover:text-gray-200 transition-colors"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
 };
 
 export default function Experience() {
   const lang = useStore($lang);
   const t = useTranslations(lang);
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
 
   const experiences = [
     {
@@ -45,13 +99,11 @@ export default function Experience() {
         t("experience.exp1.highlight1"),
         t("experience.exp1.highlight2"),
         t("experience.exp1.highlight3"),
-        t("experience.exp1.highlight4"),
       ],
       focus: [
         t("experience.exp1.focus1"),
         t("experience.exp1.focus2"),
         t("experience.exp1.focus3"),
-        t("experience.exp1.focus4"),
       ],
     },
     {
@@ -63,109 +115,45 @@ export default function Experience() {
       highlights: [
         t("experience.exp2.highlight1"),
         t("experience.exp2.highlight2"),
-        t("experience.exp2.highlight3"),
       ],
-      focus: [
-        t("experience.exp2.focus1"),
-        t("experience.exp2.focus2"),
-        t("experience.exp2.focus3"),
-      ],
+      focus: [t("experience.exp2.focus1"), t("experience.exp2.focus2")],
     },
   ];
 
   return (
-    <section id="experience" className="relative bg-black px-4 py-28">
-      {/* Subtle background glow */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/2 top-0 h-[40rem] w-[40rem] -translate-x-1/2 rounded-full bg-[var(--color-primary)]/10 blur-[160px]" />
-      </div>
-
-      <div className="relative mx-auto max-w-5xl">
-        {/* Header */}
-        <motion.header
+    <section
+      id="experience"
+      className="relative py-32 overflow-hidden bg-black"
+      ref={containerRef}
+    >
+      <div className="container mx-auto px-6 max-w-6xl relative z-10">
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="mb-20 max-w-2xl"
+          className="text-center mb-20 md:mb-32"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white">
+          <span className="inline-block py-1 px-3 rounded-full bg-white/5 border border-white/10 text-xs font-bold uppercase tracking-widest text-purple-400 mb-4">
+            {t("experience.meta")}
+          </span>
+          <h2 className="text-4xl md:text-7xl font-display font-bold text-white mb-6">
             {t("experience.title")}
           </h2>
-          <p className="mt-4 text-sm leading-relaxed text-white/60">
+          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
             {t("experience.intro")}
           </p>
-        </motion.header>
-
-        {/* Experience blocks */}
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-80px" }}
-          className="space-y-24"
-        >
-          {experiences.map((exp, index) => (
-            <motion.article
-              key={index}
-              variants={item}
-              className="group relative grid grid-cols-1 md:grid-cols-[1fr_3fr] gap-8 rounded-2xl border border-[var(--glass-border-dark)] bg-[var(--glass-bg-dark)] backdrop-blur-[var(--glass-blur)] p-8 shadow-[0_20px_60px_rgba(0,0,0,0.6)] transition-all duration-300 hover:border-[var(--color-primary)]/40"
-            >
-              {/* Meta */}
-              <div className="text-xs uppercase tracking-wide text-white/40">
-                <p className="mb-2">{exp.date}</p>
-                <p>{t("experience.meta")}</p>
-              </div>
-
-              {/* Content */}
-              <div>
-                <h3 className="text-xl font-semibold text-white">{exp.role}</h3>
-
-                <p className="mt-1 text-sm text-white/50">
-                  {exp.link ? (
-                    <a
-                      href={exp.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 transition-colors hover:text-[var(--color-primary)]"
-                    >
-                      {exp.company}
-                      <span className="opacity-60">↗</span>
-                    </a>
-                  ) : (
-                    exp.company
-                  )}
-                </p>
-
-                <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/70">
-                  {exp.narrative}
-                </p>
-
-                {/* Highlights */}
-                <ul className="mt-6 space-y-2">
-                  {exp.highlights.map((item, i) => (
-                    <li key={i} className="flex gap-2 text-sm text-white/60">
-                      <span className="text-[var(--color-primary)]">—</span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Focus tags */}
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {exp.focus.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50 backdrop-blur-sm"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.article>
-          ))}
         </motion.div>
+
+        <div className="relative">
+          {/* Vertical Line */}
+          <div className="absolute left-[18px] md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-transparent via-white/20 to-transparent transform md:-translate-x-1/2"></div>
+
+          <div className="space-y-12 md:space-y-24">
+            {experiences.map((exp, i) => (
+              <ExperienceCard key={i} exp={exp} index={i} />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

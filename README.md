@@ -1,91 +1,67 @@
 # 🚀 Portfolio Full Stack
 
-> Modern, high-performance portfolio built with cutting-edge web technologies
+> Client-side rendered portfolio built with Vite, React, and Tailwind CSS. High-performance, "Brutal" aesthetic.
 
-[![Astro](https://img.shields.io/badge/Astro-5.16.4-FF5D01?style=flat&logo=astro&logoColor=white)](https://astro.build)
-[![React](https://img.shields.io/badge/React-19.2.1-61DAFB?style=flat&logo=react&logoColor=black)](https://react.dev)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.1.17-38B2AC?style=flat&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
-[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178C6?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Vite](https://img.shields.io/badge/Vite-6.0.0-646CFF?style=flat&logo=vite&logoColor=white)](https://vitejs.dev)
+[![React](https://img.shields.io/badge/React-19.0.0-61DAFB?style=flat&logo=react&logoColor=black)](https://react.dev)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.0.0-38B2AC?style=flat&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 
 ## 📋 Overview
 
-Professional portfolio showcasing full-stack development expertise with enterprise-grade architecture, premium UI/UX, and optimal performance. Built with modern web standards and best practices.
+Professional portfolio showcasing full-stack development expertise. features a "Brutal" design aesthetic with glassmorphism, aggressive typography, and cinematic video backgrounds. Fully optimized for production with Vite.
 
 **Live Demo:** [gabriel-g.dev](https://gabriel-g.dev)
 
 ## ✨ Features
 
-- 🎨 **Premium "Intense Black" Design** — Deep black theme (#000000) with dark purple glassmorphism
-- ⚛️ **Custom SVG Assets** — Animated monogram logo and personalized icons
-- 🌐 **Internationalization** — Full ES/EN support with seamless language switching
-- ⚡ **Performance Optimized** — Lighthouse score 95+, code splitting, lazy loading
-- 🎭 **Motion-Driven UI** — Framer Motion with intersection observers and parallax
-- 📱 **Perfectly Responsive** — Optimized for all devices from mobile to 4K TVs
-- ♿ **Accessible** — WCAG AA+ compliant with high contrast (White on Black)
-- 🔒 **Secure** — Security headers, CSP, and environment variable protection
-- 📧 **Contact Form** — Supabase backend with rate limiting
+- 🎨 **"Brutal" Design System** — Intense Black theme, transparent glass cards, and cinematic layouts.
+- 📹 **Cinematic Background** — Optimized video background with smart playback (interaction-based fallback).
+- ⚛️ **Pure React + Vite** — Blazing fast HMR and optimized production build.
+- 🌐 **Internationalization** — Native i18n support (ES/EN) using `nanostores`.
+- ⚡ **Performance Optimized** — 95+ Lighthouse score, lazy loading, and code splitting.
+- 🎭 **Motion-Driven UI** — Complex orchestrations with Framer Motion.
+- 📱 **Mobile First** — Touch-optimizations and responsive glass UI.
+- 🔒 **Secure** — Security headers and sanitized inputs.
 
 ## 🛠️ Tech Stack
 
 ### Core
 
-- **[Astro 5.16.4](https://astro.build)** — SSR framework with islands architecture
-- **[React 19.2.1](https://react.dev)** — UI library for interactive components
-- **[Tailwind CSS 4.1.17](https://tailwindcss.com)** — Utility-first styling with custom dark theme
+- **[Vite](https://vitejs.dev)** — Next Generation Frontend Tooling
+- **[React 19](https://react.dev)** — The library for web and native user interfaces
+- **[Tailwind CSS 4](https://tailwindcss.com)** — Utility-first CSS framework
 
 ### Animation & Interaction
 
-- **[Framer Motion 12.23.25](https://www.framer.com/motion/)** — Production-ready animations
-- **Intersection Observer API** — Viewport-based lazy animations
+- **[Framer Motion](https://www.framer.com/motion/)** — Production-ready animation library for React
+- **[React Icons](https://react-icons.github.io/react-icons/)** — Lucide & Simple Icons
 
 ### Backend & Data
 
-- **[Supabase](https://supabase.com)** — PostgreSQL database and authentication
-- **Node.js Adapter** — SSR with standalone mode
-
-### Developer Experience
-
-- **TypeScript** — Type-safe development
-- **ESLint & Prettier** — Code quality and formatting
-- **Sharp** — Image optimization
-- **Lighthouse CI** — Performance monitoring
+- **[Supabase](https://supabase.com)** — Database and Auth (for Contact form)
+- **[Nanostores](https://github.com/nanostores/nanostores)** — Lightweight state manager (for i18n)
 
 ## 📁 Project Structure
 
 ```
 PortafolioFullStack/
+├── public/                # Static assets (favicons, robots.txt)
+│   ├── assets/            # Optimized images & videos
+│   └── logo.svg           # Brand Logo
 ├── src/
 │   ├── components/
-│   │   ├── sections/          # Main page sections
-│   │   │   ├── Hero.jsx
-│   │   │   ├── About.jsx
-│   │   │   ├── Projects.jsx
-│   │   │   ├── Experience.jsx
-│   │   │   ├── Certificates.jsx
-│   │   │   └── Contact.jsx
-│   │   ├── ui/                # Reusable UI components
-│   │   │   ├── Icon.jsx
-│   │   │   ├── Logo.jsx       # Animated SVG Monogram
-│   │   │   └── TechStack.jsx
+│   │   ├── sections/      # Hero, About, Projects, Experience, Certificates, Contact
+│   │   ├── ui/            # Reusable (Icon, TiltCard, BackgroundVideo)
 │   │   ├── Header.jsx
-│   │   ├── Footer.jsx
-│   │   └── LanguageToggle.jsx
-│   ├── layouts/
-│   │   └── BaseLayout.astro   # SEO-optimized base layout
-│   ├── pages/
-│   │   ├── index.astro        # Main page
-│   │   └── api/               # API endpoints
-│   ├── locales/               # i18n translations (ES/EN)
-│   ├── styles/
-│   │   └── global.css         # Intense Black theme variables
-│   └── utils/
-│       ├── i18n.js            # Internationalization utilities
-│       └── motion.js          # Animation presets
-├── public/
-│   └── assets/                # Optimized images (WebP)
-├── astro.config.mjs           # Astro configuration
-├── tailwind.config.js         # Tailwind configuration
-└── vercel.json                # Deployment configuration
+│   │   └── Footer.jsx
+│   ├── locales/           # Translation files (en.js, es.js)
+│   ├── styles/            # Global CSS & Tailwind config
+│   ├── utils/             # Helper functions (i18n.js)
+│   ├── App.jsx            # Main Application Component
+│   └── main.jsx           # Entry Point
+├── index.html             # HTML Entry Point
+├── vite.config.js         # Vite Configuration
+└── tailwind.config.js     # Tailwind Configuration
 ```
 
 ## 🚀 Getting Started
@@ -93,99 +69,50 @@ PortafolioFullStack/
 ### Prerequisites
 
 - **Node.js** 18+
-- **pnpm** 8+ (recommended) or npm
+- **pnpm** (recommended) or npm
 
 ### Installation
 
 ```bash
-# Clone repository
 git clone https://github.com/GaboInsane6489/PortafolioFullStack.git
 cd PortafolioFullStack
-
-# Install dependencies
 pnpm install
-
-# Copy environment variables
-cp .env.example .env.local
-
-# Configure your Supabase credentials in .env.local
 ```
 
 ### Development
 
 ```bash
-# Start development server
 pnpm dev
-# → http://localhost:4321
-
-# Run linting
-pnpm lint
-
-# Format code
-pnpm format
-
-# Run Lighthouse audit
-pnpm lighthouse
+# → http://localhost:5173
 ```
 
-### Build & Deploy
+### Build
 
 ```bash
-# Build for production
 pnpm build
-
-# Preview production build
 pnpm preview
 ```
 
-## 🌍 Environment Variables
+## 📊 Performance & SEO
 
-Create a `.env.local` file with the following variables:
+- ✅ **SEO Ready**: `robots.txt`, meta tags, and semantic HTML5.
+- ✅ **Zero Blocking Time**: Optimized video loading strategy.
+- ✅ **A11y**: Keyboard navigable and screen reader friendly.
 
-```env
-# Supabase Configuration
-PUBLIC_SUPABASE_URL=your-supabase-url
-PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+## 🎨 Design Philosophy - "Brutal Glass"
 
-# Email Configuration (Optional)
-SENDGRID_API_KEY=your-sendgrid-api-key
-CONTACT_EMAIL=your-email@example.com
-
-# Rate Limiting
-RATE_LIMIT_MAX=5
-```
-
-## 📊 Performance
-
-- ⚡ **Lighthouse Score:** 95+ across all metrics
-- 🎯 **First Contentful Paint:** < 1.5s
-- 🚀 **Time to Interactive:** < 3.0s
-- 📦 **Bundle Size:** Optimized with code splitting
-- 🖼️ **Images:** WebP format with lazy loading
-
-## 🎨 Design Philosophy - "Intense Black"
-
-Following modern design principles from `modern_methods_prompt.md`:
-
-- **Intense Black Theme** — Deep #000000 background for infinite depth
-- **High Contrast Typography** — Pure white text for maximum readability
-- **Dark Purple Glassmorphism** — Subtle purple tints with blur for depth
-- **Motion-Driven Interfaces** — Framer Motion variants with stagger effects
-- **Intersection Observer** — Viewport-based animations
-- **Premium Micro-Interactions** — Hover scaling, shadows, icon rotations
-- **Magnetic Interactions** — Cursor-aware buttons and spotlight gradients
-- **Performance Constraints** — 200-450ms transitions, GPU-optimized
+- **Transparency**: Footer and Cards allow the background video to bleed through (`backdrop-blur`).
+- **Typography**: Giant, aggressive headings (font-display) with gradients.
+- **Interactivity**: 3D Tilts, glow effects, and magnetic buttons.
 
 ## 📝 Scripts
 
-| Command           | Description                                  |
-| ----------------- | -------------------------------------------- |
-| `pnpm dev`        | Start development server at `localhost:4321` |
-| `pnpm build`      | Build production site to `./dist/`           |
-| `pnpm preview`    | Preview production build locally             |
-| `pnpm lighthouse` | Run Lighthouse performance audit             |
-| `pnpm lint`       | Run ESLint code analysis                     |
-| `pnpm format`     | Format code with Prettier                    |
+| Command        | Description          |
+| -------------- | -------------------- |
+| `pnpm dev`     | Start dev server     |
+| `pnpm build`   | Build for production |
+| `pnpm preview` | Preview build        |
+| `pnpm lint`    | Lint code            |
 
 ## 🤝 Contributing
 

@@ -9,11 +9,29 @@ const techs = [
   { name: "Astro", icon: "astro", color: "#BC52EE", category: "Frontend" },
   { name: "HTML5", icon: "html", color: "#E34F26", category: "Frontend" },
   { name: "CSS3", icon: "css", color: "#1572B6", category: "Frontend" },
-  { name: "JavaScript", icon: "js", color: "#F7DF1E", category: "Frontend" },
+  {
+    name: "JavaScript",
+    icon: "javascript",
+    color: "#F7DF1E",
+    category: "Frontend",
+  },
   {
     name: "Tailwind",
     icon: "tailwind",
     color: "#38B2AC",
+    category: "Frontend",
+  },
+  { name: "Next.js", icon: "next", color: "#FFFFFF", category: "Frontend" },
+  {
+    name: "TypeScript",
+    icon: "typescript",
+    color: "#3178C6",
+    category: "Frontend",
+  },
+  {
+    name: "Framer Motion",
+    icon: "framer",
+    color: "#0055FF",
     category: "Frontend",
   },
 
@@ -23,12 +41,22 @@ const techs = [
   { name: "MongoDB", icon: "mongodb", color: "#47A248", category: "Backend" },
   { name: "PHP", icon: "php", color: "#777BB4", category: "Backend" },
   { name: "Supabase", icon: "supabase", color: "#3ECF8E", category: "Backend" },
+  {
+    name: "PostgreSQL",
+    icon: "postgres",
+    color: "#4169E1",
+    category: "Backend",
+  },
+  { name: "MySQL", icon: "mysql", color: "#4479A1", category: "Backend" },
 
   // Tools
   { name: "Git", icon: "git", color: "#F05032", category: "Tools" },
   { name: "GitHub", icon: "github", color: "#FFFFFF", category: "Tools" },
   { name: "Vercel", icon: "vercel", color: "#FFFFFF", category: "Tools" },
   { name: "Vite", icon: "vite", color: "#646CFF", category: "Tools" },
+  { name: "Docker", icon: "docker", color: "#2496ED", category: "Tools" },
+  { name: "Linux", icon: "linux", color: "#FCC624", category: "Tools" },
+  { name: "Figma", icon: "figma", color: "#F24E1E", category: "Tools" },
 ];
 
 const tabs = ["All", "Frontend", "Backend", "Tools"];

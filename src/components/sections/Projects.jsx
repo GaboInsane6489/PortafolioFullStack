@@ -101,7 +101,7 @@ export default function Projects() {
       >
         <div className="container mx-auto max-w-6xl">
           <motion.h2
-            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 md:mb-12"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 md:mb-12 text-center"
             variants={fadeUp}
           >
             {t("projects.title")}

@@ -34,13 +34,13 @@ export default function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="md:col-span-2"
+            className="md:col-span-2 text-center md:text-left"
           >
             <h2 className="text-4xl leading-tight font-medium text-white">
               {t("contact.title")}
             </h2>
 
-            <p className="mt-6 text-sm text-gray-400 max-w-sm">
+            <p className="mt-6 text-sm text-gray-400 max-w-sm mx-auto md:mx-0">
               {t("contact.subtitle")}
             </p>
 

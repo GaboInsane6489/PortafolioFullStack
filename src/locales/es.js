@@ -100,29 +100,15 @@ export default {
     error: "✗ Error al enviar el mensaje. Por favor intenta de nuevo.",
   },
   certificates: {
-    title: "Certificaciones",
-    hint: "Selecciona una certificación para ver detalles",
-    verify: "Verificar",
-    close: "Cerrar",
-    view: "Ver certificado",
-    preview:
-      "Vista previa — abre la verificación para ver el documento completo",
-    fullstack: {
-      title: "Desarrollo Full Stack",
-      issuer: "Programa Universitario Full Stack",
-    },
-    javascript: {
-      title: "JavaScript Moderno",
-      issuer: "Tech Academy",
-    },
-    performance: {
-      title: "Rendimiento Web",
-      issuer: "Performance Institute",
-    },
-    accessibility: {
-      title: "Accesibilidad (A11y)",
-      issuer: "W3C",
-    },
+    verified: "Credencial Verificada",
+    certified: "Profesional Certificado",
+    title: "Desarrollador Full Stack",
+    description:
+      "8 meses de formación intensiva, dominando arquitecturas modernas. De cero a despliegue en producción con estándares de industria.",
+    months: "Meses Intensivos",
+    hours: "Horas de Código",
+    stack: "Arsenal Dominado",
+    view: "Ver Credencial",
   },
   about: {
     title: "Sobre mí",

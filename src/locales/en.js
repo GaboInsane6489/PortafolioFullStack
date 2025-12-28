@@ -97,28 +97,15 @@ export default {
     error: "✗ Failed to send message. Please try again.",
   },
   certificates: {
-    title: "Certifications",
-    hint: "Select a certification to view details",
-    verify: "Verify",
-    close: "Close",
-    view: "View certificate",
-    preview: "Preview — open verification for full document",
-    fullstack: {
-      title: "Full Stack Development",
-      issuer: "University Full Stack Program",
-    },
-    javascript: {
-      title: "Modern JavaScript",
-      issuer: "Tech Academy",
-    },
-    performance: {
-      title: "Web Performance",
-      issuer: "Performance Institute",
-    },
-    accessibility: {
-      title: "Accessibility (A11y)",
-      issuer: "W3C",
-    },
+    verified: "Verified Credential",
+    certified: "Certified Professional",
+    title: "Full Stack Developer",
+    description:
+      "8 months of intensive training, mastering modern software architectures. From responsive interface design to scalable server deployment.",
+    months: "Intensive Months",
+    hours: "Coding Hours",
+    stack: "Mastered Arsenal",
+    view: "View Credential",
   },
   about: {
     title: "About Me",

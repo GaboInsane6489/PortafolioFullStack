@@ -13,7 +13,7 @@ function App() {
   const [lang, setLang] = useState("en");
 
   return (
-    <>
+    <div className="relative w-full overflow-x-hidden">
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-black focus:text-white dark:focus:bg-white dark:focus:text-black focus:rounded"
@@ -35,7 +35,7 @@ function App() {
       </main>
 
       <Footer lang={lang} />
-    </>
+    </div>
   );
 }
 

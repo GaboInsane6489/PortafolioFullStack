@@ -1,37 +1,69 @@
-import React, { useEffect, useState } from "react";
-import { motion, useScroll, useSpring } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
 
 export default function BackgroundVideo() {
-  const [isVisible, setIsVisible] = useState(true);
-  const { scrollY } = useScroll();
+  const videoRef = useRef(null);
+  // Track if we are in a 'fallback' mode where video fails
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
-    // Logic to determine visibility could go here if we wanted complex intersection
-    // logic, but CSS z-index stacking is often more performant and robust.
-    // However, since we need it visible *only* in Hero, Projects, Certificates,
-    // we can either:
-    // 1. Make those sections transparent and others opaque (CSS).
-    // 2. Track scroll position (Js).
-    //
-    // Given the request "while visiting all portfolio", let's stick to the CSS approach
-    // as it's cleaner. The video will be fixed at z-0.
-    // Hero, Projects, Certificates -> bg-transparent/bg-black/50
-    // About, Experience, Contact -> bg-black
-  }, []);
+    const video = videoRef.current;
+    if (!video) return;
+
+    const attemptPlay = async () => {
+      try {
+        if (video.paused && document.visibilityState === "visible") {
+          await video.play();
+        }
+      } catch (err) {
+        // Silent catch for initial attempt
+        console.log("Autoplay awaited user interaction");
+
+        // Add one-time interaction listeners if autoplay fails
+        const enableAudio = () => {
+          video.play().catch(() => {});
+          document.removeEventListener("touchstart", enableAudio);
+          document.removeEventListener("click", enableAudio);
+          document.removeEventListener("keydown", enableAudio);
+        };
+        document.addEventListener("touchstart", enableAudio, { once: true });
+        document.addEventListener("click", enableAudio, { once: true });
+        document.addEventListener("keydown", enableAudio, { once: true });
+      }
+    };
+
+    attemptPlay();
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        attemptPlay();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [hasError]);
+
+  if (hasError) return null; // Or return a static image fallback
 
   return (
     <div
       className="fixed inset-0 z-0 overflow-hidden pointer-events-none"
       aria-hidden="true"
     >
-      <div className="absolute inset-0 bg-black/60 z-10" />{" "}
-      {/* Overlay for text readability */}
+      <div className="absolute inset-0 bg-black/40 z-10" />
+
       <video
+        ref={videoRef}
         autoPlay
         loop
         muted
         playsInline
-        className="w-full h-full object-cover opacity-60"
+        preload="auto"
+        className="w-full h-full object-cover"
+        onError={() => setHasError(true)}
       >
         <source src="/assets/videos/eldenring.mp4" type="video/mp4" />
       </video>

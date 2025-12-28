@@ -29,7 +29,7 @@ const TypingTitle = ({ text }) => {
           transition: { staggerChildren: 0.035 },
         },
       }}
-      className="text-4xl md:text-6xl font-display font-bold leading-tight mb-8 text-white flex flex-wrap"
+      className="text-4xl md:text-6xl font-display font-bold leading-tight mb-8 text-white flex flex-wrap justify-center lg:justify-start"
     >
       {letters.map((char, i) => (
         <motion.span
@@ -138,21 +138,21 @@ export default function About() {
           initial="initial"
           whileInView="animate"
           viewport={{ once: true }}
-          className="space-y-10"
+          className="space-y-10 text-center lg:text-left"
         >
           <TypingTitle text={t("about.title")} />
 
-          <div className="max-w-xl space-y-6 text-gray-300 text-lg leading-relaxed">
+          <div className="max-w-xl mx-auto lg:mx-0 space-y-6 text-gray-300 text-lg leading-relaxed">
             <motion.p variants={fadeUp}>{t("about.p1")}</motion.p>
             <motion.p variants={fadeUp}>{t("about.p2")}</motion.p>
           </div>
 
           <motion.div variants={fadeUp} className="space-y-3 text-sm">
-            <div className="flex items-center gap-3 text-purple-300">
+            <div className="flex items-center justify-center lg:justify-start gap-3 text-purple-300">
               <Icon name="location" size={16} />
               {t("about.location")}
             </div>
-            <div className="flex items-center gap-3 text-blue-300">
+            <div className="flex items-center justify-center lg:justify-start gap-3 text-blue-300">
               <Icon name="briefcase" size={16} />
               {t("about.status")}
             </div>
@@ -162,10 +162,13 @@ export default function About() {
             <StatsCounter />
           </motion.div>
 
-          <motion.div variants={fadeUp} className="flex gap-4 pt-4">
+          <motion.div
+            variants={fadeUp}
+            className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-4"
+          >
             <MagneticButton
               href="#contact"
-              className="px-8 py-3 rounded-full font-semibold text-white bg-gradient-to-r from-purple-600 to-blue-600 shadow-lg"
+              className="px-8 py-3 rounded-full font-semibold text-white bg-gradient-to-r from-purple-600 to-blue-600 shadow-lg text-center"
             >
               {t("about.ctaTalk")}
             </MagneticButton>
@@ -173,7 +176,7 @@ export default function About() {
             <MagneticButton
               href="/cv.pdf"
               download
-              className="px-8 py-3 rounded-full border border-white/15 text-white/80 hover:text-white transition"
+              className="px-8 py-3 rounded-full border border-white/15 text-white/80 hover:text-white transition text-center"
             >
               {t("about.ctaDownload")}
             </MagneticButton>
