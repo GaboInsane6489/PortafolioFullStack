@@ -3,23 +3,19 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro",
-    "lighthouse": "lighthouse http://localhost:4321 --output html --output-path ./lighthouse-report.html --view",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lighthouse": "lighthouse http://localhost:5173 --output html --output-path ./lighthouse-report.html --view",
     "lint": "eslint .",
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@astrojs/node": "^9.5.1",
-    "@astrojs/react": "^4.4.2",
     "@nanostores/react": "^1.0.0",
     "@supabase/supabase-js": "^2.86.2",
     "@tailwindcss/vite": "^4.1.17",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
-    "astro": "^5.16.4",
     "framer-motion": "^12.23.25",
     "nanostores": "^1.1.0",
     "react": "^19.2.1",
@@ -29,9 +25,11 @@
   },
   "devDependencies": {
     "@lhci/cli": "^0.15.1",
+    "@vitejs/plugin-react": "^5.1.2",
     "eslint": "^9.39.1",
     "lighthouse": "^13.0.1",
     "prettier": "^3.7.4",
-    "sharp": "^0.34.5"
+    "sharp": "^0.34.5",
+    "vite": "^7.3.0"
   }
 }
