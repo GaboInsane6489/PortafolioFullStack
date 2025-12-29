@@ -119,8 +119,10 @@ export default function Certificates() {
   return (
     <section
       id="certificates"
-      className="relative min-h-[90vh] md:min-h-screen flex items-center py-12 md:py-0 overflow-hidden bg-black"
+      className="relative min-h-[90vh] md:min-h-screen flex items-center py-12 md:py-0 overflow-hidden"
     >
+      {/* Background showing video */}
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px] pointer-events-none" />
       {/* Background Ambience */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-900/10 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-900/05 rounded-full blur-[120px] pointer-events-none" />
@@ -138,6 +140,10 @@ export default function Certificates() {
               <img
                 src="/assets/images/certificates/fullStack-cert.jpeg"
                 alt="Full Stack Developer Certificate"
+                loading="lazy"
+                decoding="async"
+                width="600"
+                height="450"
                 className="w-full h-full object-contain p-2"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />

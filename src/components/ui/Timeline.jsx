@@ -25,7 +25,10 @@ const TimelineItem = ({ item, index, isLast }) => {
       </div>
 
       {/* Central Axis */}
-      <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-8 md:w-auto md:-translate-x-1/2 flex flex-col items-center">
+      <div
+        className="absolute left-0 md:left-1/2 top-0 bottom-0 w-8 md:w-auto md:-translate-x-1/2 flex flex-col items-center"
+        aria-hidden="true"
+      >
         {/* Line */}
         {!isLast && (
           <div className="absolute top-8 bottom-[-2rem] w-[2px] bg-gradient-to-b from-purple-500 via-blue-500 to-purple-500 opacity-30 md:left-1/2 md:-translate-x-1/2 left-[15px]" />
@@ -84,7 +87,10 @@ const TimelineItem = ({ item, index, isLast }) => {
               <ul className="list-none space-y-2">
                 {item.description.map((desc, i) => (
                   <li key={i} className="flex gap-2">
-                    <span className="text-purple-500 mt-1.5 min-w-[6px] h-1.5 w-1.5 rounded-full bg-purple-500 block"></span>
+                    <span
+                      className="text-purple-500 mt-1.5 min-w-[6px] h-1.5 w-1.5 rounded-full bg-purple-500 block"
+                      aria-hidden="true"
+                    ></span>
                     <span>{desc}</span>
                   </li>
                 ))}

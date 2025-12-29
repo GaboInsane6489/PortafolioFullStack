@@ -34,14 +34,14 @@ const ExperienceCard = ({ exp, index }) => {
           damping: 20,
           delay: index * 0.2,
         }}
-        className="w-[calc(100%-60px)] md:w-5/12 ml-16 md:ml-0 perspective-1000 relative z-30"
+        className="w-[calc(100%-60px)] md:w-5/12 ml-16 md:ml-0 perspective-1000 relative z-30 will-change-transform will-change-opacity"
       >
         <div className="group relative bg-[#0a0a0a] rounded-3xl overflow-hidden border border-white/10 hover:border-purple-500/50 transition-all duration-500 hover:shadow-[0_0_50px_-10px_rgba(168,85,247,0.3)]">
           {/* Cyberpunk Decor */}
           <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl -mr-16 -mt-16 transition-all duration-500 group-hover:bg-purple-500/20" />
           <div className="absolute bottom-0 left-0 w-20 h-1 bg-gradient-to-r from-transparent via-purple-500 to-transparent opacity-50" />
 
-          <div className="relative p-6 md:p-10 bg-black/50 backdrop-blur-sm">
+          <div className="relative p-6 md:p-10 bg-black/40 backdrop-blur-[2px]">
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
               <div>
@@ -126,8 +126,8 @@ export default function Experience() {
   });
 
   const scaleY = useSpring(useTransform(scrollYProgress, [0, 0.5], [0, 1]), {
-    stiffness: 100,
-    damping: 30,
+    stiffness: 120, // Increased for snappier feel
+    damping: 40,
     restDelta: 0.001,
   });
 
@@ -166,9 +166,11 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="relative py-32 md:py-48 overflow-hidden bg-black"
+      className="relative py-32 md:py-48 overflow-hidden"
       ref={containerRef}
     >
+      {/* Background showing video */}
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px] pointer-events-none" />
       {/* Ambient Background */}
       <div className="absolute inset-0 z-0">
         <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-purple-900/20 rounded-full blur-[120px] opacity-20 animate-pulse" />
@@ -199,12 +201,14 @@ export default function Experience() {
 
         <div className="relative">
           {/* Main Timeline Line - Z Index 0 to stay behind */}
-          <div className="absolute left-[20px] md:left-1/2 top-0 bottom-0 w-1 bg-white/5 transform md:-translate-x-1/2 z-0 rounded-full" />
-
-          {/* Animated Fill Line - Z Index 0 to stay behind but above base line */}
+          <div
+            className="absolute left-[20px] md:left-1/2 top-0 bottom-0 w-1 bg-white/5 transform md:-translate-x-1/2 z-0 rounded-full"
+            aria-hidden="true"
+          />
           <motion.div
             style={{ scaleY, transformOrigin: "top" }}
-            className="absolute left-[20px] md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-purple-500 via-blue-500 to-purple-500 transform md:-translate-x-1/2 z-0 rounded-full shadow-[0_0_15px_rgba(168,85,247,0.5)]"
+            className="absolute left-[20px] md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-purple-500 via-blue-500 to-purple-500 transform md:-translate-x-1/2 z-0 rounded-full shadow-[0_0_8px_rgba(168,85,247,0.4)] will-change-transform"
+            aria-hidden="true"
           />
 
           <div className="space-y-4">

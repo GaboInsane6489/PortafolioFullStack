@@ -18,6 +18,10 @@ const CodeCard = ({ img, title, subtitle, icon, index }) => {
       <img
         src={img}
         alt={title}
+        loading="lazy"
+        decoding="async"
+        width="600"
+        height="450"
         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-100"
       />
 

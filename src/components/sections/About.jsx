@@ -116,8 +116,10 @@ export default function About() {
         mouseX.set(e.clientX - r.left);
         mouseY.set(e.clientY - r.top);
       }}
-      className="relative min-h-screen bg-black px-6 py-32 overflow-hidden"
+      className="relative min-h-screen px-6 py-32 overflow-hidden"
     >
+      {/* Background showing video */}
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px] pointer-events-none" />
       {/* Ambient glow */}
       <motion.div
         className="pointer-events-none absolute inset-0"
@@ -132,7 +134,7 @@ export default function About() {
         }}
       />
 
-      <div className="relative mx-auto max-w-7xl grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+      <div className="relative z-10 mx-auto max-w-7xl grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
         {/* Text */}
         <motion.div
           variants={staggerContainer}
@@ -207,35 +209,22 @@ export default function About() {
             className="relative w-full max-w-[500px] aspect-[4/3] rounded-[2rem] overflow-hidden border border-white/10 shadow-[0_20px_60px_rgba(120,50,255,0.15)] group bg-gray-900"
           >
             <div className="absolute inset-0 z-0">
-              {!videoError ? (
-                <video
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  poster="https://cdn.pixabay.com/photo/2016/11/19/14/00/code-1839406_1280.jpg"
-                  className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
-                  onError={() => setVideoError(true)}
-                >
-                  <source
-                    src="https://assets.mixkit.co/videos/preview/mixkit-software-developer-working-on-code-screen-close-up-1728-large.mp4"
-                    type="video/mp4"
-                  />
-                </video>
-              ) : (
-                <img
-                  src="https://cdn.pixabay.com/photo/2016/11/19/14/00/code-1839406_1280.jpg"
-                  alt="Programming Fallback"
-                  className="w-full h-full object-cover opacity-80"
-                />
-              )}
+              <img
+                src="https://cdn.pixabay.com/photo/2016/11/19/14/00/code-1839406_1280.jpg"
+                alt="Programming Language Code"
+                loading="lazy"
+                decoding="async"
+                width="800"
+                height="600"
+                className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
+              />
 
-              {/* Overlay Content on Video */}
+              {/* Overlay Content */}
               <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black via-black/80 to-transparent">
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                  <div className="w-2 h-2 rounded-full bg-blue-500" />
                   <span className="text-xs font-mono text-white/80 uppercase tracking-widest">
-                    Live Session
+                    Standardized Assets
                   </span>
                 </div>
                 <h3 className="text-white font-bold text-lg leading-tight">
@@ -269,7 +258,7 @@ export default function About() {
       </div>
 
       {/* Tech */}
-      <div className="mt-40">
+      <div className="relative z-10 mt-40">
         <div className="text-center mb-16">
           <span className="text-purple-400 uppercase tracking-widest text-xs">
             {t("about.stackLabel")}

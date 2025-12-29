@@ -75,6 +75,10 @@ const TiltCard = ({ project, onClick }) => {
           <img
             src={project.image}
             alt={project.title}
+            loading="lazy"
+            decoding="async"
+            width="800"
+            height="450"
             className="w-full h-full object-cover transform scale-105 group-hover:scale-110 transition-transform duration-700 ease-out"
           />
         ) : (
@@ -226,8 +230,10 @@ export default function Projects() {
     <>
       <section
         id="projects"
-        className="relative min-h-screen py-24 md:py-32 px-4 bg-black overflow-hidden"
+        className="relative min-h-screen py-24 md:py-32 px-4 overflow-hidden"
       >
+        {/* Transparent background to show video */}
+        <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px] pointer-events-none" />
         {/* Background Gradients */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
           <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-purple-900/20 rounded-full blur-[120px]" />

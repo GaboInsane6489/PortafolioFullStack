@@ -107,6 +107,9 @@ export default {
     send: "Send message",
     sending: "Sending...",
     success: "✓ Message sent successfully! I'll get back to you soon.",
+    successTitle: "Transmission Received",
+    successDetail:
+      "Your message has been processed correctly. I will reach out to you within 24 hours to discuss the details.",
     error: "✗ Failed to send message. Please try again.",
   },
   certificates: {

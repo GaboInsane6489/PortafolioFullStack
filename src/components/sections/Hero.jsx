@@ -48,6 +48,9 @@ export default function Hero() {
             <img
               src="/assets/images/profile.webp"
               alt="Gabriel González"
+              decoding="async"
+              width="96"
+              height="96"
               className="w-full h-full object-cover"
             />
             <motion.div className="absolute inset-0 bg-purple-500/10 backdrop-blur-[1px] opacity-0 hover:opacity-100 transition-opacity" />

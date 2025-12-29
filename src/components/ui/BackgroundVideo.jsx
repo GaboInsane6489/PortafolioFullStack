@@ -47,6 +47,8 @@ export default function BackgroundVideo() {
         playsInline
         webkit-playsinline="true"
         preload="none"
+        crossOrigin="anonymous"
+        poster="/assets/images/projects/garcias1.webp"
         className="w-full h-full object-cover opacity-60"
         onError={() => setHasError(true)}
       >

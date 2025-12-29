@@ -8,6 +8,7 @@ export default function Contact() {
   const lang = useStore($lang);
   const t = useTranslations(lang);
 
+  const [status, setStatus] = useState("idle"); // idle, sending, success, error
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -17,11 +18,49 @@ export default function Contact() {
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!form.name || !form.email || !form.message) return;
+
+    setStatus("sending");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "91d5dea0-56d8-4a01-9589-27909b6301ac", // Use user's key or placeholder
+          name: form.name,
+          email: form.email,
+          message: form.message,
+          subject: `Nuevo mensaje de portafolio: ${form.name}`,
+          from_name: "Portafolio Gabriel",
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setStatus("success");
+        setForm({ name: "", email: "", message: "" });
+      } else {
+        setStatus("error");
+      }
+    } catch (error) {
+      console.error("Form error:", error);
+      setStatus("error");
+    }
+  };
+
   return (
     <section
       id="contact"
-      className="relative min-h-screen py-32 bg-black flex items-center overflow-hidden"
+      className="relative min-h-screen py-32 flex items-center overflow-hidden"
     >
+      {/* Background showing video */}
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px] pointer-events-none" />
       {/* Background Gradients */}
       <div className="absolute inset-0">
         <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-purple-900/10 rounded-full blur-[100px] opacity-30" />
@@ -61,7 +100,7 @@ export default function Contact() {
 
             <div className="space-y-8">
               <a
-                href="gabrielgg2005ve@gmail.com"
+                href="mailto:gabrielgg2005ve@gmail.com"
                 className="flex items-center gap-6 group p-4 rounded-xl hover:bg-white/5 transition-all"
               >
                 <div className="w-14 h-14 rounded-full bg-white/5 flex items-center justify-center border border-white/5 group-hover:border-purple-500/50 group-hover:bg-purple-500/10 transition-all">
@@ -112,83 +151,135 @@ export default function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-12 relative overflow-hidden"
+            className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-12 relative overflow-hidden min-h-[500px] flex flex-col justify-center"
           >
             {/* Glow Effect */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/20 blur-[100px] -mr-32 -mt-32 pointer-events-none" />
 
-            <form className="space-y-8 relative z-10">
-              <div className="grid md:grid-cols-2 gap-8">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-400 ml-1">
-                    {t("contact.name")}
-                  </label>
-                  <div className="relative group">
-                    <Icon
-                      name="briefcase"
-                      className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-purple-400 transition-colors"
-                      size={18}
-                    />
-                    <input
-                      type="text"
-                      name="name"
-                      value={form.name}
-                      onChange={handleChange}
-                      className="w-full bg-black/40 border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white placeholder-gray-600 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all"
-                      placeholder="John Doe"
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-400 ml-1">
-                    {t("contact.email")}
-                  </label>
-                  <div className="relative group">
-                    <Icon
-                      name="mail"
-                      className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-purple-400 transition-colors"
-                      size={18}
-                    />
-                    <input
-                      type="email"
-                      name="email"
-                      value={form.email}
-                      onChange={handleChange}
-                      className="w-full bg-black/40 border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white placeholder-gray-600 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all"
-                      placeholder="john@example.com"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-400 ml-1">
-                  {t("contact.messageLabel")}
-                </label>
-                <div className="relative group">
-                  <textarea
-                    name="message"
-                    value={form.message}
-                    onChange={handleChange}
-                    rows="4"
-                    className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white placeholder-gray-600 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all resize-none"
-                    placeholder={t("contact.message")}
-                  />
-                </div>
-              </div>
-
-              <button
-                type="button"
-                className="w-full py-4 bg-white text-black font-bold rounded-xl hover:bg-purple-100 transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 group"
+            {status === "success" ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="relative z-10 text-center space-y-6"
               >
-                <span>{t("contact.send")}</span>
-                <Icon
-                  name="send"
-                  className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
-                  size={18}
-                />
-              </button>
-            </form>
+                <div className="w-20 h-20 bg-green-500/20 border border-green-500/30 rounded-full flex items-center justify-center mx-auto mb-8 shadow-[0_0_30px_rgba(34,197,94,0.2)]">
+                  <motion.div
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                  >
+                    <Icon name="check" className="text-green-400" size={40} />
+                  </motion.div>
+                </div>
+                <h3 className="text-3xl font-display font-bold text-white">
+                  {t("contact.successTitle")}
+                </h3>
+                <p className="text-gray-400 text-lg leading-relaxed max-w-sm mx-auto">
+                  {t("contact.successDetail")}
+                </p>
+                <button
+                  onClick={() => setStatus("idle")}
+                  className="mt-8 text-purple-400 font-mono text-sm uppercase tracking-widest hover:text-white transition-colors"
+                >
+                  &lt; send_another_message /&gt;
+                </button>
+              </motion.div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-400 ml-1">
+                      {t("contact.name")}
+                    </label>
+                    <div className="relative group">
+                      <Icon
+                        name="briefcase"
+                        className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-purple-400 transition-colors"
+                        size={18}
+                      />
+                      <input
+                        required
+                        type="text"
+                        name="name"
+                        value={form.name}
+                        onChange={handleChange}
+                        disabled={status === "sending"}
+                        className="w-full bg-black/40 border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white placeholder-gray-600 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all disabled:opacity-50"
+                        placeholder="John Doe"
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-400 ml-1">
+                      {t("contact.email")}
+                    </label>
+                    <div className="relative group">
+                      <Icon
+                        name="mail"
+                        className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-purple-400 transition-colors"
+                        size={18}
+                      />
+                      <input
+                        required
+                        type="email"
+                        name="email"
+                        value={form.email}
+                        onChange={handleChange}
+                        disabled={status === "sending"}
+                        className="w-full bg-black/40 border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white placeholder-gray-600 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all disabled:opacity-50"
+                        placeholder="john@example.com"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-gray-400 ml-1">
+                    {t("contact.messageLabel")}
+                  </label>
+                  <div className="relative group">
+                    <textarea
+                      required
+                      name="message"
+                      value={form.message}
+                      onChange={handleChange}
+                      disabled={status === "sending"}
+                      rows="4"
+                      className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white placeholder-gray-600 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all resize-none disabled:opacity-50"
+                      placeholder={t("contact.message")}
+                    />
+                  </div>
+                </div>
+
+                {status === "error" && (
+                  <p className="text-red-400 text-sm italic">
+                    {t("contact.error")}
+                  </p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={status === "sending"}
+                  className="w-full py-4 bg-white text-black font-bold rounded-xl hover:bg-purple-100 transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 group disabled:opacity-70 disabled:cursor-not-allowed"
+                >
+                  {status === "sending" ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-black/20 border-t-black rounded-full animate-spin" />
+                      <span>{t("contact.sending")}</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>{t("contact.send")}</span>
+                      <Icon
+                        name="send"
+                        className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
+                        size={18}
+                      />
+                    </>
+                  )}
+                </button>
+              </form>
+            )}
           </motion.div>
         </div>
       </div>

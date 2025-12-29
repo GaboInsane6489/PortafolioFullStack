@@ -36,7 +36,7 @@
   --glass-bg-dark: rgba(20, 10, 30, 0.6);
   --glass-border-light: rgba(255, 255, 255, 0.1);
   --glass-border-dark: rgba(139, 92, 246, 0.3);
-  --glass-blur: 12px;
+  --glass-blur: 8px; /* Reduced from 12px for performance */
 
   /* Typography Scale */
   --font-sans: "Inter", system-ui, sans-serif;
@@ -159,4 +159,18 @@ h6 {
 
 html.dark ::-webkit-scrollbar-track {
   background: var(--color-black);
+}
+
+/* Performance optimizations */
+.perspective-1000 {
+  perspective: 1000px;
+  will-change: transform;
+}
+
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
 }

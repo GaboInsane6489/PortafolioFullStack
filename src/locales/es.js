@@ -110,6 +110,9 @@ export default {
     send: "Enviar mensaje",
     sending: "Enviando...",
     success: "✓ ¡Mensaje enviado exitosamente! Te responderé pronto.",
+    successTitle: "Transmisión Recibida",
+    successDetail:
+      "Tu mensaje ha sido procesado correctamente. Me pondré en contacto contigo en menos de 24 horas para discutir los detalles.",
     error: "✗ Error al enviar el mensaje. Por favor intenta de nuevo.",
   },
   certificates: {

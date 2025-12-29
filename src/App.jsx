@@ -1,15 +1,20 @@
-import { useState } from "react";
+import React, { useState, lazy } from "react";
 import Header from "./components/Header";
-import Footer from "./components/Footer";
 import Hero from "./components/sections/Hero";
-import About from "./components/sections/About";
-import Projects from "./components/sections/Projects";
-import CodeGallery from "./components/sections/CodeGallery";
-import Experience from "./components/sections/Experience";
-import Certificates from "./components/sections/Certificates";
-import GithubSection from "./components/sections/GithubSection";
-import Contact from "./components/sections/Contact";
 import BackgroundVideo from "./components/ui/BackgroundVideo";
+import LazySection from "./components/ui/LazySection";
+
+// Static components for immediate interactivity
+import Footer from "./components/Footer";
+
+// Lazy-loaded sections
+const About = lazy(() => import("./components/sections/About"));
+const Projects = lazy(() => import("./components/sections/Projects"));
+const CodeGallery = lazy(() => import("./components/sections/CodeGallery"));
+const Experience = lazy(() => import("./components/sections/Experience"));
+const Certificates = lazy(() => import("./components/sections/Certificates"));
+const GithubSection = lazy(() => import("./components/sections/GithubSection"));
+const Contact = lazy(() => import("./components/sections/Contact"));
 
 function App() {
   const [lang, setLang] = useState("en");
@@ -29,13 +34,34 @@ function App() {
 
       <main id="main-content">
         <Hero lang={lang} />
-        <About lang={lang} />
-        <Projects lang={lang} />
-        <CodeGallery />
-        <Experience lang={lang} />
-        <Certificates lang={lang} />
-        <GithubSection />
-        <Contact lang={lang} />
+
+        <LazySection height="600px">
+          <About lang={lang} />
+        </LazySection>
+
+        <LazySection height="800px">
+          <Projects lang={lang} />
+        </LazySection>
+
+        <LazySection height="600px">
+          <CodeGallery />
+        </LazySection>
+
+        <LazySection height="800px">
+          <Experience lang={lang} />
+        </LazySection>
+
+        <LazySection height="600px">
+          <Certificates lang={lang} />
+        </LazySection>
+
+        <LazySection height="500px">
+          <GithubSection />
+        </LazySection>
+
+        <LazySection height="700px">
+          <Contact lang={lang} />
+        </LazySection>
       </main>
 
       <Footer lang={lang} />
