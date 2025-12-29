@@ -19,7 +19,6 @@ import {
   LuDownload,
   LuSend,
   LuTerminal,
-  LuGitCommit,
   LuClock,
   LuActivity,
 } from "react-icons/lu";
@@ -76,8 +75,10 @@ const iconMap = {
   sparkles: LuSparkles,
   download: LuDownload,
   send: LuSend,
+  download: LuDownload,
+  send: LuSend,
   terminal: LuTerminal,
-  "git-commit": LuGitCommit,
+  "git-commit": SiGit,
   clock: LuClock,
   activity: LuActivity,
 
