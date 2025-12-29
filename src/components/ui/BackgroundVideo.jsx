@@ -47,7 +47,6 @@ export default function BackgroundVideo() {
         playsInline
         webkit-playsinline="true"
         preload="none"
-        poster="/assets/images/projects/ColegioJoseMarti1.jpeg"
         className="w-full h-full object-cover opacity-60"
         onError={() => setHasError(true)}
       >

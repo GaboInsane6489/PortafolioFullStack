@@ -174,7 +174,7 @@ export default function About() {
             </MagneticButton>
 
             <MagneticButton
-              href="/cv.pdf"
+              href={lang === "es" ? "/CVspanish.pdf" : "/CVenglish.pdf"}
               download
               className="px-8 py-3 rounded-full border border-white/15 text-white/80 hover:text-white transition text-center"
             >

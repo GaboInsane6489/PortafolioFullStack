@@ -1,11 +1,38 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { wrap } from "framer-motion";
 import Icon from "./Icon.jsx";
 import { useTranslations } from "../../utils/i18n.js";
 
+const variants = {
+  enter: (direction) => {
+    return {
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0,
+    };
+  },
+  center: {
+    zIndex: 1,
+    x: 0,
+    opacity: 1,
+  },
+  exit: (direction) => {
+    return {
+      zIndex: 0,
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0,
+    };
+  },
+};
+
+const swipeConfidenceThreshold = 10000;
+const swipePower = (offset, velocity) => {
+  return Math.abs(offset) * velocity;
+};
+
 /**
  * Project Details Modal
- * Displays expanded project information and an image carousel
+ * Immersive, Brutal design with swipeable carousel
  */
 export default function ProjectModal({
   project,
@@ -14,14 +41,14 @@ export default function ProjectModal({
   lang = "en",
 }) {
   const t = useTranslations(lang);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [[page, direction], setPage] = useState([0, 0]);
 
   // Reset image index when project changes
   useEffect(() => {
-    if (isOpen) setCurrentImageIndex(0);
+    if (isOpen) setPage([0, 0]);
   }, [isOpen, project]);
 
-  // Lock body scroll when modal is open
+  // Lock body scroll
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -35,26 +62,18 @@ export default function ProjectModal({
 
   if (!project) return null;
 
-  const nextImage = (e) => {
-    e.stopPropagation();
-    if (project.gallery && project.gallery.length > 0) {
-      setCurrentImageIndex((prev) => (prev + 1) % project.gallery.length);
-    }
+  const images =
+    project.gallery && project.gallery.length > 0
+      ? project.gallery
+      : [project.image];
+
+  const imageIndex = wrap(0, images.length, page);
+
+  const paginate = (newDirection) => {
+    setPage([page + newDirection, newDirection]);
   };
 
-  const prevImage = (e) => {
-    e.stopPropagation();
-    if (project.gallery && project.gallery.length > 0) {
-      setCurrentImageIndex(
-        (prev) => (prev - 1 + project.gallery.length) % project.gallery.length
-      );
-    }
-  };
-
-  const hasGallery = project.gallery && project.gallery.length > 0;
-  const currentImage = hasGallery
-    ? project.gallery[currentImageIndex]
-    : project.image;
+  const hasGallery = images.length > 1;
 
   return (
     <AnimatePresence>
@@ -62,142 +81,186 @@ export default function ProjectModal({
         <div className="fixed inset-0 z-50 flex items-center justify-center px-4 sm:px-6">
           {/* Backdrop */}
           <motion.div
-            className="absolute inset-0 bg-black/90 backdrop-blur-md"
+            className="absolute inset-0 bg-black/90 backdrop-blur-xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
           />
 
-          {/* Modal Content */}
+          {/* Modal Container */}
           <motion.div
-            className="relative w-full max-w-5xl bg-[#050505] border border-purple-500/20 rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh]"
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            className="relative w-full max-w-6xl bg-[#09090b] border border-white/10 rounded-3xl overflow-hidden shadow-2xl flex flex-col lg:flex-row max-h-[90vh] lg:h-[80vh]"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 z-50 p-2 bg-black/50 hover:bg-black/80 text-white rounded-full transition-colors backdrop-blur-sm border border-white/10"
-              aria-label="Close modal"
+              className="absolute top-4 right-4 z-50 p-3 bg-black/50 hover:bg-white text-white hover:text-black rounded-full transition-all backdrop-blur-md border border-white/10"
             >
-              <Icon name="x" size={20} />
+              <Icon name="x" size={24} />
             </button>
 
-            {/* Image Section (Carousel) */}
-            <div className="w-full md:w-3/5 bg-black relative flex items-center justify-center bg-gray-900 group">
-              <div className="relative w-full h-64 md:h-full min-h-[300px] md:min-h-[500px]">
-                <AnimatePresence mode="wait">
+            {/* --- CAROUSEL SECTION --- */}
+            <div className="w-full lg:w-[60%] bg-black relative flex flex-col justify-center overflow-hidden">
+              <div className="relative w-full h-full min-h-[300px] flex items-center bg-[#050505]">
+                <AnimatePresence
+                  initial={false}
+                  custom={direction}
+                  mode="popLayout"
+                >
                   <motion.img
-                    key={currentImageIndex}
-                    src={currentImage}
-                    alt={`${project.title} screenshot ${currentImageIndex + 1}`}
-                    className="absolute inset-0 w-full h-full object-contain"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
+                    key={page}
+                    src={images[imageIndex]}
+                    custom={direction}
+                    variants={variants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={{
+                      x: { type: "spring", stiffness: 300, damping: 30 },
+                      opacity: { duration: 0.2 },
+                    }}
+                    className="absolute w-full h-full object-contain pointer-events-none select-none"
+                    alt={project.title}
                   />
                 </AnimatePresence>
+              </div>
 
-                {/* Carousel Controls */}
-                {hasGallery && (
-                  <>
-                    <button
-                      onClick={prevImage}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-black/50 hover:bg-purple-600/80 text-white rounded-full transition-all backdrop-blur-sm opacity-0 group-hover:opacity-100"
-                      aria-label="Previous image"
-                    >
-                      <Icon name="arrowLeft" size={24} />
-                    </button>
-                    <button
-                      onClick={nextImage}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-black/50 hover:bg-purple-600/80 text-white rounded-full transition-all backdrop-blur-sm opacity-0 group-hover:opacity-100"
-                      aria-label="Next image"
-                    >
-                      <Icon name="arrowRight" size={24} />
-                    </button>
+              {/* Navigation Arrows */}
+              {hasGallery && (
+                <>
+                  <button
+                    className="absolute left-4 top-1/2 -translate-y-1/2 p-4 bg-black/20 hover:bg-black/80 text-white rounded-full backdrop-blur-md transition-all border border-white/5 opacity-0 hover:opacity-100 group-hover:opacity-100"
+                    onClick={() => paginate(-1)}
+                  >
+                    <Icon name="arrowLeft" size={24} />
+                  </button>
+                  <button
+                    className="absolute right-4 top-1/2 -translate-y-1/2 p-4 bg-black/20 hover:bg-black/80 text-white rounded-full backdrop-blur-md transition-all border border-white/5 opacity-0 hover:opacity-100 group-hover:opacity-100"
+                    onClick={() => paginate(1)}
+                  >
+                    <Icon name="arrowRight" size={24} />
+                  </button>
 
-                    {/* Dots Indicator */}
-                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                      {project.gallery.map((_, idx) => (
+                  {/* Film Strip Thumbnails */}
+                  <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-3 px-4 pointer-events-none">
+                    <div className="flex gap-2 p-2 bg-black/60 backdrop-blur-xl rounded-full border border-white/10 pointer-events-auto overflow-x-auto max-w-full">
+                      {images.map((img, idx) => (
                         <button
                           key={idx}
-                          onClick={() => setCurrentImageIndex(idx)}
-                          className={`w-2 h-2 rounded-full transition-all ${
-                            idx === currentImageIndex
-                              ? "bg-white w-4"
-                              : "bg-white/30 hover:bg-white/50"
+                          onClick={() =>
+                            setPage([idx, idx > imageIndex ? 1 : -1])
+                          }
+                          className={`relative w-12 h-8 rounded-md overflow-hidden transition-all ${
+                            idx === imageIndex
+                              ? "ring-2 ring-white scale-110 opacity-100"
+                              : "opacity-40 hover:opacity-80"
                           }`}
-                          aria-label={`Go to image ${idx + 1}`}
-                        />
+                        >
+                          <img
+                            src={img}
+                            className="w-full h-full object-cover"
+                            alt=""
+                          />
+                        </button>
                       ))}
                     </div>
-                  </>
-                )}
-              </div>
+                  </div>
+                </>
+              )}
             </div>
 
-            {/* Content Section */}
-            <div className="w-full md:w-2/5 p-6 md:p-8 overflow-y-auto bg-[#0a0a0f]">
-              <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-2">
-                {project.title}
-              </h2>
+            {/* --- DETAILS SECTION --- */}
+            <div className="w-full lg:w-[40%] bg-[#09090b] bg-gradient-to-br from-[#09090b] via-[#0c0c12] to-[#11111a] flex flex-col border-l border-white/5">
+              <div className="p-8 lg:p-10 flex-1 overflow-y-auto custom-scrollbar">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-6 leading-tight tracking-tight drop-shadow-sm">
+                    {project.title}
+                  </h2>
 
-              <div className="flex flex-wrap gap-2 mb-6">
-                {project.tech.map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-2 py-1 text-xs bg-purple-500/10 text-purple-300 rounded-md border border-purple-500/20"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              <div className="prose prose-invert prose-sm mb-8 text-gray-300 leading-relaxed">
-                <p>{project.longDescription || project.description}</p>
-
-                {project.features && (
-                  <div className="mt-4">
-                    <h4 className="text-white font-bold mb-2">Key Features:</h4>
-                    <ul className="list-disc pl-4 space-y-1">
-                      {project.features.map((feature, idx) => (
-                        <li key={idx}>{feature}</li>
-                      ))}
-                    </ul>
+                  <div className="flex flex-wrap gap-2 mb-8">
+                    {project.tech.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-black bg-white rounded-md max-w-fit shadow-sm"
+                      >
+                        {tech}
+                      </span>
+                    ))}
                   </div>
-                )}
+
+                  <div className="prose prose-invert prose-lg text-gray-400 mb-8 leading-relaxed">
+                    <p>{project.longDescription || project.description}</p>
+
+                    {project.features && (
+                      <div className="mt-8 pt-8 border-t border-white/5">
+                        <h4 className="text-white font-bold mb-4 uppercase tracking-widest text-sm text-purple-400 flex items-center gap-2">
+                          <Icon
+                            name="sparkles"
+                            size={14}
+                            className="text-purple-400"
+                          />
+                          Key Features
+                        </h4>
+                        <ul className="space-y-3">
+                          {project.features.map((feature, idx) => (
+                            <li
+                              key={idx}
+                              className="flex gap-3 text-sm bg-white/5 p-4 rounded-xl border border-white/5 hover:border-purple-500/30 transition-colors"
+                            >
+                              <span className="text-purple-400 mt-0.5 min-w-[1.25rem]">
+                                <Icon name="check" size={18} />
+                              </span>
+                              <span className="text-gray-300">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
               </div>
 
-              {/* Actions */}
-              <div className="flex gap-4 mt-auto pt-6 border-t border-white/10">
-                {project.live && (
-                  <a
-                    href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white rounded-xl font-medium transition-all shadow-lg shadow-purple-900/20"
-                  >
-                    <Icon name="externalLink" size={18} />
-                    {lang === "en" ? "Live Demo" : "Ver Demo"}
-                  </a>
-                )}
+              {/* Action Bar */}
+              <div className="p-6 border-t border-white/10 bg-[#050505]">
+                <div className="flex gap-4">
+                  {project.live && (
+                    <a
+                      href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-black text-white hover:bg-white hover:text-black border border-white/20 rounded-xl font-bold uppercase tracking-wide transition-all duration-300 shadow-lg hover:shadow-white/20"
+                    >
+                      <Icon name="externalLink" size={20} />
+                      {lang === "en" ? "Visit Site" : "Ver Sitio"}
+                    </a>
+                  )}
 
-                {project.github && (
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-xl font-medium transition-all"
-                  >
-                    <Icon name="github" size={18} />
-                    {lang === "en" ? "Source Code" : "Código"}
-                  </a>
-                )}
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-black border border-white/20 text-white hover:bg-white hover:text-black rounded-xl font-bold uppercase tracking-wide transition-all duration-300 shadow-lg hover:shadow-white/20 group/btn"
+                    >
+                      <Icon
+                        name="github"
+                        size={20}
+                        className="transition-transform group-hover/btn:scale-110"
+                      />
+                      {lang === "en" ? "Code" : "Código"}
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           </motion.div>

@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useTransform,
+  useMotionTemplate,
+} from "framer-motion";
 import { fadeUp, staggerContainer, staggerItem } from "../../utils/motion.js";
 import { useTranslations, $lang } from "../../utils/i18n.js";
 import { useStore } from "@nanostores/react";
@@ -10,6 +15,131 @@ import ProjectModal from "../ui/ProjectModal.jsx";
  * Projects Section Component
  * Showcase of Gabriel's real projects
  */
+// --- Tilt Card Component ---
+const TiltCard = ({ project, onClick }) => {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const rotateX = useTransform(y, [-100, 100], [5, -5]);
+  const rotateY = useTransform(x, [-100, 100], [-5, 5]);
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left - width / 2;
+    const mouseY = e.clientY - rect.top - height / 2;
+    x.set(mouseX);
+    y.set(mouseY);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.article
+      onClick={onClick}
+      initial="initial"
+      whileInView="animate"
+      whileHover="hover"
+      variants={staggerItem}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+      className="group relative bg-[#0a0a0f] rounded-2xl md:rounded-3xl overflow-hidden border border-white/10 hover:border-purple-500 transition-colors duration-500 cursor-pointer shadow-lg hover:shadow-purple-500/20"
+    >
+      {/* Holographic Glare */}
+      <motion.div
+        aria-hidden="true"
+        className="absolute inset-0 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none mix-blend-overlay"
+        style={{
+          background: useMotionTemplate`
+            radial-gradient(
+              circle at ${Math.abs(x.get() + 200)}px ${Math.abs(y.get() + 200)}px,
+              rgba(255, 255, 255, 0.1),
+              transparent 80%
+            )
+          `,
+        }}
+      />
+
+      {/* Image Container */}
+      <div className="aspect-video relative overflow-hidden bg-gray-900 border-b border-white/5">
+        {project.image ? (
+          <img
+            src={project.image}
+            alt={project.title}
+            className="w-full h-full object-cover transform scale-105 group-hover:scale-110 transition-transform duration-700 ease-out"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900">
+            <span className="font-display font-bold text-5xl opacity-30">
+              PF
+            </span>
+          </div>
+        )}
+
+        {/* Floating Tag */}
+        <div className="absolute top-4 right-4 z-20">
+          <span className="px-3 py-1 text-xs font-bold uppercase tracking-wider text-black bg-white rounded-full shadow-[0_0_15px_rgba(255,255,255,0.4)]">
+            {project.featured ? "Featured" : "Project"}
+          </span>
+        </div>
+
+        {/* View Details Overlay */}
+        <div className="absolute inset-0 z-20 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+          <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+            <span className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black rounded-full font-bold uppercase tracking-wide text-sm shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:scale-105 transition-transform">
+              View Project <Icon name="arrowRight" size={16} />
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="p-6 md:p-8 relative z-0 bg-[#0a0a0f] group-hover:bg-[#0f0f16] transition-colors">
+        <h3 className="text-xl md:text-2xl font-display font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-purple-200 transition-all">
+          {project.title}
+        </h3>
+
+        <p className="text-gray-400 text-sm leading-relaxed line-clamp-2 mb-6">
+          {project.description}
+        </p>
+
+        <div className="flex flex-wrap gap-2">
+          {project.tech.slice(0, 3).map((tech, i) => (
+            <motion.span
+              key={tech}
+              custom={i}
+              variants={{
+                hover: (i) => ({
+                  y: -4,
+                  rotate: (i - 1) * 3, // Fan effect: -3deg, 0deg, 3deg
+                  transition: { type: "spring", stiffness: 300, damping: 20 },
+                }),
+              }}
+              className="px-3 py-1 text-xs font-medium text-purple-300 bg-purple-500/10 border border-purple-500/20 rounded-lg"
+            >
+              {tech}
+            </motion.span>
+          ))}
+          {project.tech.length > 3 && (
+            <span className="px-3 py-1 text-xs font-medium text-gray-500 border border-white/5 rounded-lg">
+              +{project.tech.length - 3}
+            </span>
+          )}
+        </div>
+      </div>
+    </motion.article>
+  );
+};
+
 export default function Projects() {
   const lang = useStore($lang);
   const t = useTranslations(lang);
@@ -37,8 +167,8 @@ export default function Projects() {
         "/assets/images/projects/garcias5.webp",
         "/assets/images/projects/garcias6.webp",
       ],
-      github: "https://github.com/GaboInsame6489/instalaciones-garcias",
-      live: "https://instalaciones-garcias.vercel.app",
+      github: "https://github.com/GaboInsane6489/instalacionesgarciasfronted",
+      live: "https://instalacionesgarciasfronted.vercel.app",
       featured: true,
     },
     {
@@ -94,94 +224,56 @@ export default function Projects() {
 
   return (
     <>
-      <motion.section
+      <section
         id="projects"
-        className="min-h-screen flex items-center py-16 md:py-20 px-4 bg-black/20 backdrop-blur-sm"
-        initial="initial"
-        whileInView="animate"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={fadeUp}
+        className="relative min-h-screen py-24 md:py-32 px-4 bg-black overflow-hidden"
       >
-        <div className="container mx-auto max-w-6xl">
-          <motion.h2
-            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 md:mb-12 text-center"
-            variants={fadeUp}
+        {/* Background Gradients */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+          <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-purple-900/20 rounded-full blur-[120px]" />
+          <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-indigo-900/20 rounded-full blur-[120px]" />
+        </div>
+
+        <div className="container mx-auto max-w-7xl relative z-10">
+          <motion.div
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            className="mb-16 md:mb-24 text-center max-w-3xl mx-auto"
           >
-            {t("projects.title")}
-          </motion.h2>
+            <motion.span
+              variants={fadeUp}
+              className="inline-block px-4 py-2 mb-4 rounded-full bg-white/5 border border-white/10 text-sm font-mono text-gray-400"
+            >
+              SELECTED WORKS 2023-2025
+            </motion.span>
+
+            <motion.h2
+              variants={fadeUp}
+              className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-6 tracking-tight"
+            >
+              {t("projects.title")}
+            </motion.h2>
+          </motion.div>
 
           <motion.div
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 perspective-1000"
             variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-100px" }}
           >
             {projects.map((project) => (
-              <motion.article
+              <TiltCard
                 key={project.id}
-                className="group bg-black rounded-2xl md:rounded-3xl overflow-hidden border border-purple-500/10 hover:border-purple-500 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/20 cursor-pointer"
-                variants={staggerItem}
-                whileHover={{ y: -8 }}
+                project={project}
                 onClick={() => setSelectedProject(project)}
-                layoutId={`project-card-${project.id}`}
-              >
-                {/* Project Image */}
-                <div className="aspect-video relative overflow-hidden bg-gray-900 border-b border-purple-500/10 dark:border-purple-400/10">
-                  {project.image ? (
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900 text-white p-8">
-                      <span className="font-display font-bold text-5xl md:text-6xl opacity-20 group-hover:opacity-40 transition-opacity">
-                        PF
-                      </span>
-                    </div>
-                  )}
-
-                  {/* Overlay actions */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-purple-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
-                    <span className="px-6 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white font-medium transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                      {t("projects.viewDetails")}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="p-5 md:p-6">
-                  {/* Project Title */}
-                  <h3 className="text-lg md:text-xl font-bold mb-2 text-white group-hover:text-purple-400 transition-colors">
-                    {project.title}
-                  </h3>
-
-                  {/* Project Description */}
-                  <p className="text-gray-400 mb-4 text-xs md:text-sm leading-relaxed line-clamp-3">
-                    {project.description}
-                  </p>
-
-                  {/* Tech Stack */}
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tech.slice(0, 3).map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-2 md:px-3 py-1 text-xs bg-purple-500/5 dark:bg-purple-400/5 text-purple-700 dark:text-purple-300 rounded-full border border-purple-500/10 dark:border-purple-400/10"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                    {project.tech.length > 3 && (
-                      <span className="px-2 md:px-3 py-1 text-xs text-gray-500">
-                        +{project.tech.length - 3}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </motion.article>
+              />
             ))}
           </motion.div>
         </div>
-      </motion.section>
+      </section>
 
-      {/* Project Details Modal */}
       <ProjectModal
         project={selectedProject}
         isOpen={!!selectedProject}

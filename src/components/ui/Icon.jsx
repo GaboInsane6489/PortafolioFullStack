@@ -75,8 +75,7 @@ const iconMap = {
   sparkles: LuSparkles,
   download: LuDownload,
   send: LuSend,
-  download: LuDownload,
-  send: LuSend,
+
   terminal: LuTerminal,
   "git-commit": SiGit,
   clock: LuClock,
