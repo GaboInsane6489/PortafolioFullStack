@@ -42,8 +42,11 @@ export default function Header() {
                 className="group flex items-center gap-3"
                 aria-label="Gabriel González - Home"
               >
-                <Logo className="w-10 h-10 group-hover:scale-110 transition-transform duration-300" />
-                <span className="text-xl font-display font-bold tracking-tight text-white group-hover:text-purple-400 transition-colors">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-purple-500 blur-lg opacity-0 group-hover:opacity-40 transition-opacity duration-500" />
+                  <Logo className="w-10 h-10 relative z-10 group-hover:scale-110 group-active:scale-95 transition-transform duration-300 cubic-bezier(0.34, 1.56, 0.64, 1)" />
+                </div>
+                <span className="text-xl font-display font-bold tracking-tight text-white group-hover:text-purple-400 transition-colors duration-300">
                   Gabriel González
                 </span>
               </a>
@@ -54,22 +57,34 @@ export default function Header() {
               className="hidden md:flex items-center space-x-8"
               aria-label="Main navigation"
             >
-              {navLinks.map((link) => (
-                <a
+              {navLinks.map((link, i) => (
+                <motion.a
                   key={link.href}
                   href={link.href}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    delay: 0.1 * i,
+                    duration: 0.5,
+                    ease: "easeOut",
+                  }}
                   className="relative group py-2"
                 >
-                  <span className="text-sm font-medium text-gray-300 group-hover:text-white transition-colors">
+                  <span className="text-sm font-medium text-gray-300 group-hover:text-white transition-colors duration-200">
                     {link.label}
                   </span>
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-right group-hover:origin-left duration-300" />
-                </a>
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out" />
+                </motion.a>
               ))}
 
-              <div className="pl-4 border-l border-white/10">
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.4 }}
+                className="pl-4 border-l border-white/10"
+              >
                 <LanguageToggle />
-              </div>
+              </motion.div>
             </nav>
 
             {/* Mobile Controls */}
@@ -87,17 +102,22 @@ export default function Header() {
                     animate={
                       isOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }
                     }
-                    className="w-full h-0.5 bg-white block origin-center transition-transform"
+                    transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                    className="w-full h-0.5 bg-white block origin-center"
                   />
                   <motion.span
-                    animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
-                    className="w-full h-0.5 bg-white block transition-opacity"
+                    animate={
+                      isOpen ? { opacity: 0, x: 20 } : { opacity: 1, x: 0 }
+                    }
+                    transition={{ duration: 0.2 }}
+                    className="w-full h-0.5 bg-white block"
                   />
                   <motion.span
                     animate={
                       isOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }
                     }
-                    className="w-full h-0.5 bg-white block origin-center transition-transform"
+                    transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                    className="w-full h-0.5 bg-white block origin-center"
                   />
                 </div>
               </button>
@@ -113,18 +133,22 @@ export default function Header() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "100vh" }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             >
               <nav className="flex flex-col items-center justify-center p-8 space-y-8 h-full pb-32">
                 {navLinks.map((link, index) => (
                   <motion.a
                     key={link.href}
                     href={link.href}
-                    className="text-3xl font-display font-bold text-white hover:text-purple-400 transition-colors"
+                    className="text-4xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-br from-white to-gray-400 hover:to-purple-400 transition-all"
                     onClick={() => setIsOpen(false)}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
+                    transition={{
+                      delay: 0.1 + index * 0.1,
+                      type: "spring",
+                      stiffness: 100,
+                    }}
                   >
                     {link.label}
                   </motion.a>

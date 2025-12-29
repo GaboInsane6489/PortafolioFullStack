@@ -14,6 +14,19 @@ export default {
   },
   footer: {
     rights: "All rights reserved.",
+    titleLine1: "Let's create",
+    titleLine2: "something epic.",
+    emailLabel: "Email me",
+    available: "Available for Freelance",
+    location: "Caracas, Venezuela",
+    privacy: "Privacy",
+    terms: "Terms",
+    backToTop: "Back to Top",
+    whatsapp: {
+      title: "Chat on WhatsApp",
+      number: "+58 412 7893937",
+      action: "Open Chat",
+    },
   },
   projects: {
     title: "Projects",
