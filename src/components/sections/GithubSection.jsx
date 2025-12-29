@@ -119,7 +119,7 @@ const GithubSection = () => {
               >
                 {t("github.cta")}
                 <Icon
-                  name="arrow-right"
+                  name="arrowRight"
                   className="w-5 h-5 group-hover:translate-x-1 transition-transform"
                 />
               </a>

@@ -88,6 +88,7 @@ export default function About() {
   const lang = useStore($lang);
   const t = useTranslations(lang);
   const ref = useRef(null);
+  const [videoError, setVideoError] = useState(false);
 
   /* Scroll motion */
   const { scrollYProgress } = useScroll({
@@ -131,44 +132,56 @@ export default function About() {
         }}
       />
 
-      <div className="relative mx-auto max-w-7xl grid lg:grid-cols-2 gap-24 items-center">
+      <div className="relative mx-auto max-w-7xl grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
         {/* Text */}
         <motion.div
           variants={staggerContainer}
           initial="initial"
           whileInView="animate"
           viewport={{ once: true }}
-          className="space-y-10 text-center lg:text-left"
+          className="space-y-8 text-center lg:text-left order-2 lg:order-1"
         >
           <TypingTitle text={t("about.title")} />
 
-          <div className="max-w-xl mx-auto lg:mx-0 space-y-6 text-gray-300 text-lg leading-relaxed">
-            <motion.p variants={fadeUp}>{t("about.p1")}</motion.p>
+          <div className="space-y-6 text-gray-300 text-lg leading-relaxed font-light">
+            <motion.p
+              variants={fadeUp}
+              className="text-xl text-white font-medium"
+            >
+              {t("about.p1")}
+            </motion.p>
             <motion.p variants={fadeUp}>{t("about.p2")}</motion.p>
+            <motion.p variants={fadeUp}>{t("about.p3")}</motion.p>
           </div>
 
-          <motion.div variants={fadeUp} className="space-y-3 text-sm">
+          <motion.div variants={fadeUp} className="space-y-4 text-sm pt-4">
             <div className="flex items-center justify-center lg:justify-start gap-3 text-purple-300">
-              <Icon name="location" size={16} />
-              {t("about.location")}
+              <Icon name="location" size={18} />
+              <span className="tracking-wide">{t("about.location")}</span>
             </div>
             <div className="flex items-center justify-center lg:justify-start gap-3 text-blue-300">
-              <Icon name="briefcase" size={16} />
-              {t("about.status")}
+              <Icon name="briefcase" size={18} />
+              <span className="tracking-wide">{t("about.status")}</span>
+            </div>
+            <div className="flex items-center justify-center lg:justify-start gap-3 text-green-300">
+              <Icon name="globe" size={18} />
+              <span className="tracking-wide">
+                English Level: B2 (Professional Working Proficiency)
+              </span>
             </div>
           </motion.div>
 
-          <motion.div variants={fadeUp}>
+          <motion.div variants={fadeUp} className="pt-2">
             <StatsCounter />
           </motion.div>
 
           <motion.div
             variants={fadeUp}
-            className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-4"
+            className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-6"
           >
             <MagneticButton
               href="#contact"
-              className="px-8 py-3 rounded-full font-semibold text-white bg-gradient-to-r from-purple-600 to-blue-600 shadow-lg text-center"
+              className="px-8 py-4 rounded-full font-bold text-white bg-white/5 hover:bg-white hover:text-black border border-white/10 transition-all duration-300 shadow-xl text-center"
             >
               {t("about.ctaTalk")}
             </MagneticButton>
@@ -176,38 +189,81 @@ export default function About() {
             <MagneticButton
               href={lang === "es" ? "/CVspanish.pdf" : "/CVenglish.pdf"}
               download
-              className="px-8 py-3 rounded-full border border-white/15 text-white/80 hover:text-white transition text-center"
+              className="px-8 py-4 rounded-full border border-white/10 text-gray-300 hover:text-white hover:border-white/30 transition-all text-center"
             >
               {t("about.ctaDownload")}
             </MagneticButton>
           </motion.div>
         </motion.div>
 
-        {/* Image */}
+        {/* Video / Interactive Element */}
         <motion.div
           style={{ y: imageY, scale: imageScale }}
-          className="relative flex justify-center"
+          className="relative flex justify-center order-1 lg:order-2"
         >
           <motion.div
-            whileHover={{ scale: 1.015 }}
+            whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className="relative w-[340px] aspect-[4/5] rounded-[2rem] overflow-hidden border border-white/10 shadow-[0_40px_120px_rgba(0,0,0,0.6)]"
+            className="relative w-full max-w-[500px] aspect-[4/3] rounded-[2rem] overflow-hidden border border-white/10 shadow-[0_20px_60px_rgba(120,50,255,0.15)] group bg-gray-900"
           >
-            <img
-              src="/assets/images/profile.webp"
-              alt="Gabriel González"
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+            <div className="absolute inset-0 z-0">
+              {!videoError ? (
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  poster="https://cdn.pixabay.com/photo/2016/11/19/14/00/code-1839406_1280.jpg"
+                  className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
+                  onError={() => setVideoError(true)}
+                >
+                  <source
+                    src="https://assets.mixkit.co/videos/preview/mixkit-software-developer-working-on-code-screen-close-up-1728-large.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              ) : (
+                <img
+                  src="https://cdn.pixabay.com/photo/2016/11/19/14/00/code-1839406_1280.jpg"
+                  alt="Programming Fallback"
+                  className="w-full h-full object-cover opacity-80"
+                />
+              )}
+
+              {/* Overlay Content on Video */}
+              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black via-black/80 to-transparent">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                  <span className="text-xs font-mono text-white/80 uppercase tracking-widest">
+                    Live Session
+                  </span>
+                </div>
+                <h3 className="text-white font-bold text-lg leading-tight">
+                  Building the Future
+                </h3>
+              </div>
+            </div>
+
+            {/* Play Button Overlay (Interactive) */}
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center">
+                <Icon name="arrowRight" size={24} className="text-white" />
+              </div>
+            </div>
           </motion.div>
 
-          {/* Status */}
-          <div className="absolute -bottom-6 bg-black/80 backdrop-blur-xl border border-white/10 px-5 py-3 rounded-2xl flex items-center gap-3 text-sm shadow-xl">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75 animate-ping" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
-            </span>
-            {t("about.openToWork")}
+          {/* Status Badge */}
+          <div className="absolute -bottom-6 -right-6 lg:-right-12 bg-[#0a0a0f] border border-white/10 px-6 py-4 rounded-2xl flex items-center gap-4 shadow-xl z-20">
+            <div className="relative">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75 animate-ping mx-auto" />
+              <span className="relative inline-flex h-3 w-3 rounded-full bg-green-500" />
+            </div>
+            <div>
+              <p className="text-xs text-gray-400 uppercase tracking-wider font-bold">
+                Current Status
+              </p>
+              <p className="text-white font-bold">{t("about.openToWork")}</p>
+            </div>
           </div>
         </motion.div>
       </div>

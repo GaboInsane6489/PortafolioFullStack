@@ -122,8 +122,9 @@ export default {
   },
   about: {
     title: "About Me",
-    p1: "I am passionate about building scalable, maintainable, and emotionally resonant web systems.",
-    p2: "My focus is on performance, accessibility, and premium design experiences.",
+    p1: "I am passionate about building scalable, maintainable, and emotionally resonant web systems. My focus is on performance, accessibility, and premium design experiences.",
+    p2: "I have 8 months of intensive training with university-endorsed certification at ED TÉCNICA, and I am currently in my 3rd year of Computer Engineering at U.P.T.C.M.S. My professional experience spans development, production, and deployment, with exhaustive management of massive databases (millions of records) using MySQL and Laragon.",
+    p3: "I hold a B2 English level, allowing me to work fluently in international teams. My background includes effective team collaboration and advanced version control mastery with GitHub. I always strive to exceed my limits, secure better opportunities, and elevate the standard of every project.",
     location: "Caracas, Venezuela",
     status: "Full Stack Developer",
     ctaTalk: "Let's talk",
@@ -148,19 +149,22 @@ export default {
     card1: {
       title: "Clean Architecture",
       subtitle:
-        "Robust and scalable design patterns for enterprise applications.",
+        "Implementation of SOLID principles and modular architectures to ensure long-term scalability and maintainability.",
     },
     card2: {
       title: "Optimization",
-      subtitle: "Maximum performance and instant load times.",
+      subtitle:
+        "Advanced performance techniques: Code Splitting, Lazy Loading, and asset optimization for instant load times.",
     },
     card3: {
       title: "Security",
-      subtitle: "Implementation of best practices and data protection.",
+      subtitle:
+        "Comprehensive data protection, secure session management, and prevention of common vulnerabilities (OWASP).",
     },
     card4: {
       title: "Innovation",
-      subtitle: "Use of the latest technologies in the web ecosystem.",
+      subtitle:
+        "Constant integration of new technologies and agile methodologies to keep software at the cutting edge.",
     },
   },
 };

@@ -125,8 +125,9 @@ export default {
   },
   about: {
     title: "Sobre mí",
-    p1: "Me apasiona construir sistemas web escalables, mantenibles y emocionalmente resonantes.",
-    p2: "Mi enfoque está en rendimiento, accesibilidad y experiencias de diseño premium.",
+    p1: "Me apasiona construir sistemas web escalables, mantenibles y emocionalmente resonantes. Mi enfoque está en rendimiento, accesibilidad y experiencias de diseño premium.",
+    p2: "Cuento con 8 meses de preparación intensiva y certificación con aval universitario en ED TÉCNICA, además de cursar actualmente el 3er año de Ingeniería Informática en la U.P.T.C.M.S. Mi experiencia profesional abarca desarrollo, producción y lanzamiento de aplicaciones, con un manejo exhaustivo de bases de datos masivas (millones de registros) usando MySQL y Laragon.",
+    p3: "Poseo un nivel de inglés B2 que me permite trabajar fluídamente en equipos internacionales. Mi trayectoria incluye colaboración efectiva en equipo y un dominio avanzado de control de versiones con GitHub. Siempre busco superar mis límites, conseguir mejores ofertas y elevar el estándar de cada proyecto.",
     location: "Caracas, Venezuela",
     status: "Desarrollador Full Stack",
     ctaTalk: "Hablemos",
@@ -152,19 +153,22 @@ export default {
     card1: {
       title: "Clean Architecture",
       subtitle:
-        "Patrones de diseño robustos y escalables para aplicaciones empresariales.",
+        "Implementación de principios SOLID y arquitecturas modulares para garantizar escalabilidad y mantenibilidad a largo plazo.",
     },
     card2: {
       title: "Optimización",
-      subtitle: "Rendimiento máximo y tiempos de carga instantáneos.",
+      subtitle:
+        "Técnicas avanzadas de rendimiento: Code Splitting, Lazy Loading y optimización de assets para tiempos de carga instantáneos.",
     },
     card3: {
       title: "Seguridad",
-      subtitle: "Implementación de mejores prácticas y protección de datos.",
+      subtitle:
+        "Protección integral de datos, manejo seguro de sesiones y prevención de vulnerabilidades comunes (OWASP).",
     },
     card4: {
       title: "Innovación",
-      subtitle: "Uso de las últimas tecnologías del ecosistema web.",
+      subtitle:
+        "Integración constante de nuevas tecnologías y metodologías ágiles para mantener el software a la vanguardia.",
     },
   },
 };

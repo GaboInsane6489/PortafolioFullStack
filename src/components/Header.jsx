@@ -25,7 +25,7 @@ export default function Header() {
   ];
 
   return (
-    <>
+    <div className="relative">
       {/* Scroll Progress Bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 origin-left z-50"
@@ -158,6 +158,6 @@ export default function Header() {
           )}
         </AnimatePresence>
       </header>
-    </>
+    </div>
   );
 }

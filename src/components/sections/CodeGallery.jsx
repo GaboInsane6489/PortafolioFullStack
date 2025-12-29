@@ -18,11 +18,11 @@ const CodeCard = ({ img, title, subtitle, icon, index }) => {
       <img
         src={img}
         alt={title}
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-40"
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-100"
       />
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90 group-hover:opacity-80 transition-opacity duration-500" />
+      {/* Gradient Overlay - Lighter for better visibility */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
 
       {/* Content */}
       <div className="absolute inset-0 p-8 flex flex-col justify-end transform transition-transform duration-500">
