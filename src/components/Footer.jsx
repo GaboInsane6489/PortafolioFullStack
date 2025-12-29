@@ -85,6 +85,7 @@ export default function Footer() {
                 href="https://github.com/GaboInsane6489"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Github Profile"
                 whileHover={{
                   scale: 1.1,
                   rotate: 5,
@@ -105,6 +106,7 @@ export default function Footer() {
                 href="https://www.linkedin.com/in/gabriel-alexander-gonzález-garcía-31476636a/?locale=es_ES"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="LinkedIn Profile"
                 whileHover={{
                   scale: 1.1,
                   rotate: -5,
@@ -130,6 +132,8 @@ export default function Footer() {
                     backgroundColor: "rgba(34, 197, 94, 0.2)",
                   }}
                   whileTap={{ scale: 0.95 }}
+                  aria-label="Toggle WhatsApp Menu"
+                  aria-expanded={isWsOpen}
                   className={`p-4 border rounded-2xl backdrop-blur-md transition-all duration-300 group hover:shadow-[0_0_30px_-5px_rgba(34,197,94,0.4)] ${isWsOpen ? "bg-green-500/20 border-green-500 ring-2 ring-green-500/50" : "bg-white/5 border-white/10 hover:border-green-500/50"}`}
                 >
                   <Icon

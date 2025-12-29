@@ -141,4 +141,26 @@ export default {
     hours: "Hours Coded",
     streak: "Longest Streak",
   },
+  codegallery: {
+    meta: "Technical Excellence",
+    title: "Software Engineering",
+    subtitle: "Beyond code: building digital solutions that define the future.",
+    card1: {
+      title: "Clean Architecture",
+      subtitle:
+        "Robust and scalable design patterns for enterprise applications.",
+    },
+    card2: {
+      title: "Optimization",
+      subtitle: "Maximum performance and instant load times.",
+    },
+    card3: {
+      title: "Security",
+      subtitle: "Implementation of best practices and data protection.",
+    },
+    card4: {
+      title: "Innovation",
+      subtitle: "Use of the latest technologies in the web ecosystem.",
+    },
+  },
 };

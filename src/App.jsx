@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import Hero from "./components/sections/Hero";
 import About from "./components/sections/About";
 import Projects from "./components/sections/Projects";
+import CodeGallery from "./components/sections/CodeGallery";
 import Experience from "./components/sections/Experience";
 import Certificates from "./components/sections/Certificates";
 import GithubSection from "./components/sections/GithubSection";
@@ -30,6 +31,7 @@ function App() {
         <Hero lang={lang} />
         <About lang={lang} />
         <Projects lang={lang} />
+        <CodeGallery />
         <Experience lang={lang} />
         <Certificates lang={lang} />
         <GithubSection />

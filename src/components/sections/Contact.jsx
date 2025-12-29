@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import React, { useState } from "react";
 import { useTranslations, $lang } from "../../utils/i18n.js";
 import { useStore } from "@nanostores/react";
-import { createClient } from "@supabase/supabase-js";
 import Icon from "../ui/Icon.jsx";
 
 export default function Contact() {
@@ -21,139 +20,178 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative bg-black px-6 py-24 overflow-hidden"
+      className="relative min-h-screen py-32 bg-black flex items-center overflow-hidden"
     >
-      {/* Subtle grain / artistic noise */}
-      <div className="pointer-events-none absolute inset-0 opacity-[0.03] bg-[url('/noise.png')]" />
+      {/* Background Gradients */}
+      <div className="absolute inset-0">
+        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-purple-900/10 rounded-full blur-[100px] opacity-30" />
+        <div className="absolute -bottom-40 -left-40 w-[600px] h-[600px] bg-blue-900/10 rounded-full blur-[100px] opacity-30" />
+        <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03]" />
+      </div>
 
-      <div className="relative mx-auto max-w-6xl">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-16 items-start">
-          {/* Left — Editorial text */}
+      <div className="container mx-auto px-6 max-w-7xl relative z-10">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+          {/* Info Side */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="md:col-span-2 text-center md:text-left"
+            transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl leading-tight font-medium text-white">
-              {t("contact.title")}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+              </span>
+              <span className="text-xs font-bold uppercase tracking-widest text-white">
+                Status: Online
+              </span>
+            </div>
+
+            <h2 className="text-5xl md:text-7xl font-display font-bold text-white mb-8 leading-tight">
+              print("Hello, World!"){" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500">
+                legendary.
+              </span>
             </h2>
 
-            <p className="mt-6 text-sm text-gray-400 max-w-sm mx-auto md:mx-0">
+            <p className="text-xl text-gray-400 mb-12 max-w-lg leading-relaxed">
               {t("contact.subtitle")}
             </p>
 
-            <p className="mt-10 text-xs text-gray-500 tracking-wide">
-              {t("contact.note")}
-            </p>
+            <div className="space-y-8">
+              <a
+                href="gabrielgg2005ve@gmail.com"
+                className="flex items-center gap-6 group p-4 rounded-xl hover:bg-white/5 transition-all"
+              >
+                <div className="w-14 h-14 rounded-full bg-white/5 flex items-center justify-center border border-white/5 group-hover:border-purple-500/50 group-hover:bg-purple-500/10 transition-all">
+                  <Icon
+                    name="mail"
+                    className="text-gray-400 group-hover:text-purple-400"
+                    size={24}
+                  />
+                </div>
+                <div>
+                  <span className="block text-sm text-gray-400 mb-1">
+                    Email
+                  </span>
+                  <span className="text-xl text-white font-medium">
+                    gabrielgg2005ve@gmail.com
+                  </span>
+                </div>
+              </a>
+
+              <a
+                href="https://wa.me/584127893937"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-6 group p-4 rounded-xl hover:bg-white/5 transition-all"
+              >
+                <div className="w-14 h-14 rounded-full bg-white/5 flex items-center justify-center border border-white/5 group-hover:border-green-500/50 group-hover:bg-green-500/10 transition-all">
+                  <Icon
+                    name="whatsapp"
+                    className="text-gray-400 group-hover:text-green-400"
+                    size={24}
+                  />
+                </div>
+                <div>
+                  <span className="block text-sm text-gray-400 mb-1">
+                    WhatsApp
+                  </span>
+                  <span className="text-xl text-white font-medium">
+                    +58 412 7893937
+                  </span>
+                </div>
+              </a>
+            </div>
           </motion.div>
 
-          {/* Right — Form */}
-          <motion.form
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+          {/* Form Side */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-            className="md:col-span-3 space-y-14"
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-12 relative overflow-hidden"
           >
-            <ArtInput
-              label={t("contact.name")}
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-            />
+            {/* Glow Effect */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/20 blur-[100px] -mr-32 -mt-32 pointer-events-none" />
 
-            <ArtInput
-              label={t("contact.email")}
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-            />
+            <form className="space-y-8 relative z-10">
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-gray-400 ml-1">
+                    {t("contact.name")}
+                  </label>
+                  <div className="relative group">
+                    <Icon
+                      name="briefcase"
+                      className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-purple-400 transition-colors"
+                      size={18}
+                    />
+                    <input
+                      type="text"
+                      name="name"
+                      value={form.name}
+                      onChange={handleChange}
+                      className="w-full bg-black/40 border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white placeholder-gray-600 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all"
+                      placeholder="John Doe"
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-gray-400 ml-1">
+                    {t("contact.email")}
+                  </label>
+                  <div className="relative group">
+                    <Icon
+                      name="mail"
+                      className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-purple-400 transition-colors"
+                      size={18}
+                    />
+                    <input
+                      type="email"
+                      name="email"
+                      value={form.email}
+                      onChange={handleChange}
+                      className="w-full bg-black/40 border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white placeholder-gray-600 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all"
+                      placeholder="john@example.com"
+                    />
+                  </div>
+                </div>
+              </div>
 
-            <div>
-              <label
-                htmlFor="message"
-                className="block text-xs text-gray-400 mb-3"
-              >
-                {t("contact.messageLabel")}
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows={4}
-                value={form.message}
-                onChange={handleChange}
-                placeholder={t("contact.message")}
-                className="
-                  w-full
-                  bg-transparent
-                  text-white
-                  text-sm
-                  placeholder-gray-600
-                  resize-none
-                  border-b border-white/20
-                  pb-3
-                  focus:outline-none
-                  focus:border-white
-                  transition-colors
-                "
-              />
-            </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-400 ml-1">
+                  {t("contact.messageLabel")}
+                </label>
+                <div className="relative group">
+                  <textarea
+                    name="message"
+                    value={form.message}
+                    onChange={handleChange}
+                    rows="4"
+                    className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white placeholder-gray-600 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all resize-none"
+                    placeholder={t("contact.message")}
+                  />
+                </div>
+              </div>
 
-            {/* CTA */}
-            <div className="pt-6">
               <button
-                type="submit"
-                className="
-                  group
-                  inline-flex
-                  items-center
-                  gap-4
-                  text-sm
-                  text-white
-                  tracking-wide
-                  transition-opacity
-                  hover:opacity-70
-                "
+                type="button"
+                className="w-full py-4 bg-white text-black font-bold rounded-xl hover:bg-purple-100 transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 group"
               >
                 <span>{t("contact.send")}</span>
-                <span className="block h-px w-10 bg-white transition-all duration-300 group-hover:w-20" />
+                <Icon
+                  name="send"
+                  className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
+                  size={18}
+                />
               </button>
-            </div>
-          </motion.form>
+            </form>
+          </motion.div>
         </div>
       </div>
     </section>
-  );
-}
-
-/* -------------------------------- */
-/* Artistic Input */
-/* -------------------------------- */
-function ArtInput({ label, name, value, onChange }) {
-  return (
-    <div>
-      <label htmlFor={name} className="block text-xs text-gray-400 mb-3">
-        {label}
-      </label>
-      <input
-        id={name}
-        name={name}
-        value={value}
-        onChange={onChange}
-        className="
-          w-full
-          bg-transparent
-          text-white
-          text-sm
-          border-b border-white/20
-          pb-3
-          focus:outline-none
-          focus:border-white
-          transition-colors
-        "
-      />
-    </div>
   );
 }

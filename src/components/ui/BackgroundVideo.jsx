@@ -9,48 +9,32 @@ export default function BackgroundVideo() {
     const video = videoRef.current;
     if (!video) return;
 
-    const attemptPlay = async () => {
-      try {
-        if (video.paused && document.visibilityState === "visible") {
-          await video.play();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting) {
+          video.play().catch(() => {
+            // Autoplay prevention is expected in some browsers
+          });
+        } else {
+          video.pause();
         }
-      } catch (err) {
-        // Silent catch for initial attempt
-        console.log("Autoplay awaited user interaction");
+      },
+      { threshold: 0 }
+    );
 
-        // Add one-time interaction listeners if autoplay fails
-        const enableAudio = () => {
-          video.play().catch(() => {});
-          document.removeEventListener("touchstart", enableAudio);
-          document.removeEventListener("click", enableAudio);
-          document.removeEventListener("keydown", enableAudio);
-        };
-        document.addEventListener("touchstart", enableAudio, { once: true });
-        document.addEventListener("click", enableAudio, { once: true });
-        document.addEventListener("keydown", enableAudio, { once: true });
-      }
-    };
-
-    attemptPlay();
-
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === "visible") {
-        attemptPlay();
-      }
-    };
-
-    document.addEventListener("visibilitychange", handleVisibilityChange);
+    observer.observe(video);
 
     return () => {
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      observer.disconnect();
     };
-  }, [hasError]);
+  }, []);
 
-  if (hasError) return null; // Or return a static image fallback
+  if (hasError) return null;
 
   return (
     <div
-      className="fixed inset-0 z-0 overflow-hidden pointer-events-none"
+      className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-black"
       aria-hidden="true"
     >
       <div className="absolute inset-0 bg-black/40 z-10" />
@@ -61,8 +45,10 @@ export default function BackgroundVideo() {
         loop
         muted
         playsInline
-        preload="auto"
-        className="w-full h-full object-cover"
+        webkit-playsinline="true"
+        preload="none"
+        poster="/assets/images/projects/ColegioJoseMarti1.jpeg"
+        className="w-full h-full object-cover opacity-60"
         onError={() => setHasError(true)}
       >
         <source src="/assets/videos/eldenring.mp4" type="video/mp4" />

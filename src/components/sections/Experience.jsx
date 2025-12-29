@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useTranslations, $lang } from "../../utils/i18n.js";
 import { useStore } from "@nanostores/react";
 import Icon from "../ui/Icon.jsx";
@@ -9,69 +9,105 @@ const ExperienceCard = ({ exp, index }) => {
 
   return (
     <div
-      className={`relative flex items-center justify-between md:justify-normal w-full mb-8 ${isEven ? "md:flex-row-reverse" : ""}`}
+      className={`relative flex items-center justify-between md:justify-normal w-full mb-16 md:mb-24 ${isEven ? "md:flex-row-reverse" : ""}`}
     >
-      {/* Timeline Node */}
-      <div className="absolute left-[18px] md:left-1/2 w-4 h-4 bg-black border-2 border-purple-500 rounded-full transform -translate-x-1/2 z-10 shadow-[0_0_15px_rgba(168,85,247,0.5)]">
-        <div className="absolute inset-0 rounded-full bg-purple-400 animate-ping opacity-20"></div>
+      {/* Node Connection Point - Z Index 20 to be above line */}
+      <div className="absolute left-[20px] md:left-1/2 w-8 h-8 rounded-full bg-black border-4 border-purple-500 transform -translate-x-1/2 z-20 flex items-center justify-center shadow-[0_0_20px_rgba(168,85,247,0.6)] group-hover:scale-125 transition-transform duration-300">
+        <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
       </div>
 
-      {/* Spacer for desktop centering */}
+      {/* Spacer */}
       <div className="hidden md:block w-5/12" />
 
-      {/* Content Card */}
+      {/* Card - Z Index 30 to be above everything */}
       <motion.div
-        initial={{ opacity: 0, y: 20, x: isEven ? -20 : 20 }}
-        whileInView={{ opacity: 1, y: 0, x: 0 }}
+        initial={{
+          opacity: 0,
+          x: isEven ? -50 : 50,
+          rotateY: isEven ? -15 : 15,
+        }}
+        whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
         viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.5, delay: index * 0.1 }}
-        className="w-[calc(100%-48px)] md:w-5/12 ml-12 md:ml-0 group"
+        transition={{
+          type: "spring",
+          stiffness: 50,
+          damping: 20,
+          delay: index * 0.2,
+        }}
+        className="w-[calc(100%-60px)] md:w-5/12 ml-16 md:ml-0 perspective-1000 relative z-30"
       >
-        <div className="relative p-6 md:p-8 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-purple-500/30 transition-all duration-300 hover:shadow-[0_10px_40px_-10px_rgba(168,85,247,0.15)] overflow-hidden">
-          {/* Hover Gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="group relative bg-[#0a0a0a] rounded-3xl overflow-hidden border border-white/10 hover:border-purple-500/50 transition-all duration-500 hover:shadow-[0_0_50px_-10px_rgba(168,85,247,0.3)]">
+          {/* Cyberpunk Decor */}
+          <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl -mr-16 -mt-16 transition-all duration-500 group-hover:bg-purple-500/20" />
+          <div className="absolute bottom-0 left-0 w-20 h-1 bg-gradient-to-r from-transparent via-purple-500 to-transparent opacity-50" />
 
-          <div className="relative z-10">
-            <div className="flex flex-wrap items-center gap-3 text-xs font-bold uppercase tracking-wider text-purple-400 mb-2">
-              <span>{exp.date}</span>
-              <span className="w-1 h-1 bg-white/20 rounded-full" />
-              <span>{exp.company}</span>
+          <div className="relative p-6 md:p-10 bg-black/50 backdrop-blur-sm">
+            {/* Header */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <Icon
+                    name="briefcase"
+                    className="text-purple-400"
+                    size={16}
+                  />
+                  <span className="text-xs font-mono text-purple-400 uppercase tracking-widest">
+                    {exp.company || "Freelance"}
+                  </span>
+                </div>
+                <h3 className="text-2xl md:text-3xl font-display font-bold text-white leading-tight group-hover:text-purple-200 transition-colors">
+                  {exp.role}
+                </h3>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/5 backdrop-blur-sm self-start md:self-center shrink-0">
+                <Icon name="clock" size={14} className="text-gray-400" />
+                <span className="text-xs font-bold text-gray-300 whitespace-nowrap">
+                  {exp.date}
+                </span>
+              </div>
             </div>
 
-            <h3 className="text-xl md:text-2xl font-display font-bold text-white mb-4 group-hover:text-purple-200 transition-colors">
-              {exp.role}
-            </h3>
-
-            <p className="text-gray-400 text-sm leading-relaxed mb-6">
+            {/* Content */}
+            <p className="text-gray-400 text-sm md:text-base leading-relaxed mb-8 border-l-2 border-purple-900/50 pl-4">
               {exp.narrative}
             </p>
 
-            <div className="space-y-3">
+            {/* Highlights Grid */}
+            <div className="grid grid-cols-1 gap-3 mb-8">
               {exp.highlights.slice(0, 3).map((item, i) => (
-                <div
-                  key={i}
-                  className="flex items-start gap-3 text-sm text-gray-300"
-                >
-                  <Icon
-                    name="check"
-                    className="text-purple-500 mt-0.5 shrink-0"
-                    size={14}
-                  />
-                  <span>{item}</span>
+                <div key={i} className="flex items-start gap-3 group/item">
+                  <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-purple-500 group-hover/item:shadow-[0_0_8px_rgba(168,85,247,0.8)] transition-all" />
+                  <span className="text-sm text-gray-300 group-hover/item:text-white transition-colors">
+                    {item}
+                  </span>
                 </div>
               ))}
             </div>
 
-            <div className="mt-6 flex flex-wrap gap-2">
+            {/* Tech Tags */}
+            <div className="flex flex-wrap gap-2">
               {exp.focus.map((tag) => (
                 <span
                   key={tag}
-                  className="px-2.5 py-1 rounded-md bg-white/5 border border-white/5 text-[10px] uppercase tracking-wide text-gray-400 group-hover:border-white/10 group-hover:text-gray-200 transition-colors"
+                  className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 text-xs font-medium text-gray-400 hover:bg-white/10 hover:text-white hover:border-purple-500/30 transition-all cursor-default"
                 >
-                  {tag}
+                  #{tag}
                 </span>
               ))}
             </div>
+
+            {/* Action Link (if valid) */}
+            {exp.link && (
+              <a
+                href={exp.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`View ${exp.company || "Project"} details`}
+                className="absolute top-6 right-6 p-2 rounded-full bg-white/5 text-gray-400 hover:text-white hover:bg-purple-600 hover:scale-110 transition-all duration-300"
+              >
+                <Icon name="externalLink" size={18} />
+              </a>
+            )}
           </div>
         </div>
       </motion.div>
@@ -83,9 +119,16 @@ export default function Experience() {
   const lang = useStore($lang);
   const t = useTranslations(lang);
   const containerRef = useRef(null);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
+  });
+
+  const scaleY = useSpring(useTransform(scrollYProgress, [0, 0.5], [0, 1]), {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
   });
 
   const experiences = [
@@ -123,32 +166,48 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="relative py-32 overflow-hidden bg-black"
+      className="relative py-32 md:py-48 overflow-hidden bg-black"
       ref={containerRef}
     >
-      <div className="container mx-auto px-6 max-w-6xl relative z-10">
+      {/* Ambient Background */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-purple-900/20 rounded-full blur-[120px] opacity-20 animate-pulse" />
+        <div className="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-blue-900/20 rounded-full blur-[120px] opacity-20 animate-pulse delay-1000" />
+      </div>
+
+      <div className="container mx-auto px-6 max-w-7xl relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-20 md:mb-32"
+          className="text-center mb-24 md:mb-32"
         >
-          <span className="inline-block py-1 px-3 rounded-full bg-white/5 border border-white/10 text-xs font-bold uppercase tracking-widest text-purple-400 mb-4">
-            {t("experience.meta")}
-          </span>
-          <h2 className="text-4xl md:text-7xl font-display font-bold text-white mb-6">
-            {t("experience.title")}
+          <div className="inline-block relative">
+            <span className="absolute -inset-1 rounded-lg bg-gradient-to-r from-purple-500 to-blue-500 opacity-20 blur" />
+            <span className="relative inline-block py-1 px-3 rounded-lg bg-black border border-white/10 text-xs font-bold uppercase tracking-widest text-purple-400 mb-4">
+              {t("experience.meta")}
+            </span>
+          </div>
+
+          <h2 className="text-5xl md:text-8xl font-display font-bold text-white mb-6 tracking-tight">
+            PATH<span className="text-purple-500">_</span>FINDER
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-            {t("experience.intro")}
+          <p className="text-gray-400 max-w-2xl mx-auto text-xl font-light">
+            Evolución profesional y hitos clave en el desarrollo de software.
           </p>
         </motion.div>
 
         <div className="relative">
-          {/* Vertical Line */}
-          <div className="absolute left-[18px] md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-transparent via-white/20 to-transparent transform md:-translate-x-1/2"></div>
+          {/* Main Timeline Line - Z Index 0 to stay behind */}
+          <div className="absolute left-[20px] md:left-1/2 top-0 bottom-0 w-1 bg-white/5 transform md:-translate-x-1/2 z-0 rounded-full" />
 
-          <div className="space-y-12 md:space-y-24">
+          {/* Animated Fill Line - Z Index 0 to stay behind but above base line */}
+          <motion.div
+            style={{ scaleY, transformOrigin: "top" }}
+            className="absolute left-[20px] md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-purple-500 via-blue-500 to-purple-500 transform md:-translate-x-1/2 z-0 rounded-full shadow-[0_0_15px_rgba(168,85,247,0.5)]"
+          />
+
+          <div className="space-y-4">
             {experiences.map((exp, i) => (
               <ExperienceCard key={i} exp={exp} index={i} />
             ))}

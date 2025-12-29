@@ -78,10 +78,13 @@ export default function Projects() {
         t("projects.portfolio.feature3"),
         t("projects.portfolio.feature4"),
       ],
-      image: "", // CSS gradient fallback
+      image: "/assets/images/projects/ColegioJoseMarti1.jpeg",
       gallery: [
-        "/assets/images/projects/certificate-fullstack.webp",
-        "/assets/images/projects/github-contributions.webp",
+        "/assets/images/projects/ColegioJoseMarti1.jpeg",
+        "/assets/images/projects/ColegioJoseMarti2.jpeg",
+        "/assets/images/projects/ColegioJoseMarti3.jpeg",
+        "/assets/images/projects/ColegioJoseMarti4.jpeg",
+        "/assets/images/projects/ColegioJoseMarti5.jpeg",
       ],
       github: "https://github.com/GaboInsame6489/portfolio",
       live: "https://gabriel-g.dev",

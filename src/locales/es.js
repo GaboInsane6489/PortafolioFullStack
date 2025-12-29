@@ -53,9 +53,9 @@ export default {
       feature4: "Módulos Comunitarios",
     },
     portfolio: {
-      title: "Portafolio Full Stack",
+      title: "Colegio José Martí",
       description:
-        "Sitio web de portafolio profesional mostrando proyectos y habilidades.",
+        "Plataforma institucional moderna para gestión educativa y presencia digital.",
       longDescription:
         "Mi escaparate personal diseñado para demostrar capacidades de desarrollo web moderno...",
       feature1: "Renderizado del Lado del Servidor",
@@ -143,5 +143,28 @@ export default {
     commits: "Total de Commits",
     hours: "Horas de Código",
     streak: "Racha Más Larga",
+  },
+  codegallery: {
+    meta: "Excelencia Técnica",
+    title: "Ingeniería de Software",
+    subtitle:
+      "Más allá del código: construyendo soluciones digitales que definen el futuro.",
+    card1: {
+      title: "Clean Architecture",
+      subtitle:
+        "Patrones de diseño robustos y escalables para aplicaciones empresariales.",
+    },
+    card2: {
+      title: "Optimización",
+      subtitle: "Rendimiento máximo y tiempos de carga instantáneos.",
+    },
+    card3: {
+      title: "Seguridad",
+      subtitle: "Implementación de mejores prácticas y protección de datos.",
+    },
+    card4: {
+      title: "Innovación",
+      subtitle: "Uso de las últimas tecnologías del ecosistema web.",
+    },
   },
 };
