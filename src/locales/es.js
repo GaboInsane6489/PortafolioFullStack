@@ -122,4 +122,13 @@ export default {
     stackLabel: "Stack",
     stackTitle: "Tecnologías y Herramientas",
   },
+  github: {
+    title: "Trayectoria en GitHub",
+    description:
+      "Explora mis contribuciones de código, actividad diaria y proyectos open source. Creo en la mejora constante y el desarrollo transparente.",
+    cta: "Visitar Perfil de GitHub",
+    commits: "Total de Commits",
+    hours: "Horas de Código",
+    streak: "Racha Más Larga",
+  },
 };

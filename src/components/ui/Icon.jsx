@@ -19,6 +19,9 @@ import {
   LuDownload,
   LuSend,
   LuTerminal,
+  LuGitCommit,
+  LuClock,
+  LuActivity,
 } from "react-icons/lu";
 
 // Simple Icons (Tech Brands)
@@ -74,6 +77,9 @@ const iconMap = {
   download: LuDownload,
   send: LuSend,
   terminal: LuTerminal,
+  "git-commit": LuGitCommit,
+  clock: LuClock,
+  activity: LuActivity,
 
   // --- Tech / Brands (Simple Icons) ---
   react: SiReact,

@@ -6,6 +6,7 @@ import About from "./components/sections/About";
 import Projects from "./components/sections/Projects";
 import Experience from "./components/sections/Experience";
 import Certificates from "./components/sections/Certificates";
+import GithubSection from "./components/sections/GithubSection";
 import Contact from "./components/sections/Contact";
 import BackgroundVideo from "./components/ui/BackgroundVideo";
 
@@ -31,6 +32,7 @@ function App() {
         <Projects lang={lang} />
         <Experience lang={lang} />
         <Certificates lang={lang} />
+        <GithubSection />
         <Contact lang={lang} />
       </main>
 
