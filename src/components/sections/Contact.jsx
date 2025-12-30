@@ -62,7 +62,7 @@ export default function Contact() {
       <div className="absolute inset-0">
         <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-purple-900/10 rounded-full blur-[100px] opacity-30" />
         <div className="absolute -bottom-40 -left-40 w-[600px] h-[600px] bg-blue-900/10 rounded-full blur-[100px] opacity-30" />
-        <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03]" />
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjAwIDIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNjUiIG51bU9jdGF2ZXM9IjMiIHN0aXRjaFRpbGVzPSJzdGl0Y2giLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjbm9pc2UpIi8+PC9zdmc+')] opacity-[0.03]" />
       </div>
 
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
