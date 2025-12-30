@@ -1,11 +1,11 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/GaboInsane6489/PortafolioFullStack/main/src/assets/logo.svg" width="100" height="100" alt="Gabriel González Logo">
+  <img src="https://raw.githubusercontent.com/GaboInsane6489/PortafolioFullStack/main/public/logo.svg" width="100" height="100" alt="Gabriel González Logo">
   
   # 🌌 Gabriel González • Full Stack Portfolio
   
   > **Cinematic, Motion-Driven, and Performance-Optimized Web Experience**
   
-  [**gabriel-g.dev**](https://gabriel-g.dev) • [**LinkedIn**](https://www.linkedin.com/in/gabriel-alexander-gonzález-garcía-31476636a/)
+  [**Gabriel-Portafolio**](https://portafolio-full-stack-red.vercel.app) • [**LinkedIn**](https://www.linkedin.com/in/gabriel-alexander-gonzález-garcía-31476636a/)
 </div>
 
 <div align="center">
@@ -57,6 +57,10 @@ This is not just a portfolio; it's a **High-Performance "Brutal Glass" Experienc
 
 ```bash
 PortafolioFullStack/
+├── public/
+│   ├── assets/            # WebP Optimized Images & High-Bitrate Media
+│   ├── logo.svg           # Core Branding
+│   └── cv.pdf             # Professional CV (Localized)
 ├── src/
 │   ├── components/
 │   │   ├── sections/      # Hero, About, Projects, Experience, Certificates, Contact
@@ -65,7 +69,7 @@ PortafolioFullStack/
 │   ├── styles/            # Global Design Tokens (Tailwind 4 + Vanilla CSS)
 │   ├── utils/             # i18n Logic & Motion Orchestrators
 │   └── App.jsx            # Layout Orchestrator & Lazy Loading
-└── assets/                # WebP Optimized Images & High-Bitrate Media
+└── ...
 ```
 
 ---
