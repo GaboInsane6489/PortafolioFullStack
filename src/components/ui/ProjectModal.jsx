@@ -106,7 +106,7 @@ export default function ProjectModal({
             </button>
 
             {/* --- CAROUSEL SECTION --- */}
-            <div className="w-full lg:w-[60%] bg-black relative flex flex-col justify-center overflow-hidden">
+            <div className="w-full lg:w-[60%] bg-black relative flex flex-col justify-center overflow-hidden group/carousel">
               <div className="relative w-full h-full min-h-[300px] flex items-center bg-[#050505]">
                 <AnimatePresence
                   initial={false}
@@ -135,16 +135,18 @@ export default function ProjectModal({
               {hasGallery && (
                 <>
                   <button
-                    className="absolute left-4 top-1/2 -translate-y-1/2 p-4 bg-black/20 hover:bg-black/80 text-white rounded-full backdrop-blur-md transition-all border border-white/5 opacity-0 hover:opacity-100 group-hover:opacity-100"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 z-30 p-3 bg-black/40 hover:bg-white text-white hover:text-black rounded-full backdrop-blur-xl transition-all border border-white/10 opacity-100 lg:opacity-0 lg:group-hover/carousel:opacity-100 shadow-xl"
                     onClick={() => paginate(-1)}
+                    aria-label="Previous image"
                   >
-                    <Icon name="arrowLeft" size={24} />
+                    <Icon name="arrowLeft" size={20} />
                   </button>
                   <button
-                    className="absolute right-4 top-1/2 -translate-y-1/2 p-4 bg-black/20 hover:bg-black/80 text-white rounded-full backdrop-blur-md transition-all border border-white/5 opacity-0 hover:opacity-100 group-hover:opacity-100"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 z-30 p-3 bg-black/40 hover:bg-white text-white hover:text-black rounded-full backdrop-blur-xl transition-all border border-white/10 opacity-100 lg:opacity-0 lg:group-hover/carousel:opacity-100 shadow-xl"
                     onClick={() => paginate(1)}
+                    aria-label="Next image"
                   >
-                    <Icon name="arrowRight" size={24} />
+                    <Icon name="arrowRight" size={20} />
                   </button>
 
                   {/* Film Strip Thumbnails */}
@@ -156,10 +158,10 @@ export default function ProjectModal({
                           onClick={() =>
                             setPage([idx, idx > imageIndex ? 1 : -1])
                           }
-                          className={`relative w-12 h-8 rounded-md overflow-hidden transition-all ${
+                          className={`relative w-14 h-9 rounded-lg overflow-hidden transition-all duration-300 ${
                             idx === imageIndex
-                              ? "ring-2 ring-white scale-110 opacity-100"
-                              : "opacity-40 hover:opacity-80"
+                              ? "ring-2 ring-purple-500 scale-110 opacity-100 shadow-[0_0_20px_rgba(168,85,247,0.4)]"
+                              : "opacity-40 hover:opacity-100 hover:scale-105"
                           }`}
                         >
                           <img

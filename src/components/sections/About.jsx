@@ -29,7 +29,7 @@ const TypingTitle = ({ text }) => {
           transition: { staggerChildren: 0.035 },
         },
       }}
-      className="text-4xl md:text-6xl font-display font-bold leading-tight mb-8 text-white flex flex-wrap justify-center lg:justify-start"
+      className="text-4xl md:text-6xl font-display font-bold leading-tight mb-8 text-white flex flex-wrap justify-center lg:justify-start gap-y-2"
     >
       {letters.map((char, i) => (
         <motion.span
@@ -140,7 +140,7 @@ export default function About() {
       />
 
       <div className="relative z-10 mx-auto max-w-7xl">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-center mb-40">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-center mb-24 md:mb-40">
           {/* Content Left */}
           <motion.div
             variants={staggerContainer}
@@ -166,7 +166,10 @@ export default function About() {
               >
                 {t("about.p1")}
               </motion.p>
-              <motion.p variants={fadeUp} className="text-gray-400 max-w-xl">
+              <motion.p
+                variants={fadeUp}
+                className="text-gray-400 max-w-xl mx-auto lg:mx-0 font-light"
+              >
                 {t("about.p2")}
               </motion.p>
 
@@ -266,12 +269,15 @@ export default function About() {
 
               <StatsCounter />
 
-              <div className="mt-10 pt-8 border-t border-white/5 flex items-center justify-between">
-                <div className="flex items-center gap-5">
+              <a
+                href="#contact"
+                className="mt-10 pt-8 border-t border-white/5 flex items-center justify-between group/availability cursor-pointer hover:bg-white/[0.02] transition-colors rounded-b-[2.5rem] -mx-8 -mb-10 px-8 pb-10 md:-mx-10 md:-mb-10 md:px-10 md:pb-10"
+              >
+                <div className="flex flex-col sm:flex-row items-center gap-5">
                   <div className="relative w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center border border-green-500/20">
                     <div className="w-2.5 h-2.5 rounded-full bg-green-500 shadow-[0_0_15px_rgba(34,197,94,0.6)]" />
                   </div>
-                  <div>
+                  <div className="text-center sm:text-left">
                     <p className="text-[9px] text-gray-500 uppercase tracking-[0.2em] font-black mb-0.5">
                       Availability
                     </p>
@@ -280,14 +286,14 @@ export default function About() {
                     </p>
                   </div>
                 </div>
-                <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 transition-all cursor-pointer group/icon">
+                <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center bg-white/5 group-hover/availability:bg-purple-500 group-hover/availability:border-purple-400 transition-all group-hover/availability:scale-110">
                   <Icon
                     name="externalLink"
                     size={18}
-                    className="text-gray-500 group-hover/icon:text-white transition-colors"
+                    className="text-gray-400 group-hover/availability:text-white transition-colors"
                   />
                 </div>
-              </div>
+              </a>
             </div>
           </motion.div>
         </div>
@@ -322,7 +328,7 @@ export default function About() {
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
-            className="lg:col-span-7 space-y-10 md:space-y-12 order-1 lg:order-2"
+            className="lg:col-span-7 space-y-10 md:space-y-12 order-1 lg:order-2 text-center lg:text-left"
           >
             <div className="space-y-6">
               <motion.h3
@@ -336,26 +342,29 @@ export default function About() {
               </motion.h3>
               <motion.div
                 variants={fadeUp}
-                className="w-20 h-1 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full"
+                className="w-20 h-1 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full mx-auto lg:mx-0"
               />
             </div>
 
             <div className="space-y-8">
               <motion.p
                 variants={fadeUp}
-                className="text-xl md:text-2xl text-gray-400 leading-relaxed italic border-l-2 border-purple-500/30 pl-6 md:pl-8"
+                className="text-xl md:text-2xl text-gray-400 leading-relaxed italic border-l-2 lg:border-l-2 border-purple-500/30 pl-0 lg:pl-8 border-none lg:border-solid mx-auto lg:mx-0 max-w-2xl"
               >
                 {t("about.originsSubtitle")}
               </motion.p>
               <motion.p
                 variants={fadeUp}
-                className="text-lg text-gray-300 leading-relaxed font-light"
+                className="text-lg text-gray-300 leading-relaxed font-light mx-auto lg:mx-0 max-w-2xl"
               >
                 {t("about.p3")}
               </motion.p>
             </div>
 
-            <motion.div variants={fadeUp} className="flex items-center gap-6">
+            <motion.div
+              variants={fadeUp}
+              className="flex flex-col items-center lg:items-start md:flex-row lg:flex-row items-center gap-6"
+            >
               <div className="flex -space-x-3">
                 {[1, 2, 3].map((i) => (
                   <div
@@ -366,7 +375,7 @@ export default function About() {
                   </div>
                 ))}
               </div>
-              <p className="text-sm text-gray-500 font-mono tracking-wider italic">
+              <p className="text-sm text-gray-500 font-mono tracking-wider italic text-center lg:text-left">
                 {t("about.logicComment")}
               </p>
             </motion.div>

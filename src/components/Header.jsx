@@ -94,32 +94,68 @@ export default function Header() {
               <LanguageToggle />
 
               <button
-                className="p-2 rounded-lg text-white hover:bg-white/10 transition-colors focus:outline-none"
+                className="relative group p-3 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md transition-all duration-300 hover:bg-white/10 hover:border-white/20 focus:outline-none overflow-hidden"
                 onClick={() => setIsOpen(!isOpen)}
                 aria-label="Toggle menu"
                 aria-expanded={isOpen}
               >
-                <div className="w-6 h-6 flex flex-col justify-center items-center gap-1.5">
+                {/* Animated Background Glow */}
+                <div
+                  className={`absolute inset-0 bg-purple-500/20 blur-xl transition-opacity duration-500 ${isOpen ? "opacity-100" : "opacity-0 group-hover:opacity-60"}`}
+                />
+
+                <div className="relative w-6 h-5 flex flex-col justify-between items-end">
                   <motion.span
                     animate={
-                      isOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }
+                      isOpen
+                        ? {
+                            rotate: 45,
+                            y: 9,
+                            width: "100%",
+                            backgroundColor: "#a855f7",
+                          }
+                        : {
+                            rotate: 0,
+                            y: 0,
+                            width: "100%",
+                            backgroundColor: "#ffffff",
+                          }
                     }
-                    transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                    className="w-full h-0.5 bg-white block origin-center"
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    className="h-0.5 block origin-center rounded-full"
                   />
                   <motion.span
                     animate={
-                      isOpen ? { opacity: 0, x: 20 } : { opacity: 1, x: 0 }
+                      isOpen
+                        ? { opacity: 0, x: 20 }
+                        : {
+                            opacity: 1,
+                            x: 0,
+                            width: "70%",
+                            backgroundColor: "#ffffff",
+                          }
                     }
                     transition={{ duration: 0.2 }}
-                    className="w-full h-0.5 bg-white block"
+                    className="h-0.5 block rounded-full"
                   />
                   <motion.span
                     animate={
-                      isOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }
+                      isOpen
+                        ? {
+                            rotate: -45,
+                            y: -9,
+                            width: "100%",
+                            backgroundColor: "#a855f7",
+                          }
+                        : {
+                            rotate: 0,
+                            y: 0,
+                            width: "100%",
+                            backgroundColor: "#ffffff",
+                          }
                     }
-                    transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                    className="w-full h-0.5 bg-white block origin-center"
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    className="h-0.5 block origin-center rounded-full"
                   />
                 </div>
               </button>

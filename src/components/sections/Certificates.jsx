@@ -76,17 +76,16 @@ const TiltCard = ({ children, className }) => {
   );
 };
 
-/* --- Stat Item --- */
 const Stat = ({ number, label, icon }) => (
-  <div className="flex items-center gap-3">
-    <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-purple-400 border border-white/10">
-      <Icon name={icon} size={20} />
+  <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 text-center sm:text-left">
+    <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-purple-400 border border-white/10 shrink-0">
+      <Icon name={icon} size={24} />
     </div>
-    <div>
-      <div className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
+    <div className="space-y-1">
+      <div className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
         {number}
       </div>
-      <div className="text-[10px] text-gray-500 uppercase tracking-wider font-medium">
+      <div className="text-[11px] text-gray-500 uppercase tracking-[0.2em] font-black">
         {label}
       </div>
     </div>
@@ -177,7 +176,7 @@ export default function Certificates() {
             </div>
 
             {/* Stats Grid - Compact */}
-            <div className="grid grid-cols-2 gap-4 p-4 bg-white/5 rounded-xl border border-white/10 max-w-lg mx-auto lg:mx-0">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 p-6 md:p-8 bg-white/5 rounded-3xl border border-white/10 max-w-lg mx-auto lg:mx-0">
               <Stat
                 number="8"
                 label={t("certificates.months")}
