@@ -5,7 +5,14 @@ export default function BackgroundVideo() {
   // Track if we are in a 'fallback' mode where video fails
   const [hasError, setHasError] = useState(false);
 
+  const [videoSrc, setVideoSrc] = useState("");
+
   useEffect(() => {
+    // Delay loading the video source to prioritize critical resources
+    const timer = setTimeout(() => {
+      setVideoSrc("https://play.vsthemes.org/fhd/12/73012.webm");
+    }, 1500); // 1.5 second delay
+
     const video = videoRef.current;
     if (!video) return;
 
@@ -13,9 +20,7 @@ export default function BackgroundVideo() {
       (entries) => {
         const [entry] = entries;
         if (entry.isIntersecting) {
-          video.play().catch(() => {
-            // Autoplay prevention is expected in some browsers
-          });
+          video.play().catch(() => {});
         } else {
           video.pause();
         }
@@ -26,6 +31,7 @@ export default function BackgroundVideo() {
     observer.observe(video);
 
     return () => {
+      clearTimeout(timer);
       observer.disconnect();
     };
   }, []);
@@ -47,12 +53,11 @@ export default function BackgroundVideo() {
         playsInline
         webkit-playsinline="true"
         preload="none"
-        crossOrigin="anonymous"
-        poster="/assets/images/projects/garcias1.webp"
+        poster="https://wallpapercave.com/wp/wp5338729.jpg"
         className="w-full h-full object-cover opacity-60"
         onError={() => setHasError(true)}
       >
-        <source src="/assets/videos/eldenring.mp4" type="video/mp4" />
+        {videoSrc && <source src={videoSrc} type="video/mp4" />}
       </video>
     </div>
   );

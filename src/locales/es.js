@@ -2,6 +2,8 @@ export default {
   nav: {
     home: "Inicio",
     projects: "Proyectos",
+    experience: "Experiencia",
+    certificates: "Certificados",
     about: "Sobre mí",
     contact: "Contacto",
   },
@@ -65,37 +67,56 @@ export default {
     },
   },
   experience: {
-    title: "Trayectoria Profesional",
+    title: "Evolución Profesional y Trayectoria",
     intro:
-      "Diseño y construyo productos reales con un fuerte enfoque en rendimiento, claridad y mantenibilidad a largo plazo.",
-    meta: "Experiencia seleccionada",
-    exp1: {
-      role: "Desarrollador Full Stack",
-      date: "Nov 2024 — Presente",
+      "Un recorrido cronológico a través de mi crecimiento académico y contribuciones profesionales en ingeniería de software.",
+    meta: "Línea de Evolución",
+    item1: {
+      role: "Estudiante de Ingeniería Informática",
+      company: "U.P.T.C.M.S",
+      date: "2022 — Presente",
       narrative:
-        "Trabajo en una plataforma en producción con miles de usuarios...",
-      highlight1:
-        "Desarrollo de funcionalidades end-to-end en frontend y backend",
-      highlight2: "Refactorización de código legado para mejorar escalabilidad",
-      highlight3: "Optimización de rendimiento, accesibilidad y SEO técnico",
-      highlight4: "Decisiones de arquitectura y despliegues en producción",
-      focus1: "Producción",
-      focus2: "Rendimiento",
-      focus3: "SEO",
-      focus4: "Calidad de código",
+        "Cursando activamente la carrera de Ingeniería Informática, actualmente en mi 3er año de 4. Construyendo una base sólida en algoritmos, diseño de sistemas y principios de computación avanzada.",
+      focus: ["Fundamentos", "Diseño de Sistemas", "Algoritmos"],
+      image:
+        "https://cdn.pixabay.com/photo/2015/07/17/22/43/student-849822_1280.jpg",
     },
-    exp2: {
-      role: "Estudiante de Programación Full Stack",
-      company: "Programa Universitario Full Stack",
+    item2: {
+      role: "Certificación Full Stack",
+      company: "ED TÉCNICA",
       date: "2023 — 2024",
       narrative:
-        "Completé un programa full stack con respaldo universitario...",
-      highlight1: "Construcción de aplicaciones full stack desde cero",
-      highlight2: "Aprendizaje de buenas prácticas de código y despliegue",
-      highlight3: "Trabajo con frameworks y herramientas modernas",
-      focus1: "Fundamentos",
-      focus2: "Stack moderno",
-      focus3: "Buenas prácticas",
+        "Completé un programa de entrenamiento intensivo de clase mundial. Me enorgullece haber sido galardonado con el 'Mejor Proyecto' de mi cohorte, demostrando excelencia en el diseño e implementación de soluciones full-stack complejas.",
+      focus: ["Full Stack", "Clean Code", "Mejor Proyecto"],
+      image:
+        "https://cdn.pixabay.com/photo/2016/11/19/14/00/code-1839406_1280.jpg",
+    },
+    item3: {
+      role: "Arquitecto de Plataformas y Consultor",
+      company: "Instalaciones Garcia's",
+      date: "2024 — Presente",
+      narrative:
+        "Finalizando actualmente la venta comercial de un modelo de plataforma personalizada para la gestión de servicios y administración empresarial. Diseñada para eficiencia operativa.",
+      focus: ["Lógica de Negocio", "Escalabilidad", "Consultoría"],
+      image: "/assets/images/projects/garcias1.webp",
+    },
+    item4: {
+      role: "Diseñador de Sistemas Institucionales",
+      company: "Colegio José Martí",
+      date: "2024 — Presente",
+      narrative:
+        "Desarrollando y vendiendo un modelo integral de gestión institucional. Enfocado en modernizar la administración educativa y la interacción digital para centros educativos de prestigio.",
+      focus: ["UX Institucional", "Modernización", "Gestión"],
+      image: "/assets/images/projects/ColegioJoseMarti1.jpeg",
+    },
+    item5: {
+      role: "Desarrollador Full Stack",
+      company: "Foro Harry Potter (Organización)",
+      date: "Contribución Activa",
+      narrative:
+        "Trabajando como desarrollador clave en una organización internacional. Colaborando diariamente con expertos de todo el mundo para mantener y evolucionar el foro #1 en su nicho. Gestionando sistemas de alto tráfico y módulos de gamificación avanzados.",
+      focus: ["Colaboración Global", "Alto Tráfico", "Trabajo Organizacional"],
+      image: "/assets/images/projects/harrypotter.webp",
     },
   },
   contact: {
@@ -129,8 +150,8 @@ export default {
   about: {
     title: "Sobre mí",
     p1: "Me apasiona construir sistemas web escalables, mantenibles y emocionalmente resonantes. Mi enfoque está en rendimiento, accesibilidad y experiencias de diseño premium.",
-    p2: "Cuento con 8 meses de preparación intensiva y certificación con aval universitario en ED TÉCNICA, además de cursar actualmente el 3er año de Ingeniería Informática en la U.P.T.C.M.S. Mi experiencia profesional abarca desarrollo, producción y lanzamiento de aplicaciones, con un manejo exhaustivo de bases de datos masivas (millones de registros) usando MySQL y Laragon.",
-    p3: "Poseo un nivel de inglés B2 que me permite trabajar fluídamente en equipos internacionales. Mi trayectoria incluye colaboración efectiva en equipo y un dominio avanzado de control de versiones con GitHub. Siempre busco superar mis límites, conseguir mejores ofertas y elevar el estándar de cada proyecto.",
+    p2: "Actualmente curso el 3er año de Ingeniería Informática en la U.P.T.C.M.S. También completé un programa intensivo de 8 meses en ED TÉCNICA, donde fui galardonado con el reconocimiento al 'Mejor Proyecto' por mi desempeño y excelencia técnica. Mi trayectoria incluye el diseño y venta de modelos de gestión para instituciones, empresas y la contribución activa en organizaciones internacionales de alto tráfico.",
+    p3: "Mi fascinación por la tecnología nació de una forma orgánica: a través del universo de los videojuegos. Lo que comenzó como pura curiosidad en Minecraft, evolucionó rápidamente en un interés por la ingeniería de software. Comencé automatizando tareas mediante lógica de bloques —una introducción temprana al pensamiento computacional— y pronto me encontré explorando lenguajes reales para expandir las fronteras de lo posible. Esta chispa inicial transformó mi visión del entretenimiento en una meta profesional clara: dominar el desarrollo de software para contribuir a la industria digital, donde la lógica y la imaginación se encuentran para crear experiencias inolvidables.",
     location: "Caracas, Venezuela",
     status: "Desarrollador Full Stack",
     ctaTalk: "Hablemos",
@@ -138,6 +159,18 @@ export default {
     openToWork: "Disponible para trabajar",
     stackLabel: "Stack",
     stackTitle: "Tecnologías y Herramientas",
+    originsTitle: "Construyendo Mundos,",
+    originsTitleHighlight: "Bit a Bit.",
+    originsSubtitle:
+      '"Lo que comenzó como pura curiosidad en Minecraft, evolucionó rápidamente en un profundo interés por la ingeniería de software."',
+    logicComment: "// De bloques lógicos a arquitecturas complejas",
+    spark: "La Chispa",
+    creator: "Creador de Mundos Digitales",
+    futureTitle: "Construyendo el Futuro",
+    systemArchitecture: "Arquitectura de Sistemas",
+    toolkitLabel: "EXPLORA MI ARSENAL",
+    toolkitDesc:
+      "Diseñando con precisión y construyendo con las tecnologías modernas más potentes.",
   },
   github: {
     title: "Trayectoria en GitHub",

@@ -117,10 +117,7 @@ export default function Certificates() {
   ];
 
   return (
-    <section
-      id="certificates"
-      className="relative min-h-[90vh] md:min-h-screen flex items-center py-12 md:py-0 overflow-hidden"
-    >
+    <section className="relative min-h-[90vh] md:min-h-screen flex items-center py-12 md:py-0 overflow-hidden">
       {/* Background showing video */}
       <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px] pointer-events-none" />
       {/* Background Ambience */}

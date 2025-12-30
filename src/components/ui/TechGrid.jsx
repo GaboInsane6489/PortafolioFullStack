@@ -1,5 +1,13 @@
 import React, { useState, useRef } from "react";
-import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  LayoutGroup,
+  useMotionValue,
+  useTransform,
+  useSpring,
+  useMotionTemplate,
+} from "framer-motion";
 import Icon from "./Icon.jsx";
 
 // Data Structure
@@ -116,32 +124,42 @@ export default function TechGrid() {
 
 function HolographicCard({ tech }) {
   const ref = useRef(null);
-  const [rotateX, setRotateX] = useState(0);
-  const [rotateY, setRotateY] = useState(0);
-  const [opacity, setOpacity] = useState(0);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [15, -15]), {
+    stiffness: 300,
+    damping: 30,
+  });
+  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-15, 15]), {
+    stiffness: 300,
+    damping: 30,
+  });
+  const opacity = useSpring(useMotionValue(0), { stiffness: 300, damping: 30 });
 
   const handleMouseMove = (e) => {
     if (!ref.current) return;
     const rect = ref.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
+    const mouseX = (e.clientX - rect.left) / rect.width - 0.5;
+    const mouseY = (e.clientY - rect.top) / rect.height - 0.5;
 
-    // Rotation logic
-    const rotateXValue = ((y - centerY) / centerY) * -15; // Max 15 deg
-    const rotateYValue = ((x - centerX) / centerX) * 15;
-
-    setRotateX(rotateXValue);
-    setRotateY(rotateYValue);
-    setOpacity(1);
+    x.set(mouseX);
+    y.set(mouseY);
+    opacity.set(1);
   };
 
   const handleMouseLeave = () => {
-    setRotateX(0);
-    setRotateY(0);
-    setOpacity(0);
+    x.set(0);
+    y.set(0);
+    opacity.set(0);
   };
+
+  const backgroundTemplate = useMotionTemplate`
+    linear-gradient(105deg, transparent 20%, rgba(255, 255, 255, 0.1) 40%, transparent 60%),
+    linear-gradient(${rotateX}deg, rgba(255, 255, 255, 0.05), transparent)
+  `;
+
+  const glowTemplate = useMotionTemplate`radial-gradient(circle at center, ${tech.color}, transparent 70%)`;
 
   return (
     <motion.div
@@ -165,25 +183,22 @@ function HolographicCard({ tech }) {
         onMouseLeave={handleMouseLeave}
       >
         {/* Holographic Foil Shader Effect */}
-        <div
+        <motion.div
           className="absolute inset-0 pointer-events-none transition-opacity duration-300"
           style={{
-            opacity: opacity * 0.8,
-            background: `
-              linear-gradient(105deg, transparent 20%, rgba(255, 255, 255, 0.1) 40%, transparent 60%),
-              linear-gradient(${rotateX}deg, rgba(255, 255, 255, 0.05), transparent)
-            `,
+            opacity: useTransform(opacity, [0, 1], [0, 0.8]),
+            background: backgroundTemplate,
             mixBlendMode: "overlay",
             zIndex: 20,
           }}
         />
 
         {/* Dynamic Glow Background */}
-        <div
+        <motion.div
           className="absolute inset-0 transition-opacity duration-300"
           style={{
-            opacity: opacity * 0.4,
-            background: `radial-gradient(circle at center, ${tech.color}, transparent 70%)`,
+            opacity: useTransform(opacity, [0, 1], [0, 0.4]),
+            background: glowTemplate,
             zIndex: 0,
           }}
         />
@@ -209,11 +224,11 @@ function HolographicCard({ tech }) {
         </span>
 
         {/* Border Glow */}
-        <div
+        <motion.div
           className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
           style={{
             zIndex: 10,
-            boxShadow: `inset 0 0 20px ${tech.color}20, 0 0 20px ${tech.color}40`,
+            boxShadow: useMotionTemplate`inset 0 0 20px ${tech.color}20, 0 0 20px ${tech.color}40`,
             border: `1px solid ${tech.color}60`,
           }}
         />

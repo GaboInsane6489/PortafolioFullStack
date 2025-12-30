@@ -228,10 +228,7 @@ export default function Projects() {
 
   return (
     <>
-      <section
-        id="projects"
-        className="relative min-h-screen py-24 md:py-32 px-4 overflow-hidden"
-      >
+      <section className="relative min-h-screen py-24 md:py-32 px-4 overflow-hidden">
         {/* Transparent background to show video */}
         <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px] pointer-events-none" />
         {/* Background Gradients */}

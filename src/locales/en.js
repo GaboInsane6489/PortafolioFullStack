@@ -2,6 +2,8 @@ export default {
   nav: {
     home: "Home",
     projects: "Projects",
+    experience: "Experience",
+    certificates: "Certificates",
     about: "About",
     contact: "Contact",
   },
@@ -64,35 +66,56 @@ export default {
     },
   },
   experience: {
-    title: "Professional Journey",
+    title: "Professional Evolution & Journey",
     intro:
-      "I design and build real-world products with a strong focus on performance, clarity, and long-term maintainability.",
-    meta: "Selected experience",
-    exp1: {
-      role: "Full Stack Developer",
-      date: "Nov 2024 — Present",
+      "A chronological path through my academic growth and professional contributions in software engineering.",
+    meta: "Evolution Line",
+    item1: {
+      role: "Software Engineering Student",
+      company: "U.P.T.C.M.S",
+      date: "2022 — Present",
       narrative:
-        "Working on a live production platform with thousands of users...",
-      highlight1: "End-to-end feature development across frontend and backend",
-      highlight2: "Refactoring legacy codebases to improve scalability",
-      highlight3: "Performance, accessibility, and technical SEO optimization",
-      highlight4: "Architecture decisions and production deployments",
-      focus1: "Production systems",
-      focus2: "Performance",
-      focus3: "SEO",
-      focus4: "Code quality",
+        "Actively pursuing my Software Engineering degree, currently in my 3rd year out of 4. Building a solid foundation in algorithms, system design, and advanced computing principles.",
+      focus: ["Foundations", "System Design", "Algorithms"],
+      image:
+        "https://cdn.pixabay.com/photo/2015/07/17/22/43/student-849822_1280.jpg",
     },
-    exp2: {
-      role: "Full Stack Programming Student",
-      company: "University Full Stack Program",
+    item2: {
+      role: "Full Stack Certification",
+      company: "ED TÉCNICA",
       date: "2023 — 2024",
-      narrative: "Completed a university-backed full stack program...",
-      highlight1: "Built full-stack applications from scratch",
-      highlight2: "Learned clean code and deployment best practices",
-      highlight3: "Worked with modern frameworks and tooling",
-      focus1: "Foundations",
-      focus2: "Modern stack",
-      focus3: "Best practices",
+      narrative:
+        "Completed a world-class intensive training program. I am proud to have been awarded 'Best Project' of the cohort, demonstrating excellence in designing and implementing complex full-stack solutions with modern architectures.",
+      focus: ["Full Stack", "Clean Code", "Best Project"],
+      image:
+        "https://cdn.pixabay.com/photo/2016/11/19/14/00/code-1839406_1280.jpg",
+    },
+    item3: {
+      role: "Platform Architect & Consultant",
+      company: "Instalaciones Garcia's",
+      date: "2024 — Present",
+      narrative:
+        "Currently finalizing the commercial sale of a customized business management and service platform model. Designed for operational efficiency and real-time scaling.",
+      focus: ["Business Logic", "Scalability", "Consultancy"],
+      image: "/assets/images/projects/garcias1.webp",
+    },
+    item4: {
+      role: "Institutional Systems Designer",
+      company: "Colegio José Martí",
+      date: "2024 — Present",
+      narrative:
+        "Developing and selling a comprehensive institutional management model. Focused on modernizing educational administration and digital interaction for prestigious educational centers.",
+      focus: ["Institutional UX", "Modernization", "Management"],
+      image: "/assets/images/projects/ColegioJoseMarti1.jpeg",
+    },
+    item5: {
+      role: "Full Stack Developer",
+      company: "Harry Potter Forum (Organization)",
+      date: "Active Contribution",
+      narrative:
+        "Working as a key developer in an international organization. Collaborating daily with experts from around the world to maintain and evolve the #1 ranked forum in its niche. Managing high-traffic systems and implementing advanced gamification modules.",
+      focus: ["Global Collab", "High Traffic", "Organizational Work"],
+      image: "/assets/images/projects/harrypotter.webp",
     },
   },
   contact: {
@@ -126,8 +149,8 @@ export default {
   about: {
     title: "About Me",
     p1: "I am passionate about building scalable, maintainable, and emotionally resonant web systems. My focus is on performance, accessibility, and premium design experiences.",
-    p2: "I have 8 months of intensive training with university-endorsed certification at ED TÉCNICA, and I am currently in my 3rd year of Computer Engineering at U.P.T.C.M.S. My professional experience spans development, production, and deployment, with exhaustive management of massive databases (millions of records) using MySQL and Laragon.",
-    p3: "I hold a B2 English level, allowing me to work fluently in international teams. My background includes effective team collaboration and advanced version control mastery with GitHub. I always strive to exceed my limits, secure better opportunities, and elevate the standard of every project.",
+    p2: "I am currently in my 3rd year of Software Engineering at U.P.T.C.M.S. I also completed an intensive 8-month Full Stack program at ED TÉCNICA, where I was honored with the 'Best Project' award for my performance and technical excellence. My professional experience includes designing and selling management models for institutions, businesses, and contributing to high-traffic international organizations.",
+    p3: "My journey into technology began organically through the world of gaming. What started as pure curiosity in Minecraft quickly evolved into a deep interest in software engineering. I began by automating tasks through block logic —an early introduction to computational thinking— and soon found myself exploring real programming languages to push the boundaries of what was possible. This initial spark transformed my view of entertainment into a clear professional goal: to master software development and contribute to the industry, combining logic and imagination to create unforgettable digital experiences.",
     location: "Caracas, Venezuela",
     status: "Full Stack Developer",
     ctaTalk: "Let's talk",
@@ -135,6 +158,18 @@ export default {
     openToWork: "Open to work",
     stackLabel: "Stack",
     stackTitle: "Technologies & Tools",
+    originsTitle: "Building Worlds,",
+    originsTitleHighlight: "Bit by Bit.",
+    originsSubtitle:
+      '"What started as pure curiosity in Minecraft, quickly evolved into a deep interest in software engineering."',
+    logicComment: "// From logic blocks to complex architectures",
+    spark: "The Spark",
+    creator: "Digital Worlds Creator",
+    futureTitle: "Building the Future",
+    systemArchitecture: "System Architecture",
+    toolkitLabel: "EXPLORE MY TOOLKIT",
+    toolkitDesc:
+      "Designing with precision and building with the most powerful modern technologies.",
   },
   github: {
     title: "GitHub Journey",

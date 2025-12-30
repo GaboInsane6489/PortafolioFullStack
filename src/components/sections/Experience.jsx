@@ -9,103 +9,105 @@ const ExperienceCard = ({ exp, index }) => {
 
   return (
     <div
-      className={`relative flex items-center justify-between md:justify-normal w-full mb-16 md:mb-24 ${isEven ? "md:flex-row-reverse" : ""}`}
+      className={`relative flex items-center justify-between md:justify-normal w-full mb-16 md:mb-32 ${isEven ? "md:flex-row-reverse" : ""}`}
     >
-      {/* Node Connection Point - Z Index 20 to be above line */}
-      <div className="absolute left-[20px] md:left-1/2 w-8 h-8 rounded-full bg-black border-4 border-purple-500 transform -translate-x-1/2 z-20 flex items-center justify-center shadow-[0_0_20px_rgba(168,85,247,0.6)] group-hover:scale-125 transition-transform duration-300">
+      {/* Node Connection Point */}
+      <div className="absolute left-[20px] md:left-1/2 w-8 h-8 rounded-full bg-black border-4 border-purple-500 transform -translate-x-1/2 z-20 flex items-center justify-center shadow-[0_0_20px_rgba(168,85,247,0.6)]">
         <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
       </div>
 
       {/* Spacer */}
       <div className="hidden md:block w-5/12" />
 
-      {/* Card - Z Index 30 to be above everything */}
+      {/* Card */}
       <motion.div
         initial={{
           opacity: 0,
           x: isEven ? -50 : 50,
-          rotateY: isEven ? -15 : 15,
         }}
-        whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
+        whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, margin: "-50px" }}
         transition={{
           type: "spring",
           stiffness: 50,
           damping: 20,
-          delay: index * 0.2,
+          delay: index * 0.1,
         }}
-        className="w-[calc(100%-60px)] md:w-5/12 ml-16 md:ml-0 perspective-1000 relative z-30 will-change-transform will-change-opacity"
+        className="w-[calc(100%-60px)] md:w-5/12 ml-16 md:ml-0 relative z-30"
       >
-        <div className="group relative bg-[#0a0a0a] rounded-3xl overflow-hidden border border-white/10 hover:border-purple-500/50 transition-all duration-500 hover:shadow-[0_0_50px_-10px_rgba(168,85,247,0.3)]">
-          {/* Cyberpunk Decor */}
-          <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl -mr-16 -mt-16 transition-all duration-500 group-hover:bg-purple-500/20" />
-          <div className="absolute bottom-0 left-0 w-20 h-1 bg-gradient-to-r from-transparent via-purple-500 to-transparent opacity-50" />
+        <div className="group relative bg-[#0a0a0a]/90 rounded-3xl overflow-hidden border border-white/10 hover:border-purple-500/50 transition-all duration-500 hover:shadow-[0_0_50px_-10px_rgba(168,85,247,0.3)] backdrop-blur-xl">
+          {/* Card Image */}
+          <div className="relative h-48 md:h-56 overflow-hidden">
+            <img
+              src={exp.image}
+              alt={exp.company}
+              loading="lazy"
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-100"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent" />
 
-          <div className="relative p-6 md:p-10 bg-black/40 backdrop-blur-[2px]">
+            {/* Badge for Organization */}
+            {exp.isOrg && (
+              <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-purple-600/90 text-[10px] font-black uppercase tracking-widest text-white backdrop-blur-md border border-white/20">
+                Organization Project
+              </div>
+            )}
+          </div>
+
+          <div className="relative p-6 md:p-8">
             {/* Header */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
-              <div>
-                <div className="flex items-center gap-2 mb-2">
+            <div className="flex flex-col mb-4">
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
                   <Icon
-                    name="briefcase"
+                    name={exp.icon || "briefcase"}
                     className="text-purple-400"
-                    size={16}
+                    size={14}
                   />
-                  <span className="text-xs font-mono text-purple-400 uppercase tracking-widest">
-                    {exp.company || "Freelance"}
+                  <span className="text-[10px] font-mono text-purple-400 uppercase tracking-[0.2em]">
+                    {exp.company}
                   </span>
                 </div>
-                <h3 className="text-2xl md:text-3xl font-display font-bold text-white leading-tight group-hover:text-purple-200 transition-colors">
-                  {exp.role}
-                </h3>
-              </div>
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/5 backdrop-blur-sm self-start md:self-center shrink-0">
-                <Icon name="clock" size={14} className="text-gray-400" />
-                <span className="text-xs font-bold text-gray-300 whitespace-nowrap">
+                <div className="text-[10px] font-bold text-gray-500 font-mono">
                   {exp.date}
-                </span>
+                </div>
               </div>
+              <h3 className="text-xl md:text-2xl font-display font-bold text-white tracking-tight group-hover:text-purple-300 transition-colors">
+                {exp.role}
+              </h3>
             </div>
 
             {/* Content */}
-            <p className="text-gray-400 text-sm md:text-base leading-relaxed mb-8 border-l-2 border-purple-900/50 pl-4">
+            <p className="text-gray-400 text-sm leading-relaxed mb-6 font-light">
               {exp.narrative}
             </p>
-
-            {/* Highlights Grid */}
-            <div className="grid grid-cols-1 gap-3 mb-8">
-              {exp.highlights.slice(0, 3).map((item, i) => (
-                <div key={i} className="flex items-start gap-3 group/item">
-                  <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-purple-500 group-hover/item:shadow-[0_0_8px_rgba(168,85,247,0.8)] transition-all" />
-                  <span className="text-sm text-gray-300 group-hover/item:text-white transition-colors">
-                    {item}
-                  </span>
-                </div>
-              ))}
-            </div>
 
             {/* Tech Tags */}
             <div className="flex flex-wrap gap-2">
               {exp.focus.map((tag) => (
                 <span
                   key={tag}
-                  className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 text-xs font-medium text-gray-400 hover:bg-white/10 hover:text-white hover:border-purple-500/30 transition-all cursor-default"
+                  className="px-3 py-1 rounded-full bg-white/5 border border-white/5 text-[10px] font-medium text-gray-400 group-hover:text-white group-hover:border-purple-500/30 transition-all"
                 >
                   #{tag}
                 </span>
               ))}
             </div>
 
-            {/* Action Link (if valid) */}
+            {/* Action Link */}
             {exp.link && (
               <a
                 href={exp.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`View ${exp.company || "Project"} details`}
-                className="absolute top-6 right-6 p-2 rounded-full bg-white/5 text-gray-400 hover:text-white hover:bg-purple-600 hover:scale-110 transition-all duration-300"
+                className="mt-6 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-purple-400 hover:text-white transition-colors group/link"
               >
-                <Icon name="externalLink" size={18} />
+                View Details
+                <Icon
+                  name="externalLink"
+                  size={12}
+                  className="group-hover/link:translate-x-1 transition-transform"
+                />
               </a>
             )}
           </div>
@@ -126,46 +128,38 @@ export default function Experience() {
   });
 
   const scaleY = useSpring(useTransform(scrollYProgress, [0, 0.5], [0, 1]), {
-    stiffness: 120, // Increased for snappier feel
-    damping: 40,
+    stiffness: 100,
+    damping: 30,
     restDelta: 0.001,
   });
 
   const experiences = [
     {
-      role: t("experience.exp1.role"),
-      company: "HarryPotterHead",
-      link: "https://www.linkedin.com/company/harrypotterhead/",
-      date: t("experience.exp1.date"),
-      narrative: t("experience.exp1.narrative"),
-      highlights: [
-        t("experience.exp1.highlight1"),
-        t("experience.exp1.highlight2"),
-        t("experience.exp1.highlight3"),
-      ],
-      focus: [
-        t("experience.exp1.focus1"),
-        t("experience.exp1.focus2"),
-        t("experience.exp1.focus3"),
-      ],
+      ...t("experience.item1"),
+      icon: "graduationCap",
     },
     {
-      role: t("experience.exp2.role"),
-      company: t("experience.exp2.company"),
-      link: null,
-      date: t("experience.exp2.date"),
-      narrative: t("experience.exp2.narrative"),
-      highlights: [
-        t("experience.exp2.highlight1"),
-        t("experience.exp2.highlight2"),
-      ],
-      focus: [t("experience.exp2.focus1"), t("experience.exp2.focus2")],
+      ...t("experience.item2"),
+      icon: "award",
+    },
+    {
+      ...t("experience.item3"),
+      icon: "shoppingCart",
+    },
+    {
+      ...t("experience.item4"),
+      icon: "school",
+    },
+    {
+      ...t("experience.item5"),
+      isOrg: true,
+      icon: "globe",
+      link: "https://www.linkedin.com/company/harrypotterhead/",
     },
   ];
 
   return (
     <section
-      id="experience"
       className="relative py-32 md:py-48 overflow-hidden"
       ref={containerRef}
     >

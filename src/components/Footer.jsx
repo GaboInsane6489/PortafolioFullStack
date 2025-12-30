@@ -65,6 +65,7 @@ export default function Footer() {
             >
               <a
                 href="mailto:gabrielgg2005ve@gmail.com"
+                aria-label="Send an email to Gabriel González"
                 className="inline-flex items-center gap-3 text-xl md:text-2xl text-gray-300 hover:text-white transition-colors border-b border-white/20 hover:border-white pb-1 group"
               >
                 gabrielgg2005ve@gmail.com
@@ -178,6 +179,7 @@ export default function Footer() {
                         href={`https://wa.me/584127893937`}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label="Chat on WhatsApp"
                         className="flex items-center justify-center gap-2 w-full py-2 bg-green-600 hover:bg-green-500 text-white rounded-lg font-bold text-sm transition-colors"
                       >
                         {t("footer.whatsapp.action")}

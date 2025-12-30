@@ -32,14 +32,14 @@ function App() {
 
       <Header lang={lang} setLang={setLang} />
 
-      <main id="main-content">
+      <main id="main-content" className="relative">
         <Hero lang={lang} />
 
-        <LazySection height="600px">
+        <LazySection id="about" height="600px">
           <About lang={lang} />
         </LazySection>
 
-        <LazySection height="800px">
+        <LazySection id="projects" height="800px">
           <Projects lang={lang} />
         </LazySection>
 
@@ -47,19 +47,19 @@ function App() {
           <CodeGallery />
         </LazySection>
 
-        <LazySection height="800px">
+        <LazySection id="experience" height="800px">
           <Experience lang={lang} />
         </LazySection>
 
-        <LazySection height="600px">
+        <LazySection id="certificates" height="600px">
           <Certificates lang={lang} />
         </LazySection>
 
-        <LazySection height="500px">
+        <LazySection id="github" height="500px">
           <GithubSection />
         </LazySection>
 
-        <LazySection height="700px">
+        <LazySection id="contact" height="700px">
           <Contact lang={lang} />
         </LazySection>
       </main>

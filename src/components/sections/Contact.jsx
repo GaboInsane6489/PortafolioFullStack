@@ -55,10 +55,7 @@ export default function Contact() {
   };
 
   return (
-    <section
-      id="contact"
-      className="relative min-h-screen py-32 flex items-center overflow-hidden"
-    >
+    <section className="relative min-h-screen py-32 flex items-center overflow-hidden">
       {/* Background showing video */}
       <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px] pointer-events-none" />
       {/* Background Gradients */}
@@ -101,6 +98,7 @@ export default function Contact() {
             <div className="space-y-8">
               <a
                 href="mailto:gabrielgg2005ve@gmail.com"
+                aria-label="Send an email to Gabriel González"
                 className="flex items-center gap-6 group p-4 rounded-xl hover:bg-white/5 transition-all"
               >
                 <div className="w-14 h-14 rounded-full bg-white/5 flex items-center justify-center border border-white/5 group-hover:border-purple-500/50 group-hover:bg-purple-500/10 transition-all">
@@ -124,6 +122,7 @@ export default function Contact() {
                 href="https://wa.me/584127893937"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Contact Gabriel via WhatsApp"
                 className="flex items-center gap-6 group p-4 rounded-xl hover:bg-white/5 transition-all"
               >
                 <div className="w-14 h-14 rounded-full bg-white/5 flex items-center justify-center border border-white/5 group-hover:border-green-500/50 group-hover:bg-green-500/10 transition-all">

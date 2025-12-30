@@ -21,6 +21,10 @@ import {
   LuTerminal,
   LuClock,
   LuActivity,
+  LuGraduationCap,
+  LuAward,
+  LuShoppingCart,
+  LuSchool,
 } from "react-icons/lu";
 
 // Simple Icons (Tech Brands)
@@ -80,6 +84,10 @@ const iconMap = {
   "git-commit": SiGit,
   clock: LuClock,
   activity: LuActivity,
+  graduationCap: LuGraduationCap,
+  award: LuAward,
+  shoppingCart: LuShoppingCart,
+  school: LuSchool,
 
   // --- Tech / Brands (Simple Icons) ---
   react: SiReact,

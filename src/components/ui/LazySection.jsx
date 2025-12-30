@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
  * Uses IntersectionObserver to trigger the mounting of lazy components
  * when they are about to enter the viewport (with a rootMargin buffer).
  */
-export default function LazySection({ children, height = "400px" }) {
+export default function LazySection({ children, id, height = "400px" }) {
   const [isIntersecting, setIntersecting] = useState(false);
   const sectionRef = useRef(null);
 
@@ -34,12 +34,14 @@ export default function LazySection({ children, height = "400px" }) {
   return (
     <div
       ref={sectionRef}
+      id={id}
       className="relative"
       style={{ minHeight: isIntersecting ? "auto" : height }}
     >
       {isIntersecting ? (
         <AnimatePresence mode="wait">
           <motion.div
+            className="relative"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
