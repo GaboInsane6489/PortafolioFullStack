@@ -17,7 +17,7 @@ import Icon from "../ui/Icon.jsx";
 /* --- Sub-Components --- */
 
 const TypingTitle = ({ text }) => {
-  const letters = Array.from(text);
+  const words = text.split(" ");
 
   return (
     <motion.h2
@@ -26,24 +26,25 @@ const TypingTitle = ({ text }) => {
       viewport={{ once: true, margin: "-120px" }}
       variants={{
         visible: {
-          transition: { staggerChildren: 0.035 },
+          transition: { staggerChildren: 0.1 },
         },
       }}
-      className="text-4xl md:text-6xl font-display font-bold leading-tight mb-8 text-white flex flex-wrap justify-center lg:justify-start gap-y-2"
+      className="text-4xl md:text-6xl font-display font-bold leading-tight mb-8 text-white flex flex-wrap justify-center lg:justify-start gap-x-4 gap-y-2"
     >
-      {letters.map((char, i) => (
+      {words.map((word, wordIdx) => (
         <motion.span
-          key={i}
+          key={wordIdx}
+          className="inline-block"
           variants={{
             hidden: { y: 24, opacity: 0 },
             visible: {
               y: 0,
               opacity: 1,
-              transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+              transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
             },
           }}
         >
-          {char === " " ? "\u00A0" : char}
+          {word}
         </motion.span>
       ))}
     </motion.h2>
@@ -162,7 +163,7 @@ export default function About() {
             <div className="space-y-8 text-gray-300 text-lg leading-relaxed font-light">
               <motion.p
                 variants={fadeUp}
-                className="text-2xl md:text-3xl text-white font-display font-medium leading-tight"
+                className="text-2xl md:text-3xl text-white font-display font-medium leading-tight max-w-2xl mx-auto lg:mx-0"
               >
                 {t("about.p1")}
               </motion.p>

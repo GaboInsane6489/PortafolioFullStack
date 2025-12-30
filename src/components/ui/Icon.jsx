@@ -26,6 +26,8 @@ import {
   LuShoppingCart,
   LuSchool,
   LuArrowLeft,
+  LuChevronLeft,
+  LuChevronRight,
 } from "react-icons/lu";
 
 // Simple Icons (Tech Brands)
@@ -68,6 +70,8 @@ const iconMap = {
   arrow: LuArrowRight,
   arrowRight: LuArrowRight,
   arrowLeft: LuArrowLeft,
+  chevronRight: LuChevronRight,
+  chevronLeft: LuChevronLeft,
   menu: LuMenu,
   close: LuX,
   x: LuX,

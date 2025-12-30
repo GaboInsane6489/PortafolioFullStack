@@ -139,14 +139,14 @@ export default function ProjectModal({
                     onClick={() => paginate(-1)}
                     aria-label="Previous image"
                   >
-                    <Icon name="arrowLeft" size={20} />
+                    <Icon name="chevronLeft" size={20} />
                   </button>
                   <button
                     className="absolute right-4 top-1/2 -translate-y-1/2 z-30 p-3 bg-black/40 hover:bg-white text-white hover:text-black rounded-full backdrop-blur-xl transition-all border border-white/10 opacity-100 lg:opacity-0 lg:group-hover/carousel:opacity-100 shadow-xl"
                     onClick={() => paginate(1)}
                     aria-label="Next image"
                   >
-                    <Icon name="arrowRight" size={20} />
+                    <Icon name="chevronRight" size={20} />
                   </button>
 
                   {/* Film Strip Thumbnails */}
