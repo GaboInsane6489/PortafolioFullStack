@@ -38,13 +38,14 @@ const stats = [
       
       <!-- LEFT: The Narrative Object -->
       <div class="order-2 lg:order-1 flex justify-center warp-scan-container">
-        <TiltCard class="max-w-md w-full aspect-[3/4] rounded-3xl border border-white/10 shadow-huge overflow-hidden bg-black group relative">
+        <TiltCard class="max-w-md w-full aspect-[3/4] rounded-3xl border border-white/20 shadow-huge overflow-hidden bg-black group relative">
           <!-- Layer 0: Static Image (Original Colors) -->
           <img
-            src="/assets/images/certificates/FullStackCertificate.jpeg"
+            src="/assets/images/certificates/FullStackCertificate.webp"
             alt="Full Stack Developer Certificate"
             fetchpriority="high"
             decoding="async"
+            loading="eager"
             width="800"
             height="1000"
             class="w-full h-full object-contain transition-all duration-1000 group-hover:scale-[1.05] group-hover:brightness-110 cert-image"
@@ -58,7 +59,7 @@ const stats = [
 
           <!-- Floating Badge -->
           <div class="absolute bottom-8 right-8 bg-black/80 backdrop-blur-xl border border-white/30 px-5 py-2.5 rounded-2xl flex items-center gap-3 shadow-2xl transition-all duration-500 hover:border-purple-500/50 group/badge z-40" style="transform: translateZ(60px);">
-            <div class="text-green-400 group-hover/badge:scale-125 transition-transform duration-500">
+            <div class="text-green-400 group-hover/badge:scale-125 transition-transform duration-500" aria-hidden="true">
                 <Icon name="check" size={18} />
             </div>
             <span class="text-[11px] font-black text-white uppercase tracking-[0.25em]">

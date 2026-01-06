@@ -30,6 +30,7 @@ import {
   LuChevronRight,
   LuServer,
   LuDatabase,
+  LuPlay,
 } from "react-icons/lu";
 
 // Simple Icons (Tech Brands)
@@ -100,6 +101,7 @@ const iconMap = {
   award: LuAward,
   shoppingCart: LuShoppingCart,
   school: LuSchool,
+  play: LuPlay,
 
   // --- Tech / Brands (Simple Icons) ---
   react: SiReact,

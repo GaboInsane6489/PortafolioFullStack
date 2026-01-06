@@ -12,9 +12,9 @@
   --color-primary-dark: #7c3aed; /* purple-600 */
   --color-primary-light: #a78bfa; /* purple-400 */
 
-  --color-secondary: #6366f1; /* indigo-500 */
-  --color-secondary-dark: #4f46e5; /* indigo-600 */
-  --color-secondary-light: #818cf8; /* indigo-400 */
+  --color-secondary: #818cf8; /* indigo-400 (lighter for better contrast on black) */
+  --color-secondary-dark: #6366f1; /* indigo-500 */
+  --color-secondary-light: #a5b4fc; /* indigo-300 */
 
   --color-accent: #3b82f6; /* blue-500 */
   --color-accent-dark: #2563eb; /* blue-600 */
@@ -57,9 +57,15 @@ html {
   scroll-behavior: smooth;
   font-family: var(--font-sans);
   font-size: 16px;
-  overflow-x: hidden; /* Prevent horizontal scroll globally */
+  overflow-x: hidden;
   position: relative;
   min-height: 100%;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 #root {

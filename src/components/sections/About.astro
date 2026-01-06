@@ -4,7 +4,7 @@ import Icon from "../ui/Icon.jsx";
 import MagneticButton from "../ui/MagneticButton.astro";
 import StatsCounter from "../ui/StatsCounter.astro";
 
-const lang = 'en';
+const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const localContent = {
@@ -130,10 +130,10 @@ const bootcampGrades = [
         </div>
 
         <div class="flex flex-wrap gap-4 pt-4 fade-up delay-200">
-           <MagneticButton href="#contact" class="px-8 py-4 bg-white text-black rounded-full font-bold text-sm tracking-wide hover:bg-gray-200 transition-colors">
+           <MagneticButton href="#contact" class="px-8 py-4 bg-white text-black rounded-full font-bold text-sm tracking-wide hover:bg-gray-200 transition-colors" aria-label={t("about.ctaTalk")}>
              {t("about.ctaTalk")}
            </MagneticButton>
-           <MagneticButton href="/cv.pdf" download class="px-8 py-4 rounded-full border border-white/20 hover:bg-white/10 text-white transition-colors backdrop-blur-sm text-sm tracking-wide">
+           <MagneticButton href="/cv.pdf" download class="px-8 py-4 rounded-full border border-white/20 hover:bg-white/10 text-white transition-colors backdrop-blur-sm text-sm tracking-wide" aria-label={t("about.ctaDownload")}>
              {t("about.ctaDownload")}
            </MagneticButton>
         </div>
@@ -148,9 +148,11 @@ const bootcampGrades = [
              loop 
              muted 
              playsinline 
-             class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
+             preload="none"
+             class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out lazy-video"
+             aria-label="Developer coding background"
           >
-             <source src="https://cdn.pixabay.com/video/2025/04/07/270448_large.mp4" type="video/mp4" />
+             <source data-src="https://cdn.pixabay.com/video/2025/04/07/270448_large.mp4" type="video/mp4" />
           </video>
           
           <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
@@ -190,10 +192,10 @@ const bootcampGrades = [
             <h4 class="text-4xl font-bold text-white leading-tight">
                8+ Months <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Intensive Training</span>
             </h4>
-            <div class="flex items-center gap-3 bg-white/5 px-4 py-2 rounded-lg border border-white/5">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVMAvhCOkb_T4zE6mPoxvNZaz5kBjZS6cntA&s" class="w-8 h-8 rounded-full" alt="ED Tecnica">
-                <p class="text-gray-300 text-sm font-medium">ED Técnica</p>
-                <a href="https://www.instagram.com/ed.tecnica/" target="_blank" class="text-xs text-purple-400 hover:text-white transition-colors underline">Visit</a>
+            <div class="flex items-center gap-3 bg-white/10 px-4 py-2 rounded-lg border border-white/20">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVMAvhCOkb_T4zE6mPoxvNZaz5kBjZS6cntA&s" class="w-8 h-8 rounded-full" alt="ED Tecnica Logo">
+                <p class="text-white text-sm font-bold">ED Técnica</p>
+                <a href="https://www.instagram.com/ed.tecnica/" target="_blank" class="text-xs text-purple-300 hover:text-white transition-colors underline" aria-label="Visit ED Técnica Instagram">Visit</a>
             </div>
           </div>
           
@@ -275,9 +277,10 @@ const bootcampGrades = [
            loop 
            muted 
            playsinline 
-           class="absolute inset-0 w-full h-full object-cover opacity-50 pointer-events-none"
+           preload="none"
+           class="absolute inset-0 w-full h-full object-cover opacity-50 pointer-events-none lazy-video"
         >
-           <source src="https://cdn.pixabay.com/video/2022/03/09/110273-688187522_large.mp4" type="video/mp4" />
+           <source data-src="https://cdn.pixabay.com/video/2022/03/09/110273-688187522_large.mp4" type="video/mp4" />
         </video>
         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
         
@@ -321,8 +324,8 @@ const bootcampGrades = [
                     </h4>
                     <div class="grid grid-cols-2 gap-4">
                         {bootcampGrades.map(grade => (
-                            <div class="bg-black/40 rounded-lg p-3 border border-white/5 flex justify-between items-center group hover:border-green-500/30 transition-colors">
-                                <span class="text-xs text-gray-400 group-hover:text-white transition-colors">{grade.subject}</span>
+                            <div class="bg-black/60 rounded-lg p-3 border border-white/10 flex justify-between items-center group hover:border-green-500/50 transition-colors">
+                                <span class="text-xs text-gray-300 group-hover:text-white transition-colors">{grade.subject}</span>
                                 <span class="text-lg font-bold text-green-400 font-mono">{grade.score}/20</span>
                             </div>
                         ))}
@@ -336,7 +339,7 @@ const bootcampGrades = [
     <div class="mt-32 pt-24 border-t border-white/5 grid lg:grid-cols-2 gap-16 items-center fade-up delay-200">
         <div class="relative order-2 lg:order-1">
            <div class="relative aspect-video rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl group hover:shadow-[0_20px_50px_rgba(255,255,255,0.1)] transition-all duration-500">
-              <img src="https://images.unsplash.com/photo-1605379399642-870262d3d051?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZ3JhbWFjaW9ufGVufDB8fDB8fHww" alt="Origins" class="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-700 ease-out" />
+              <img src="https://images.unsplash.com/photo-1605379399642-870262d3d051?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZ3JhbWFjaW9ufGVufDB8fDB8fHww" alt="Origins" class="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy" decoding="async" />
               <div class="absolute inset-0 bg-gradient-to-tr from-black via-black/50 to-transparent"></div>
               <div class="absolute bottom-8 left-8 max-w-sm">
                  <p class="text-white text-xl font-display font-medium leading-tight">"{t("about.originsSubtitle")}"</p>
@@ -356,3 +359,33 @@ const bootcampGrades = [
     </div>
   </div>
 </section>
+
+<script>
+  function initLazyVideos() {
+    const lazyVideos = document.querySelectorAll('.lazy-video');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const video = entry.target as HTMLVideoElement;
+          const sources = video.querySelectorAll('source');
+          
+          sources.forEach(source => {
+            if (source.dataset.src) {
+              source.src = source.dataset.src;
+            }
+          });
+          
+          video.load();
+          video.play().catch(() => {});
+          observer.unobserve(video);
+        }
+      });
+    }, { threshold: 0 });
+
+    lazyVideos.forEach(video => observer.observe(video));
+  }
+
+  initLazyVideos();
+  document.addEventListener('astro:page-load', initLazyVideos);
+</script>

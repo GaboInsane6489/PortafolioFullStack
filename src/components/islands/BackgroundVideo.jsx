@@ -8,8 +8,6 @@ export default function BackgroundVideo() {
   const [videoSrc, setVideoSrc] = useState("");
 
   useEffect(() => {
-    setVideoSrc("https://play.vsthemes.org/fhd/12/73012.webm");
-
     const video = videoRef.current;
     if (!video) return;
 
@@ -17,6 +15,10 @@ export default function BackgroundVideo() {
       (entries) => {
         const [entry] = entries;
         if (entry.isIntersecting) {
+          // Only set source when it enters viewport for the first time
+          if (!videoSrc) {
+            setVideoSrc("https://play.vsthemes.org/fhd/12/73012.webm");
+          }
           video.play().catch(() => {});
         } else {
           video.pause();
@@ -30,7 +32,7 @@ export default function BackgroundVideo() {
     return () => {
       observer.disconnect();
     };
-  }, []);
+  }, [videoSrc]);
 
   if (hasError) return null;
 
@@ -48,10 +50,11 @@ export default function BackgroundVideo() {
         muted
         playsInline
         webkit-playsinline="true"
-        preload="auto"
+        preload="none"
         poster="https://wallpapercave.com/wp/wp5338729.jpg"
         className="w-full h-full object-cover opacity-60"
         onError={() => setHasError(true)}
+        aria-label="Background abstract video"
       >
         {videoSrc && <source src={videoSrc} type="video/webm" />}
       </video>

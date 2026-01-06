@@ -3,7 +3,7 @@
 import Icon from '../ui/Icon.jsx';
 import { useTranslations, getLangFromUrl } from '../../utils/i18n.js';
 
-const lang = 'en';
+const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const items = [
