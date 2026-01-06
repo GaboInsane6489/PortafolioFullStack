@@ -17,7 +17,7 @@ export default function BackgroundVideo() {
         if (entry.isIntersecting) {
           // Only set source when it enters viewport for the first time
           if (!videoSrc) {
-            setVideoSrc("https://play.vsthemes.org/fhd/12/73012.webm");
+            setVideoSrc("/assets/images/backgrounds/bg-video.webm");
           }
           video.play().catch(() => {});
         } else {
@@ -51,7 +51,7 @@ export default function BackgroundVideo() {
         playsInline
         webkit-playsinline="true"
         preload="none"
-        poster="https://wallpapercave.com/wp/wp5338729.jpg"
+        poster="/assets/images/backgrounds/bg-poster.webp"
         className="w-full h-full object-cover opacity-60"
         onError={() => setHasError(true)}
         aria-label="Background abstract video"

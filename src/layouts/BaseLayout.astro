@@ -36,7 +36,7 @@ const ogImageURL = new URL(ogImage, Astro.site);
 
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://api.web3forms.com https://vercel.live; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://cdn.pixabay.com https://wallpapercave.com https://www.enter.co https://vercel.live https://vercel.com https://images.unsplash.com https://instagram.fccs3-1.fna.fbcdn.net https://encrypted-tbn0.gstatic.com; media-src 'self' https://play.vsthemes.org https://cdn.pixabay.com; connect-src 'self' https://api.web3forms.com https://vercel.live https://*.vercel-insights.com data:; frame-src 'self' https://vercel.live https://www.youtube.com https://youtube.com; object-src 'none';"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://api.web3forms.com https://vercel.live; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://cdn.pixabay.com https://www.enter.co https://vercel.live https://vercel.com https://images.unsplash.com https://instagram.fccs3-1.fna.fbcdn.net https://encrypted-tbn0.gstatic.com https://*.ytimg.com; media-src 'self' https://cdn.pixabay.com; connect-src 'self' https://api.web3forms.com https://vercel.live https://*.vercel-insights.com data:; frame-src 'self' https://vercel.live https://www.youtube.com https://youtube.com; object-src 'none';"
     />
     
     <!-- Open Graph / Facebook -->
@@ -65,7 +65,7 @@ const ogImageURL = new URL(ogImage, Astro.site);
     
     <!-- Preload Critical Assets -->
     <link rel="preload" href="/assets/images/profile.webp" as="image" />
-    <link rel="preload" href="https://wallpapercave.com/wp/wp5338729.jpg" as="image" />
+    <link rel="preload" href="/assets/images/backgrounds/bg-poster.webp" as="image" />
   </head>
   <body class="bg-black text-white antialiased overflow-x-hidden">
     <slot />

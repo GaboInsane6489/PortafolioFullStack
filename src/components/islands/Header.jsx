@@ -10,6 +10,7 @@ import {
 import { useStore } from "@nanostores/react";
 import LanguageToggle from "../LanguageToggle";
 import Logo from "../ui/Logo.jsx";
+import Icon from "../ui/Icon.jsx";
 import { $lang, useTranslations, getLang, setLang } from "../../utils/i18n.js";
 
 export default function Header({ initialLang = "en", animate = true }) {
@@ -49,9 +50,18 @@ export default function Header({ initialLang = "en", animate = true }) {
     { href: "#contact", label: t("nav.contact") },
   ];
 
-  // Scroll background opacity
-  const headerBgOpacity = useTransform(scrollYProgress, [0, 0.05], [0, 0.9]);
-  const headerBlur = useTransform(scrollYProgress, [0, 0.05], [0, 20]);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Removed expensive motion transforms for header bg/blur
+  // and scaleX for progress bar can stay if desired, but we'll optimize the header itself.
 
   return (
     <div className="relative">
@@ -61,15 +71,15 @@ export default function Header({ initialLang = "en", animate = true }) {
         style={{ scaleX }}
       />
 
-      <motion.header
-        className="fixed top-0 w-full z-40 border-b border-white/5 transition-all duration-300"
-        style={{
-          backgroundColor: useMotionTemplate`rgba(0, 0, 0, ${headerBgOpacity})`,
-          backdropFilter: useMotionTemplate`blur(${headerBlur}px)`,
-        }}
+      <header
+        className={`fixed top-0 w-full z-40 border-b transition-all duration-300 ${
+          isScrolled
+            ? "border-white/10 bg-black/80 backdrop-blur-md py-4"
+            : "border-transparent bg-transparent py-6"
+        }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
+          <div className="flex justify-between items-center h-full">
             {/* Logo Section */}
             <div className="flex-shrink-0">
               <a
@@ -269,7 +279,7 @@ export default function Header({ initialLang = "en", animate = true }) {
             </motion.div>
           )}
         </AnimatePresence>
-      </motion.header>
+      </header>
     </div>
   );
 }

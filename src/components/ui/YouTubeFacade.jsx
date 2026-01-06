@@ -26,7 +26,8 @@ export default function YouTubeFacade({ videoId, title, coverImage = null }) {
     >
       <img
         src={
-          coverImage || `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`
+          coverImage ||
+          `https://images.unsplash.com/photo-1670057037226-b3d65909424f?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cmVhY3QlMjBqc3xlbnwwfHwwfHx8MA%3D%3D`
         }
         alt={title}
         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
