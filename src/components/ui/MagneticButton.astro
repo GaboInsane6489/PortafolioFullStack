@@ -1,0 +1,61 @@
+---
+const { href, class: className = '', download } = Astro.props;
+---
+
+<a
+  href={href}
+  download={download}
+  class={`magnetic-button relative inline-block ${className}`}
+  style="will-change: transform;"
+>
+  <slot />
+</a>
+
+<script>
+  // Magnetic Button Effect
+  const buttons = document.querySelectorAll('.magnetic-button');
+
+  buttons.forEach((btn) => {
+    if (!(btn instanceof HTMLElement)) return;
+
+    let x = 0;
+    let y = 0;
+    let frame;
+
+    const update = () => {
+       // Smooth interpolation could be added here, but direct is performant
+       btn.style.transform = `translate(${x}px, ${y}px)`;
+    };
+
+    btn.addEventListener('mousemove', (e) => {
+      if (!(e instanceof MouseEvent)) return;
+      const rect = btn.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      
+      // Strength of magnet
+      x = (e.clientX - centerX) * 0.15;
+      y = (e.clientY - centerY) * 0.15;
+      
+      if (frame) cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(update);
+    });
+
+    btn.addEventListener('mouseleave', () => {
+      x = 0;
+      y = 0;
+      if (frame) cancelAnimationFrame(frame);
+      // CSS transition handles the return
+      btn.style.transform = `translate(0px, 0px)`;
+    });
+  });
+</script>
+
+<style>
+  .magnetic-button {
+    transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1); /* Spring-like return */
+  }
+  .magnetic-button:hover {
+    transition: none; /* remove transition on hover for instant follow */
+  }
+</style>

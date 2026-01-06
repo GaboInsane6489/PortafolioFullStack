@@ -1,0 +1,62 @@
+---
+// specific to About section stats
+---
+
+<div class="stats-counter grid grid-cols-2 gap-8 md:gap-12 w-full max-w-sm" id="stats-counter">
+    <div class="stat-item text-center">
+        <div class="text-3xl md:text-4xl font-bold text-white mb-2 flex justify-center">
+            <span class="counter-value" data-target="2">0</span>
+            <span>+</span>
+        </div>
+        <div class="text-xs text-gray-400 uppercase tracking-widest">
+            Years Exp
+        </div>
+    </div>
+    <div class="stat-item text-center">
+        <div class="text-3xl md:text-4xl font-bold text-white mb-2 flex justify-center">
+            <span class="counter-value" data-target="15">0</span>
+            <span>+</span>
+        </div>
+        <div class="text-xs text-gray-400 uppercase tracking-widest">
+            Projects
+        </div>
+    </div>
+</div>
+
+<script>
+  /**
+   * @param {HTMLElement} obj
+   * @param {number} start
+   * @param {number} end
+   * @param {number} duration
+   */
+  function animateValue(obj, start, end, duration) {
+    /** @type {number | null} */
+    let startTimestamp = null;
+    const step = (/** @type {number} */ timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      obj.innerHTML = Math.floor(progress * (end - start) + start);
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+    window.requestAnimationFrame(step);
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const counters = entry.target.querySelectorAll('.counter-value');
+        counters.forEach(counter => {
+             const target = parseInt(counter.getAttribute('data-target') || '0');
+             animateValue(counter, 0, target, 2000);
+        });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  const statsSection = document.getElementById('stats-counter');
+  if (statsSection) observer.observe(statsSection);
+</script>

@@ -1,14 +1,37 @@
-import React, { useState } from "react";
-import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import {
+  motion,
+  useScroll,
+  useSpring,
+  AnimatePresence,
+  useTransform,
+  useMotionTemplate,
+} from "framer-motion";
 import { useStore } from "@nanostores/react";
-import LanguageToggle from "./LanguageToggle";
-import Logo from "./ui/Logo.jsx";
-import { useTranslations, $lang } from "../utils/i18n.js";
+import LanguageToggle from "../LanguageToggle";
+import Logo from "../ui/Logo.jsx";
+import { $lang, useTranslations, getLang, setLang } from "../../utils/i18n.js";
 
-export default function Header() {
-  const lang = useStore($lang);
+export default function Header({ initialLang = "en", animate = true }) {
+  const storeLang = useStore($lang);
+  const [lang, setLocalLang] = useState(initialLang);
+
   const t = useTranslations(lang);
   const [isOpen, setIsOpen] = useState(false);
+  const [hoveredLink, setHoveredLink] = useState(null);
+
+  // Sync with store after mount to avoid hydration mismatch
+  useEffect(() => {
+    setLocalLang(storeLang);
+  }, [storeLang]);
+
+  // Logo text for staggered animation
+  const logoText = "Gabriel González";
+
+  // Actualiza idioma en cliente después de montar
+  useEffect(() => {
+    setLang(getLang());
+  }, []);
 
   // Scroll progress bar
   const { scrollYProgress } = useScroll();
@@ -26,6 +49,10 @@ export default function Header() {
     { href: "#contact", label: t("nav.contact") },
   ];
 
+  // Scroll background opacity
+  const headerBgOpacity = useTransform(scrollYProgress, [0, 0.05], [0, 0.9]);
+  const headerBlur = useTransform(scrollYProgress, [0, 0.05], [0, 20]);
+
   return (
     <div className="relative">
       {/* Scroll Progress Bar */}
@@ -34,7 +61,13 @@ export default function Header() {
         style={{ scaleX }}
       />
 
-      <header className="fixed top-0 w-full z-40 bg-black/90 backdrop-blur-xl border-b border-white/5 transition-all duration-300">
+      <motion.header
+        className="fixed top-0 w-full z-40 border-b border-white/5 transition-all duration-300"
+        style={{
+          backgroundColor: useMotionTemplate`rgba(0, 0, 0, ${headerBgOpacity})`,
+          backdropFilter: useMotionTemplate`blur(${headerBlur}px)`,
+        }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             {/* Logo Section */}
@@ -48,9 +81,24 @@ export default function Header() {
                   <div className="absolute inset-0 bg-purple-500 blur-lg opacity-0 group-hover:opacity-40 transition-opacity duration-500" />
                   <Logo className="w-10 h-10 relative z-10 group-hover:scale-110 group-active:scale-95 transition-transform duration-300 cubic-bezier(0.34, 1.56, 0.64, 1)" />
                 </div>
-                <span className="text-xl font-display font-bold tracking-tight text-white group-hover:text-purple-400 transition-colors duration-300">
-                  Gabriel González
-                </span>
+                <div className="flex overflow-hidden">
+                  {logoText.split("").map((char, i) => (
+                    <motion.span
+                      key={i}
+                      initial={{ y: 0 }}
+                      whileHover={{ y: -5, color: "#a855f7" }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 10,
+                        delay: i * 0.02,
+                      }}
+                      className="text-xl font-display font-bold tracking-tight text-white inline-block"
+                    >
+                      {char === " " ? "\u00A0" : char}
+                    </motion.span>
+                  ))}
+                </div>
               </a>
             </div>
 
@@ -70,12 +118,29 @@ export default function Header() {
                     duration: 0.5,
                     ease: "easeOut",
                   }}
-                  className="relative group py-2"
+                  whileHover={{ y: -2 }}
+                  onMouseEnter={() => setHoveredLink(link.href)}
+                  onMouseLeave={() => setHoveredLink(null)}
+                  className="relative group px-4 py-2"
                 >
-                  <span className="text-sm font-medium text-gray-300 group-hover:text-white transition-colors duration-200">
+                  <span className="relative z-10 text-sm font-medium text-gray-300 group-hover:text-white transition-colors duration-200">
                     {link.label}
                   </span>
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out" />
+
+                  {hoveredLink === link.href && (
+                    <motion.div
+                      layoutId="navPill"
+                      className="absolute inset-0 bg-white/5 border border-white/10 rounded-full z-0 shadow-[0_0_20px_rgba(255,255,255,0.05)]"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 30,
+                      }}
+                    />
+                  )}
                 </motion.a>
               ))}
 
@@ -167,13 +232,22 @@ export default function Header() {
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              className="fixed inset-0 top-20 bg-black/95 backdrop-blur-2xl z-40 md:hidden border-t border-white/10"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "100vh" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              className="fixed inset-0 top-0 bg-black/98 backdrop-blur-3xl z-[100] md:hidden"
+              initial={{ clipPath: "circle(0% at 90% 5%)" }}
+              animate={{ clipPath: "circle(150% at 90% 5%)" }}
+              exit={{ clipPath: "circle(0% at 90% 5%)" }}
+              transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
             >
-              <nav className="flex flex-col items-center justify-center p-8 space-y-8 h-full pb-32">
+              <div className="absolute top-8 right-8">
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="p-4 text-white hover:text-purple-400 transition-colors hover:scale-110 active:scale-90"
+                >
+                  <Icon name="x" size={32} />
+                </button>
+              </div>
+
+              <nav className="flex flex-col items-center justify-center p-8 space-y-8 h-full">
                 {navLinks.map((link, index) => (
                   <motion.a
                     key={link.href}
@@ -195,7 +269,7 @@ export default function Header() {
             </motion.div>
           )}
         </AnimatePresence>
-      </header>
+      </motion.header>
     </div>
   );
 }

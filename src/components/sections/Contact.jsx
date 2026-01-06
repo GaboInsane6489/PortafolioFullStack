@@ -1,11 +1,17 @@
 import { motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslations, $lang } from "../../utils/i18n.js";
 import { useStore } from "@nanostores/react";
 import Icon from "../ui/Icon.jsx";
 
-export default function Contact() {
-  const lang = useStore($lang);
+export default function Contact({ initialLang = "en" }) {
+  const storeLang = useStore($lang);
+  const [lang, setLocalLang] = useState(initialLang);
+
+  useEffect(() => {
+    setLocalLang(storeLang);
+  }, [storeLang]);
+
   const t = useTranslations(lang);
 
   const [status, setStatus] = useState("idle"); // idle, sending, success, error
@@ -55,7 +61,10 @@ export default function Contact() {
   };
 
   return (
-    <section className="relative min-h-screen py-32 flex items-center overflow-hidden">
+    <section
+      id="contact"
+      className="relative min-h-screen py-32 flex items-center overflow-hidden"
+    >
       {/* Background showing video */}
       <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px] pointer-events-none" />
       {/* Background Gradients */}

@@ -1,0 +1,151 @@
+---
+// @ts-nocheck
+import Icon from '../ui/Icon.jsx';
+import { useTranslations, getLangFromUrl } from '../../utils/i18n.js';
+
+const lang = 'en';
+const t = useTranslations(lang);
+
+const items = [
+    {
+      img: "/assets/images/projects/Codigo1.jpeg",
+      title: t("codegallery.card1.title"),
+      subtitle: t("codegallery.card1.subtitle"),
+      icon: "code",
+    },
+    {
+      img: "/assets/images/projects/Codigo2.jpeg",
+      title: t("codegallery.card2.title"),
+      subtitle: t("codegallery.card2.subtitle"),
+      icon: "activity",
+    },
+    {
+      img: "/assets/images/projects/Codigo3.jpeg",
+      title: t("codegallery.card3.title"),
+      subtitle: t("codegallery.card3.subtitle"),
+      icon: "terminal",
+    },
+    {
+      img: "/assets/images/projects/Codigo4.jpeg",
+      title: t("codegallery.card4.title"),
+      subtitle: t("codegallery.card4.subtitle"),
+      icon: "sparkles",
+    },
+];
+---
+
+<section class="code-gallery-section relative min-h-screen py-32 bg-black flex items-center overflow-hidden">
+  <!-- Abstract Background -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-0 -left-1/4 w-full h-full bg-gradient-to-br from-purple-900/10 via-transparent to-transparent blur-3xl rounded-full"></div>
+    <div class="absolute bottom-0 -right-1/4 w-full h-full bg-gradient-to-tl from-blue-900/10 via-transparent to-transparent blur-3xl rounded-full"></div>
+  </div>
+
+  <div class="container mx-auto px-6 max-w-7xl relative z-10 gallery-content">
+    <div class="text-center mb-24 header-anim">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6 backdrop-blur-sm">
+        <div class="text-purple-400">
+            <Icon name="terminal" size={16} />
+        </div>
+        <span class="text-xs font-bold uppercase tracking-widest text-purple-200">
+          {t("codegallery.meta")}
+        </span>
+      </div>
+
+      <h2 class="text-5xl md:text-7xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-gray-500 mb-6">
+        {t("codegallery.title")}
+      </h2>
+      <p class="max-w-2xl mx-auto text-gray-400 text-lg">
+        {t("codegallery.subtitle")}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 lg:gap-12">
+      {items.map((item, index) => (
+        <div 
+          class="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-gray-900 border border-white/10 shadow-2xl card-anim"
+          style={{ '--delay': `${index * 0.15}s` }}
+        >
+          <!-- Background Image -->
+          <img
+            src={item.img}
+            alt={item.title}
+            loading="lazy"
+            decoding="async"
+            width="600"
+            height="450"
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-100"
+          />
+
+          <!-- Gradient Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500"></div>
+
+          <!-- Content -->
+          <div class="absolute inset-0 p-8 flex flex-col justify-end transform transition-transform duration-500">
+            <div class="mb-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+              <div class="w-12 h-12 rounded-xl bg-purple-600/20 backdrop-blur-md flex items-center justify-center mb-4 border border-purple-500/30 group-hover:bg-purple-600 group-hover:border-purple-500 transition-all duration-300">
+                <div class="text-purple-400 group-hover:text-white transition-colors">
+                    <Icon name={item.icon} size={24} />
+                </div>
+              </div>
+
+              <h3 class="text-2xl font-display font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">
+                {item.title}
+              </h3>
+
+              <p class="text-gray-400 text-sm opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-75">
+                {item.subtitle}
+              </p>
+            </div>
+          </div>
+
+          <!-- Shiny Border Effect -->
+          <div class="absolute inset-0 border-2 border-white/0 group-hover:border-purple-500/50 rounded-2xl transition-all duration-300 pointer-events-none"></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Scroll Driven Animations */
+  @keyframes fadeIO {
+    0% { opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  
+  @keyframes parallaxUp {
+    from { transform: translateY(0); }
+    to { transform: translateY(-100px); }
+  }
+
+  /* Apply to the content container */
+  .gallery-content {
+    animation: fadeIO linear both, parallaxUp linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 100%;
+  }
+
+  /* Card Entry Animations */
+  @keyframes slideUpFade {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card-anim {
+    opacity: 0; /* Fallback */
+    animation: slideUpFade 0.8s ease-out forwards;
+    animation-delay: var(--delay);
+    animation-timeline: view();
+    animation-range: entry 10% cover 40%;
+  }
+  
+  .header-anim {
+    opacity: 0;
+    animation: slideUpFade 0.8s ease-out forwards;
+    animation-timeline: view();
+    animation-range: entry 10% cover 40%;
+  }
+</style>

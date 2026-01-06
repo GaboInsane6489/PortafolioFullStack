@@ -28,6 +28,8 @@ import {
   LuArrowLeft,
   LuChevronLeft,
   LuChevronRight,
+  LuServer,
+  LuDatabase,
 } from "react-icons/lu";
 
 // Simple Icons (Tech Brands)
@@ -56,6 +58,8 @@ import {
   SiDocker,
   SiLinux,
   SiFigma,
+  SiPython,
+  SiCplusplus,
 } from "react-icons/si";
 
 /**
@@ -85,6 +89,8 @@ const iconMap = {
   sparkles: LuSparkles,
   download: LuDownload,
   send: LuSend,
+  server: LuServer,
+  database: LuDatabase,
 
   terminal: LuTerminal,
   "git-commit": SiGit,
@@ -121,13 +127,16 @@ const iconMap = {
   docker: SiDocker,
   linux: SiLinux,
   figma: SiFigma,
+  python: SiPython,
+  cpp: SiCplusplus,
 };
 
 /**
  * Icon Component - Renders icons from react-icons
- * @param {string} name - Icon name from registry
- * @param {number} size - Icon size in pixels (default: 24)
- * @param {string} className - Additional CSS classes
+ * @param {Object} props
+ * @param {string} props.name - Icon name from registry
+ * @param {number} [props.size] - Icon size in pixels (default: 24)
+ * @param {string} [props.className] - Additional CSS classes
  */
 export default function Icon({ name, size = 24, className = "", ...props }) {
   const IconComponent = iconMap[name];

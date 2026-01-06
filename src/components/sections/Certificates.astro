@@ -1,0 +1,267 @@
+---
+// @ts-nocheck
+import Icon from '../ui/Icon.jsx';
+import TiltCard from '../ui/TiltCard.astro';
+import { useTranslations, getLangFromUrl } from '../../utils/i18n.js';
+
+const lang = 'en';
+const t = useTranslations(lang);
+
+const skills = [
+    { name: "React", icon: "react", color: "#61DAFB", level: 1, desc: t("certificates.skills.react") },
+    { name: "Astro", icon: "astro", color: "#FF5D01", level: 1, desc: t("certificates.skills.astro") },
+    { name: "Next.js", icon: "next", color: "#FFFFFF", level: 1, desc: t("certificates.skills.next") },
+    { name: "Node.js", icon: "node", color: "#339933", level: 1, desc: t("certificates.skills.node") },
+    { name: "Tailwind", icon: "tailwind", color: "#38B2AC", level: 2, desc: t("certificates.skills.tailwind") },
+    { name: "PostgreSQL", icon: "postgres", color: "#4169E1", level: 2, desc: t("certificates.skills.postgres") },
+    { name: "Supabase", icon: "supabase", color: "#3ECF8E", level: 2, desc: t("certificates.skills.supabase") },
+    { name: "Git", icon: "git", color: "#F05032", level: 3, desc: t("certificates.skills.git") },
+    { name: "GitHub", icon: "github", color: "#FFFFFF", level: 3, desc: t("certificates.skills.github") },
+    { name: "Vercel", icon: "vercel", color: "#FFFFFF", level: 3, desc: t("certificates.skills.vercel") },
+    { name: "Docker", icon: "docker", color: "#2496ED", level: 3, desc: t("certificates.skills.docker") },
+];
+
+const stats = [
+  { number: "8", label: t("certificates.months"), icon: "terminal" },
+  { number: "+800", label: t("certificates.hours"), icon: "code" }
+];
+---
+
+<section id="certificates" class="relative min-h-[85vh] md:min-h-screen flex items-center py-12 md:py-20 overflow-hidden text-white bg-[#020202]">
+  <!-- Layer 1: Background & Ambience -->
+  <div class="absolute inset-0 bg-black/20 backdrop-blur-[1px] pointer-events-none"></div>
+  <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-purple-900/10 rounded-full blur-[120px] pointer-events-none"></div>
+  <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-900/05 rounded-full blur-[120px] pointer-events-none"></div>
+  
+  <div class="container mx-auto px-6 max-w-7xl relative z-10">
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
+      
+      <!-- LEFT: The Narrative Object -->
+      <div class="order-2 lg:order-1 flex justify-center warp-scan-container">
+        <TiltCard class="max-w-md w-full aspect-[3/4] rounded-3xl border border-white/10 shadow-huge overflow-hidden bg-black group relative">
+          <!-- Layer 0: Static Image (Original Colors) -->
+          <img
+            src="/assets/images/certificates/FullStackCertificate.jpeg"
+            alt="Full Stack Developer Certificate"
+            fetchpriority="high"
+            decoding="async"
+            width="800"
+            height="1000"
+            class="w-full h-full object-contain transition-all duration-1000 group-hover:scale-[1.05] group-hover:brightness-110 cert-image"
+          />
+          
+          <!-- Chromatic Aberration Override (L2) -->
+          <div class="absolute inset-0 opacity-0 group-hover:opacity-40 pointer-events-none mix-blend-screen transition-opacity duration-700 chromatic-layer"></div>
+
+          <!-- Warp Scan Effect (L2) -->
+          <div class="warp-scan-line absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-transparent via-purple-400 to-transparent opacity-0 pointer-events-none z-30"></div>
+
+          <!-- Floating Badge -->
+          <div class="absolute bottom-8 right-8 bg-black/80 backdrop-blur-xl border border-white/30 px-5 py-2.5 rounded-2xl flex items-center gap-3 shadow-2xl transition-all duration-500 hover:border-purple-500/50 group/badge z-40" style="transform: translateZ(60px);">
+            <div class="text-green-400 group-hover/badge:scale-125 transition-transform duration-500">
+                <Icon name="check" size={18} />
+            </div>
+            <span class="text-[11px] font-black text-white uppercase tracking-[0.25em]">
+              {t("certificates.verified")}
+            </span>
+          </div>
+        </TiltCard>
+      </div>
+
+      <!-- RIGHT: Narrative & Tech Cloud -->
+      <div class="order-1 lg:order-2 space-y-8 text-center lg:text-left py-6">
+        <div class="space-y-4">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-[10px] font-black uppercase tracking-[0.35em] mb-2 animate-pulse-slow">
+            <Icon name="sparkles" size={14} />
+            {t("certificates.certified")}
+          </div>
+
+          <h2 class="text-4xl md:text-7xl font-display font-black text-white leading-[1.1] tracking-tight">
+            {t("certificates.title")}
+          </h2>
+
+          <p class="text-lg text-gray-400 leading-relaxed max-w-xl mx-auto lg:mx-0 font-light opacity-90">
+            {t("certificates.description")}
+          </p>
+        </div>
+
+        <!-- Stats: The Proof (Odometer L2) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-1.5 bg-white/[0.01] rounded-[2rem] border border-white/5 max-w-xl mx-auto lg:mx-0">
+          {stats.map(stat => (
+            <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5 p-5 hover:bg-white/[0.04] rounded-[1.8rem] transition-all duration-500 group">
+              <div class="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-purple-400 border border-white/10 shrink-0 group-hover:border-purple-500/30 transition-colors shadow-inner group-hover:scale-110 duration-500">
+                <Icon name={stat.icon} size={28} />
+              </div>
+              <div class="space-y-0.5">
+                <div class="text-4xl font-black text-white tracking-tighter odometer" data-target={stat.number.replace('+', '')}>
+                  {stat.number}
+                </div>
+                <div class="text-[10px] text-gray-500 uppercase tracking-[0.3em] font-black opacity-70">
+                  {stat.label}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Tech Cloud: Semantic Hierarchy -->
+        <div class="max-w-xl mx-auto lg:mx-0 space-y-6 pt-2">
+          <p class="text-[10px] text-gray-500 uppercase tracking-[0.5em] font-black text-center lg:text-left opacity-60">
+            {t("certificates.stack")}
+          </p>
+          
+          <div class="flex flex-wrap justify-center lg:justify-start gap-4">
+            {skills.map((skill) => (
+              <div 
+                class="relative flex items-center gap-2 px-4 py-2 bg-white/[0.02] border border-white/5 rounded-xl transition-all duration-300 group cursor-default magnetic-icon"
+              >
+                <div style={{ color: skill.color }} class="transition-transform duration-500 group-hover:scale-125">
+                   <Icon name={skill.icon} size={16} />
+                </div>
+                <span class="font-bold tracking-tight text-[13px] text-gray-400 group-hover:text-white transition-colors duration-300">
+                  {skill.name}
+                </span>
+                
+                <!-- Tooltip (UX/UI Fix) -->
+                <div class="tech-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-4 px-4 py-3 bg-black border border-white/20 rounded-2xl text-[11px] text-gray-300 w-56 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 pointer-events-none transition-all duration-300 z-[100] shadow-[0_20px_50px_rgba(0,0,0,0.8)] text-left">
+                    <div class="flex items-center gap-2 mb-2">
+                      <div class="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: skill.color }}></div>
+                      <p class="font-black text-white uppercase tracking-wider">{skill.name}</p>
+                    </div>
+                    <p class="leading-relaxed opacity-90 text-white/80">{skill.desc}</p>
+                    <div class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-black border-r border-b border-white/20 rotate-45"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .shadow-huge {
+    box-shadow: 0 0 100px -30px rgba(88, 28, 135, 0.4);
+  }
+
+  .chromatic-layer {
+    background: linear-gradient(rgba(255,0,0,0.1), rgba(0,255,255,0.1));
+    filter: contrast(200%) brightness(150%);
+  }
+
+  /* Warp Scan Keyframes */
+  @keyframes warp-scan {
+    0% { top: -10%; opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { top: 110%; opacity: 0; }
+  }
+
+  .warp-scan-active .warp-scan-line {
+    animation: warp-scan 3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.97); }
+  }
+
+  /* Reveal Animations */
+  section {
+    perspective: 1500px;
+  }
+
+  .warp-scan-container {
+      opacity: 0;
+      transform: translateX(-60px) rotateY(-15deg);
+      transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .warp-scan-container.revealed {
+      opacity: 1;
+      transform: translateX(0) rotateY(0);
+  }
+
+  .cert-image {
+      transform: translateZ(0);
+      will-change: transform;
+  }
+
+  .group:hover .cert-image {
+      transform: translateZ(-20px) scale(1.05); /* 3D Depth Push */
+  }
+</style>
+
+<script>
+    function initCertAnimations() {
+        const section = document.querySelector('#certificates');
+        if (!section) return;
+
+        const odometers = section.querySelectorAll('.odometer');
+        const hero = section.querySelector('.warp-scan-container');
+        const magneticIcons = section.querySelectorAll('.magnetic-icon');
+        
+        // Magnetic Effect Logic
+        magneticIcons.forEach(icon => {
+            if (!(icon instanceof HTMLElement)) return;
+            icon.addEventListener('mousemove', (e) => {
+                const rect = icon.getBoundingClientRect();
+                const x = (e.clientX - (rect.left + rect.width / 2)) * 0.2;
+                const y = (e.clientY - (rect.top + rect.height / 2)) * 0.2;
+                icon.style.transform = `translate(${x}px, ${y}px) scale(${icon.classList.contains('scale-110') ? 1.15 : 1.05})`;
+            });
+            icon.addEventListener('mouseleave', () => {
+                icon.style.transform = '';
+            });
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Trigger Reveal
+                    hero?.classList.add('revealed');
+                    
+                    // Delay Warp Scan for dramatic effect
+                    setTimeout(() => {
+                        hero?.classList.add('warp-scan-active');
+                    }, 500);
+                    
+                    // Animate Numbers
+                    odometers.forEach(odo => {
+                        const targetStr = odo.getAttribute('data-target') || '0';
+                        const target = parseInt(targetStr);
+                        const duration = 2000;
+                        const startTime = performance.now();
+                        const startValue = 0;
+
+                        function update(currentTime) {
+                            const elapsed = currentTime - startTime;
+                            const progress = Math.min(elapsed / duration, 1);
+                            const easeOutExpo = 1 - Math.pow(2, -10 * progress);
+                            const current = Math.floor(startValue + (target - startValue) * easeOutExpo);
+                            
+                            odo.textContent = (odo.textContent?.includes('+') ? '+' : '') + current;
+                            
+                            if (progress < 1) requestAnimationFrame(update);
+                            else odo.textContent = (odo.getAttribute('data-target')?.startsWith('+') ? '+' : '') + target + (odo.textContent?.includes('+') ? '+' : '');
+                        }
+                        requestAnimationFrame(update);
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        observer.observe(section);
+    }
+
+    // Run on first load
+    initCertAnimations();
+    // Run on Astro View Transitions
+    document.addEventListener('astro:page-load', initCertAnimations);
+</script>

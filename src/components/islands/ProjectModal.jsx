@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { wrap } from "framer-motion";
-import Icon from "./Icon.jsx";
+import Icon from "../../components/ui/Icon.jsx";
 import { useTranslations } from "../../utils/i18n.js";
 
 const variants = {

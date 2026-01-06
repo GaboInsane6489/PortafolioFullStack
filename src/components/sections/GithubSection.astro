@@ -1,0 +1,204 @@
+---
+// @ts-nocheck
+import Icon from '../ui/Icon.jsx';
+import { useTranslations, getLangFromUrl } from '../../utils/i18n.js';
+
+const lang = 'en';
+const t = useTranslations(lang);
+
+const stats = [
+    { label: t("github.commits"), value: "2,540+", icon: "git-commit" },
+    { label: t("github.hours"), value: "3,200+", icon: "clock" },
+    { label: t("github.streak"), value: "180 Days", icon: "activity" },
+];
+---
+
+<section 
+  class="github-section relative min-h-[90vh] bg-black py-32 overflow-hidden" 
+  id="github-section"
+>
+  <!-- Ambient Glow (JS enhanced) -->
+  <div 
+    class="pointer-events-none absolute inset-0 opacity-40 spotlight-bg"
+    aria-hidden="true"
+  ></div>
+
+  <div class="max-w-7xl mx-auto px-6 relative z-10">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <!-- Content -->
+      <div class="space-y-10">
+        <div>
+          <div class="flex items-center gap-3 mb-4 fade-up">
+            <Icon name="github" class="text-white w-8 h-8" />
+            <span class="text-purple-400 font-mono text-sm tracking-widest uppercase">
+              @GaboInsane6489
+            </span>
+          </div>
+
+          <h2 class="text-5xl md:text-7xl font-display font-bold text-white leading-tight fade-up delay-100">
+            {t("github.title")}
+          </h2>
+        </div>
+
+        <p class="text-xl text-gray-400 leading-relaxed max-w-xl fade-up delay-200">
+          {t("github.description")}
+        </p>
+
+        <div class="grid grid-cols-3 gap-6 py-6 border-y border-white/10 fade-up delay-300">
+          {stats.map((stat) => (
+            <div class="text-center sm:text-left">
+              <div class="text-3xl font-display font-bold text-white mb-1">
+                {stat.value}
+              </div>
+              <div class="text-xs text-gray-500 uppercase tracking-wider font-medium">
+                {stat.label}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div class="fade-up delay-400">
+          <a
+            href="https://github.com/GaboInsane6489?tab=overview&from=2025-11-01&to=2025-11-30"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group inline-flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-bold text-lg hover:bg-gray-100 transition-colors shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]"
+          >
+            {t("github.cta")}
+            <span class="group-hover:translate-x-1 transition-transform inline-block">
+                <Icon name="arrowRight" class="w-5 h-5" />
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Images Layout with Scroll Parallax -->
+      <div class="relative h-[600px] w-full images-parallax-container">
+        <!-- Image 1 - Main Center -->
+        <div class="main-image absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 md:w-96 aspect-[4/3] rounded-2xl overflow-hidden border border-white/10 shadow-2xl z-20 group image-anim">
+          <img
+            src="/assets/images/github/Github1.jpeg"
+            alt="Github Activity Main"
+            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+        </div>
+
+        <!-- Image 2 - Top Right Float -->
+        <div class="float-image-1 absolute top-0 right-0 md:right-10 w-64 aspect-video rounded-xl overflow-hidden border border-white/10 shadow-xl z-10 opacity-80 image-anim delay-200">
+          <img
+            src="/assets/images/github/Github2.jpeg"
+            alt="Github Activity Secondary"
+            class="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
+          />
+        </div>
+
+        <!-- Image 3 - Bottom Left Float -->
+        <div class="float-image-2 absolute bottom-10 left-0 md:left-10 w-72 aspect-video rounded-xl overflow-hidden border border-white/10 shadow-xl z-30 image-anim delay-300">
+          <img
+            src="/assets/images/github/Github3.jpeg"
+            alt="Github Activity Tertiary"
+            class="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
+          />
+        </div>
+
+        <!-- Decorative Elements -->
+        <div class="absolute top-1/4 left-1/4 w-32 h-32 bg-purple-600/20 rounded-full blur-3xl -z-10"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-40 h-40 bg-blue-600/20 rounded-full blur-3xl -z-10"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Mouse Spotlight Effect
+  const section = document.getElementById('github-section');
+  const spotlight = section?.querySelector('.spotlight-bg');
+    
+  if (section && spotlight instanceof HTMLElement) {
+    section.addEventListener('mousemove', (e) => {
+        // e is MouseEvent
+        if (!(section instanceof HTMLElement)) return;
+        const rect = section.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        spotlight.style.background = `radial-gradient(
+            600px circle at ${x}px ${y}px,
+            rgba(147, 51, 234, 0.1),
+            transparent 80%
+        )`;
+    });
+  }
+</script>
+
+<style>
+  /* Parallax for Images Container */
+  @keyframes parallaxSlow {
+    from { transform: translateY(100px); }
+    to { transform: translateY(-100px); }
+  }
+  @keyframes fadeIO {
+    0% { opacity: 0; }
+    20% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  .images-parallax-container {
+    animation: parallaxSlow linear both, fadeIO linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 100%;
+  }
+
+  /* Fade Up Content */
+  @keyframes slideUpFade {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up {
+    opacity: 0;
+    animation: slideUpFade 0.8s ease-out forwards;
+    animation-timeline: view();
+    animation-range: entry 10% cover 30%;
+  }
+  
+  /* Stagger delays */
+  .delay-100 { animation-delay: 0.1s; }
+  .delay-200 { animation-delay: 0.2s; }
+  .delay-300 { animation-delay: 0.3s; }
+  .delay-400 { animation-delay: 0.4s; }
+
+  /* Floating Images Entrance */
+  @keyframes scaleInRotate {
+    from { opacity: 0; transform: scale(0.8) rotate(-6deg); }
+    to { opacity: 1; transform: scale(1) rotate(0deg); }
+  }
+  @keyframes slideInRight {
+    from { opacity: 0; transform: translate(50px, -50px); }
+    to { opacity: 1; transform: translate(0, 0); }
+  }
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translate(-50px, 50px); }
+    to { opacity: 1; transform: translate(0, 0); }
+  }
+
+  .main-image {
+    animation: scaleInRotate 0.8s ease-out forwards;
+    animation-timeline: view();
+    animation-range: entry 20% cover 50%;
+  }
+  .float-image-1 {
+    animation: slideInRight 0.8s ease-out forwards;
+    animation-timeline: view();
+    animation-range: entry 20% cover 50%;
+    animation-delay: 0.2s;
+  }
+  .float-image-2 {
+    animation: slideInLeft 0.8s ease-out forwards;
+    animation-timeline: view();
+    animation-range: entry 20% cover 50%;
+    animation-delay: 0.3s;
+  }
+</style>

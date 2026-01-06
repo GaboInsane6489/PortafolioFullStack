@@ -1,0 +1,73 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title = 'Gabriel González | Full Stack Developer',
+  description = 'Portfolio of Gabriel González, a Full Stack Developer specializing in React, Astro, Node.js, and modern web technologies.',
+  ogImage = '/assets/images/og-image.jpg',
+} = Astro.props as Props;
+
+// Usa Astro.site definido en astro.config.mjs
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL(ogImage, Astro.site);
+---
+
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- Security Headers -->
+
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://api.web3forms.com https://vercel.live; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://cdn.pixabay.com https://wallpapercave.com https://www.enter.co https://vercel.live https://vercel.com https://images.unsplash.com https://instagram.fccs3-1.fna.fbcdn.net https://encrypted-tbn0.gstatic.com; media-src 'self' https://play.vsthemes.org https://cdn.pixabay.com; connect-src 'self' https://api.web3forms.com https://vercel.live https://*.vercel-insights.com data:; frame-src 'self' https://vercel.live https://www.youtube.com https://youtube.com; object-src 'none';"
+    />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageURL} />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={ogImageURL} />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    
+    <!-- Preload Critical Assets -->
+    <link rel="preload" href="/assets/images/profile.webp" as="image" />
+    <link rel="preload" href="https://wallpapercave.com/wp/wp5338729.jpg" as="image" />
+  </head>
+  <body class="bg-black text-white antialiased overflow-x-hidden">
+    <slot />
+  </body>
+</html>

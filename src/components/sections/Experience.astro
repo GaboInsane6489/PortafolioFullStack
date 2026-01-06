@@ -1,0 +1,180 @@
+---
+import Icon from '../ui/Icon.jsx';
+import { useTranslations, getLangFromUrl } from '../../utils/i18n.js';
+
+const lang = 'en';
+const t = useTranslations(lang);
+
+const experiences = [
+    // @ts-ignore
+    { ...t("experience.item1"), icon: "graduationCap", color: "text-purple-400", border: "border-purple-500/50", glow: "shadow-purple-500/20" },
+    // @ts-ignore
+    { ...t("experience.item2"), icon: "award", color: "text-blue-400", border: "border-blue-500/50", glow: "shadow-blue-500/20" },
+    // @ts-ignore
+    { ...t("experience.item3"), icon: "shoppingCart", color: "text-emerald-400", border: "border-emerald-500/50", glow: "shadow-emerald-500/20" },
+    // @ts-ignore
+    { ...t("experience.item4"), icon: "school", color: "text-amber-400", border: "border-amber-500/50", glow: "shadow-amber-500/20" },
+    // @ts-ignore
+    { ...t("experience.item5"), isOrg: true, icon: "globe", link: "https://www.linkedin.com/company/harrypotterhead/", color: "text-pink-400", border: "border-pink-500/50", glow: "shadow-pink-500/20" },
+];
+---
+
+<section id="experience" class="relative py-32 overflow-hidden bg-transparent text-white selection:bg-purple-500/30">
+  
+  <div class="absolute inset-0 bg-black/40 backdrop-blur-[1px] pointer-events-none"></div>
+  
+  <!-- Ambient Background (Removed YouTube Background) -->
+  <div class="absolute inset-0 z-0 pointer-events-none">
+     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-purple-900/10 rounded-full blur-[150px] opacity-20"></div>
+  </div>
+
+  <div class="relative z-30 container mx-auto px-6 max-w-7xl">
+    
+    <!-- HEADER: Glitch & Cyber -->
+    <div class="text-center mb-32 relative">
+       <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-purple-500/30 bg-purple-900/10 backdrop-blur-md mb-6 animate-pulse">
+          <Icon name="activity" size={16} className="text-purple-400" />
+          <span class="text-xs font-mono text-purple-300 tracking-widest uppercase">{t("experience.cyberLog")}</span>
+       </div>
+       
+       <h2 class="text-5xl md:text-8xl font-display font-black text-transparent bg-clip-text bg-gradient-to-b from-white via-gray-200 to-gray-600 tracking-tighter relative z-10">
+          PATH<span class="text-purple-500">_</span>FINDER
+       </h2>
+       
+       <p class="mt-6 text-gray-400 font-mono text-sm md:text-base max-w-xl mx-auto border-l-2 border-purple-500/50 pl-4 text-left">
+          > {t("experience.cyberDecrypt")}<br>
+          > {t("experience.cyberNodes").replace('{count}', (experiences.length + 1).toString())}<br>
+          > Status: <span class="text-green-400">{t("experience.cyberStatus")}</span>
+       </p>
+    </div>
+
+    <!-- THE NEURAL STREAM -->
+    <div class="relative">
+       <!-- Central Spine -->
+       <div class="absolute left-[28px] md:left-1/2 top-0 bottom-0 w-px bg-white/10 md:-translate-x-1/2"></div>
+       <div class="absolute left-[28px] md:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-purple-500 via-blue-400 to-purple-500 md:-translate-x-1/2 origin-top scale-y-0 beam-scroll shadow-[0_0_15px_rgba(168,85,247,0.8)] z-10"></div>
+
+       <div class="space-y-24 md:space-y-32">
+          {experiences.map((exp, index) => {
+             const isEven = index % 2 === 0;
+             
+             return (
+               <>
+               <div class={`relative flex flex-col md:flex-row items-center gap-8 md:gap-0 ${isEven ? 'md:flex-row-reverse' : ''} group z-40`}>
+                  
+                  <div class="absolute left-[28px] md:left-1/2 w-4 h-4 md:w-6 md:h-6 bg-black border border-white/30 rounded-full z-10 md:-translate-x-1/2 flex items-center justify-center group-hover:border-purple-400 group-hover:scale-125 transition-all duration-500 shadow-[0_0_10px_rgba(0,0,0,0.8)]">
+                      <div class="w-1.5 h-1.5 md:w-2 md:h-2 bg-purple-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </div>
+                  
+                  <div class="hidden md:block w-1/2"></div>
+                  
+                  <div class="w-full md:w-1/2 pl-16 md:pl-0 md:px-16">
+                     <div 
+                        class={`relative bg-[#080808] border border-white/10 rounded-2xl overflow-hidden hover:border-purple-500/40 transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.8)] card-enter-anim will-change-transform-opacity`}
+                     >
+                        <div class={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${exp.color.replace('text-', 'from-').replace('400', '500')} to-transparent opacity-50`}></div>
+
+                        <div class="p-6 md:p-8 relative z-10">
+                           <div class="flex justify-between items-start mb-4">
+                              <div class="flex items-center gap-3">
+                                 <div class={`p-2 rounded-lg bg-white/5 border border-white/5 ${exp.color}`}>
+                                    <Icon name={exp.icon} size={20} className="w-5 h-5" />
+                                 </div>
+                                 <div class="flex flex-col">
+                                    <h4 class={`font-bold text-lg md:text-xl leading-none text-white transition-colors`}>{exp.role}</h4>
+                                    <p class="text-xs font-mono text-gray-400 mt-1 uppercase tracking-wider">{exp.company}</p>
+                                 </div>
+                              </div>
+                              <span class="text-xs font-bold text-gray-500 font-mono px-2 py-1 rounded bg-white/5 border border-white/5 whitespace-nowrap">
+                                 {exp.date}
+                              </span>
+                           </div>
+                           
+                           <p class="text-gray-400 text-sm leading-relaxed mb-6 font-light border-l-2 border-white/5 pl-4 group-hover:border-purple-500/30 transition-colors">
+                              {exp.narrative}
+                           </p>
+
+                           <div class="flex flex-wrap gap-2">
+                              {exp.focus.map(tag => (
+                                 <span class="px-2 py-1 rounded bg-black/50 border border-white/10 text-[10px] font-mono text-gray-400 group-hover:text-white transition-colors">
+                                    /// {tag}
+                                 </span>
+                              ))}
+                           </div>
+                           
+                           {exp.link && (
+                              <a href={exp.link} target="_blank" class="absolute bottom-6 right-6 p-2 rounded-full bg-white/5 hover:bg-purple-500 hover:text-white text-gray-400 transition-all duration-300">
+                                 <Icon name="externalLink" size={16} />
+                              </a>
+                           )}
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+               {/* Dedicated Video Node (Memory Core) after 2nd item */}
+               {index === 1 && (
+                 <div class="relative flex flex-col md:flex-row items-center justify-center py-12 group z-40">
+                    <div class="absolute left-[28px] md:left-1/2 w-8 h-8 bg-purple-500 rounded-full z-10 md:-translate-x-1/2 flex items-center justify-center shadow-[0_0_20px_rgba(168,85,247,0.6)] animate-pulse">
+                        <Icon name="activity" size={20} className="text-white" />
+                    </div>
+                    <div class="w-full max-w-3xl mx-auto px-16 md:px-0">
+                        <div class="relative bg-black rounded-3xl overflow-hidden border border-purple-500/30 shadow-[0_0_50px_-10px_rgba(168,85,247,0.2)] card-enter-anim aspect-video">
+                            <iframe 
+                                class="w-full h-full"
+                                src="https://www.youtube.com/embed/B8jgJo4yrCk?autoplay=1&mute=1&controls=0&loop=1&playlist=B8jgJo4yrCk&playsinline=1" 
+                                title="Memory Core Visual" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                allowfullscreen>
+                            </iframe>
+                            <div class="absolute top-4 left-4 px-3 py-1 bg-purple-500 text-[10px] font-black uppercase rounded text-white tracking-widest">Memory Archive // Core</div>
+                        </div>
+                    </div>
+                 </div>
+               )}
+               </>
+             )
+          })}
+       </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+   .beam-scroll {
+      animation: beam-grow linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 80%;
+   }
+   
+   @keyframes beam-grow {
+      from { transform: scaleY(0); }
+      to { transform: scaleY(1); }
+   }
+
+   /* Card Entry Animation (Scroll Driven) */
+   .card-enter-anim {
+      animation: card-in linear both;
+      animation-timeline: view();
+      /* Highly sensitive entry range. Ensures they reach 100% very quickly */
+      animation-range: entry 0% entry 25%;
+      animation-fill-mode: both;
+   }
+
+   @keyframes card-in {
+      from { 
+         opacity: 0; 
+         transform: translateY(80px);
+      }
+      to { 
+         opacity: 1; 
+         transform: translateY(0);
+      }
+   }
+   
+   .will-change-transform-opacity {
+      will-change: transform, opacity;
+   }
+</style>

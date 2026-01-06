@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { staggerContainer, staggerItem } from "../../utils/motion.js";
-import { useTranslations, $lang } from "../../utils/i18n.js";
+import { useTranslations, $lang, setLang } from "../../utils/i18n.js";
 import { useStore } from "@nanostores/react";
 import Icon from "../ui/Icon.jsx";
 
-export default function Hero() {
-  const lang = useStore($lang);
+export default function Hero({ initialLang = "en" }) {
+  const storeLang = useStore($lang);
+  const [lang, setLocalLang] = useState(initialLang);
+
+  useEffect(() => {
+    setLocalLang(storeLang);
+  }, [storeLang]);
+
   const t = useTranslations(lang);
 
   return (

@@ -67,10 +67,12 @@ export default {
     },
   },
   experience: {
-    title: "Evolución Profesional y Trayectoria",
-    intro:
-      "Un recorrido cronológico a través de mi crecimiento académico y contribuciones profesionales en ingeniería de software.",
     meta: "Línea de Evolución",
+    cyberLog: "Registro de Evolución del Sistema",
+    cyberDecrypt: "Desencriptando trayectoria profesional...",
+    cyberNodes: "Analizados {count} nodos de datos.",
+    cyberStatus: "OPTIMIZADO",
+    title: "Evolución Profesional y Trayectoria",
     item1: {
       role: "Estudiante de Ingeniería Informática",
       company: "U.P.T.C.M.S",
@@ -141,10 +143,24 @@ export default {
     certified: "Profesional Certificado",
     title: "Desarrollador Full Stack",
     description:
-      "8 meses de formación intensiva, dominando arquitecturas modernas. De cero a despliegue en producción con estándares de industria.",
-    months: "Meses Intensivos",
-    hours: "Horas de Código",
-    stack: "Arsenal Dominado",
+      "8 meses de práctica estructurada y real, dominando arquitecturas modernas desde el diseño de interfaces hasta el despliegue escalable en producción.",
+    months: "Práctica Estructurada",
+    hours: "Desarrollo Aplicado",
+    stack: "React • Astro • Supabase • Node.js",
+    skills: {
+      react: "Utilizado para islas interactivas y estados de UI complejos",
+      astro:
+        "Elección arquitectónica central para sitios estáticos de alto rendimiento",
+      next: "Framework para aplicaciones React de grado de producción",
+      node: "Entorno de ejecución backend para arquitecturas de servicios escalables",
+      tailwind: "CSS basado en utilidades para un estilizado preciso de la UI",
+      postgres: "Modelado de datos relacionales e integridad transaccional",
+      supabase: "Backend-as-a-Service para despliegues rápidos y seguros",
+      git: "Control de versiones e ingeniería colaborativa",
+      github: "Pipelines de CI/CD y gestión de código fuente",
+      vercel: "Despliegue Edge e infraestructura de plataforma",
+      docker: "Contenerización para paridad de entornos",
+    },
     view: "Ver Credencial",
   },
   about: {

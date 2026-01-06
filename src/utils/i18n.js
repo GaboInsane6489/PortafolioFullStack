@@ -9,12 +9,20 @@ const LANGUAGES = {
 
 const DEFAULT_LANG = "en";
 
+// Detectar idioma desde la URL (opcional)
 export function getLangFromUrl(url) {
-  const [, lang] = url.pathname.split("/");
-  if (lang in LANGUAGES) return lang;
+  // Check query params first (?lang=es)
+  const langParam = url.searchParams.get("lang");
+  if (langParam in LANGUAGES) return langParam;
+
+  // Check path second (/es/...)
+  const [, langPath] = url.pathname.split("/");
+  if (langPath in LANGUAGES) return langPath;
+
   return DEFAULT_LANG;
 }
 
+// Hook para traducciones
 export function useTranslations(lang) {
   return function t(key) {
     const keys = key.split(".");
@@ -27,6 +35,7 @@ export function useTranslations(lang) {
   };
 }
 
+// Detectar idioma en cliente
 export function getLang() {
   if (typeof localStorage !== "undefined" && localStorage.getItem("locale")) {
     return localStorage.getItem("locale");
@@ -37,8 +46,10 @@ export function getLang() {
   return DEFAULT_LANG;
 }
 
-export const $lang = atom(getLang());
+// 👇 Inicialización fija en SSR (siempre "en")
+export const $lang = atom(DEFAULT_LANG);
 
+// Cambiar idioma y persistir en localStorage
 export function setLang(lang) {
   if (typeof localStorage !== "undefined") {
     localStorage.setItem("locale", lang);

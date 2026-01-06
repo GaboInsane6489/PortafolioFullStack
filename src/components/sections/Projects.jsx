@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   motion,
   useMotionValue,
@@ -9,7 +9,7 @@ import { fadeUp, staggerContainer, staggerItem } from "../../utils/motion.js";
 import { useTranslations, $lang } from "../../utils/i18n.js";
 import { useStore } from "@nanostores/react";
 import Icon from "../ui/Icon.jsx";
-import ProjectModal from "../ui/ProjectModal.jsx";
+import ProjectModal from "../../components/islands/ProjectModal.jsx";
 
 /**
  * Projects Section Component
@@ -144,8 +144,14 @@ const TiltCard = ({ project, onClick }) => {
   );
 };
 
-export default function Projects() {
-  const lang = useStore($lang);
+export default function Projects({ initialLang = "en" }) {
+  const storeLang = useStore($lang);
+  const [lang, setLocalLang] = useState(initialLang);
+
+  useEffect(() => {
+    setLocalLang(storeLang);
+  }, [storeLang]);
+
   const t = useTranslations(lang);
   const [selectedProject, setSelectedProject] = useState(null);
 
@@ -228,7 +234,10 @@ export default function Projects() {
 
   return (
     <>
-      <section className="relative min-h-screen py-24 md:py-32 px-4 overflow-hidden">
+      <section
+        id="projects"
+        className="relative min-h-screen py-24 md:py-32 px-4 overflow-hidden"
+      >
         {/* Transparent background to show video */}
         <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px] pointer-events-none" />
         {/* Background Gradients */}

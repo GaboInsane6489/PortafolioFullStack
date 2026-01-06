@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/islands/Header.jsx';
+import Hero from '../components/sections/Hero.jsx';
+import About from '../components/sections/About.astro';
+import Projects from '../components/sections/Projects.jsx';
+import Experience from '../components/sections/Experience.astro';
+import Certificates from '../components/sections/Certificates.astro';
+import CodeGallery from '../components/sections/CodeGallery.astro';
+import GithubSection from '../components/sections/GithubSection.astro';
+import Contact from '../components/sections/Contact.jsx';
+import Footer from '../components/ui/Footer.astro';
+import BackgroundVideo from '../components/islands/BackgroundVideo.jsx';
+import { getLangFromUrl } from '../utils/i18n.js';
+
+const lang = getLangFromUrl(Astro.url);
+---
+
+<BaseLayout>
+  <div class="relative w-full overflow-x-hidden">
+    <!-- Skip to content for accessibility -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-black focus:rounded"
+    >
+      Skip to main content
+    </a>
+
+    <!-- Background Video - Loads when browser is idle -->
+    <BackgroundVideo client:load />
+
+    <!-- Header - Critical navigation, loads immediately -->
+    <Header client:load initialLang={lang} animate={true} />
+
+    <main id="main-content" class="relative">
+      <!-- Hero - Above-the-fold, loads immediately with animations -->
+      <Hero client:load initialLang={lang} />
+
+      <!-- About - Interactive elements (magnetic buttons, tech grid) load when visible -->
+      <About />
+
+      <!-- Projects - Modal + tilt effects, loads when visible -->
+      <Projects client:visible initialLang={lang} />
+
+      <!-- CodeGallery - Static content, no hydration needed -->
+      <CodeGallery />
+
+      <!-- Experience - Static timeline, no hydration needed -->
+      <Experience />
+
+      <!-- Certificates - Static cards, no hydration needed -->
+      <Certificates />
+
+      <!-- GithubSection - Static content, no hydration needed -->
+      <GithubSection />
+
+      <!-- Contact - Form with state, loads when visible -->
+      <Contact client:visible initialLang={lang} />
+    </main>
+
+    <!-- Footer - Static content, no hydration needed -->
+    <Footer />
+  </div>
+</BaseLayout>

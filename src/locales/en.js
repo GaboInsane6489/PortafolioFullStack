@@ -66,10 +66,12 @@ export default {
     },
   },
   experience: {
-    title: "Professional Evolution & Journey",
-    intro:
-      "A chronological path through my academic growth and professional contributions in software engineering.",
     meta: "Evolution Line",
+    cyberLog: "System Evolution Log",
+    cyberDecrypt: "Decrypting career trajectory...",
+    cyberNodes: "Analyzed {count} data nodes.",
+    cyberStatus: "OPTIMIZED",
+    title: "Professional Evolution & Journey",
     item1: {
       role: "Software Engineering Student",
       company: "U.P.T.C.M.S",
@@ -143,7 +145,20 @@ export default {
       "8 months of intensive training, mastering modern software architectures. From responsive interface design to scalable server deployment.",
     months: "Intensive Months",
     hours: "Coding Hours",
-    stack: "Mastered Arsenal",
+    stack: "React • Astro • Supabase • Node.js",
+    skills: {
+      react: "Used for interactive islands and complex UI states",
+      astro: "Core architectural choice for performance-first static sites",
+      next: "Framework for production-grade React applications",
+      node: "Backend runtime for scalable service architectures",
+      tailwind: "Utility-first CSS for precision UI styling",
+      postgres: "Relational data modeling and transactional integrity",
+      supabase: "Backend-as-a-Service for rapid, secure deployment",
+      git: "Version control and collaborative engineering",
+      github: "CI/CD pipelines and source management",
+      vercel: "Edge deployment and platform infrastructure",
+      docker: "Containerization for environment parity",
+    },
     view: "View Credential",
   },
   about: {

@@ -1,0 +1,215 @@
+---
+// @ts-nocheck
+import Icon from './Icon.jsx';
+import { useTranslations, getLangFromUrl } from '../../utils/i18n.js';
+
+const lang = 'en';
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+
+const socialLinks = [
+  {
+    name: "GitHub",
+    icon: "github",
+    url: "https://github.com/GaboInsane6489", 
+    label: "GitHub Profile",
+    color: "group-hover:text-purple-400",
+    borderColor: "hover:border-purple-500/50",
+    shadowColor: "hover:shadow-purple-500/40",
+    bgColor: "hover:bg-purple-900/20"
+  },
+  {
+    name: "LinkedIn",
+    icon: "linkedin",
+    url: "https://www.linkedin.com/in/gabriel-alexander-gonzález-garcía-31476636a/?locale=es_ES",
+    label: "LinkedIn Profile",
+    color: "group-hover:text-blue-400",
+    borderColor: "hover:border-blue-500/50",
+    shadowColor: "hover:shadow-blue-500/40", 
+    bgColor: "hover:bg-blue-900/20"
+  }
+];
+---
+
+<footer class="relative pt-32 pb-10 overflow-hidden bg-black text-white">
+  <!-- Gradient Backgrounds -->
+  <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent pointer-events-none"></div>
+  <div class="absolute inset-0 bg-black/20 backdrop-blur-[2px]"></div>
+
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+    <div class="grid md:grid-cols-2 gap-16 items-end mb-20">
+      
+      <!-- Main CTA -->
+      <div class="space-y-8">
+        <h2 class="text-5xl md:text-7xl font-display font-bold tracking-tighter text-white leading-[1.1] animate-fade-up">
+          {t("footer.titleLine1")} <br />
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-white to-blue-400 animate-gradient">
+            {t("footer.titleLine2")}
+          </span>
+        </h2>
+
+        <div class="animate-fade-in delay-200">
+          <a
+            href="mailto:gabrielgg2005ve@gmail.com"
+            aria-label="Send an email"
+            class="inline-flex items-center gap-3 text-xl md:text-2xl text-gray-300 hover:text-white transition-colors border-b border-white/20 hover:border-white pb-1 group"
+          >
+            gabrielgg2005ve@gmail.com
+            <span class="transform -rotate-45 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300 inline-block">
+               <Icon name="arrow" size={24} />
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Social Grid -->
+      <div class="flex flex-col md:items-end gap-8">
+        <div class="flex gap-4 relative">
+          
+          {socialLinks.map((link) => (
+            <a
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={link.label}
+              class={`p-4 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-md transition-all duration-300 group ${link.borderColor} hover:shadow-[0_0_30px_-5px_CurrentColor] hover:scale-110 hover:rotate-6`}
+              style={{ '--tw-shadow-color': link.shadowColor }}
+            >
+              <div class={`text-gray-300 ${link.color} transition-colors`}>
+                <Icon name={link.icon} size={28} />
+              </div>
+            </a>
+          ))}
+
+          <!-- WhatsApp Interactive Popup (Vanilla JS) -->
+          <div class="relative group/ws" id="whatsapp-container">
+            <button
+              id="whatsapp-toggle"
+              aria-label="Toggle WhatsApp Menu"
+              class="p-4 border rounded-2xl backdrop-blur-md transition-all duration-300 bg-white/5 border-white/10 hover:border-green-500/50 hover:shadow-[0_0_30px_-5px_rgba(34,197,94,0.4)] hover:scale-110 hover:-rotate-6 cursor-pointer"
+            >
+              <div class="text-gray-300 group-hover/ws:text-green-400 transition-colors">
+                <Icon name="whatsapp" size={28} />
+              </div>
+            </button>
+
+            <!-- Dropdown -->
+            <div 
+              id="whatsapp-dropdown"
+              class="absolute bottom-full right-0 mb-4 w-72 bg-[#1c1c1c] border border-white/10 rounded-2xl shadow-2xl overflow-hidden z-50 p-4 opacity-0 scale-95 pointer-events-none transition-all duration-300 transform origin-bottom-right"
+            >
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-500">
+                  <Icon name="whatsapp" size={20} />
+                </div>
+                <div>
+                  <div class="text-white font-bold text-sm">
+                    {t("footer.whatsapp.title")}
+                  </div>
+                  <div class="text-green-400 text-xs flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                    Online
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white/5 rounded-lg p-3 text-center mb-3">
+                <div class="text-xs text-gray-400 mb-1">Number</div>
+                <div class="text-white font-mono text-lg tracking-wider">
+                  {t("footer.whatsapp.number")}
+                </div>
+              </div>
+
+              <a
+                href="https://wa.me/584127893937"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center justify-center gap-2 w-full py-2 bg-green-600 hover:bg-green-500 text-white rounded-lg font-bold text-sm transition-colors"
+              >
+                {t("footer.whatsapp.action")}
+                <Icon name="externalLink" size={14} />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-right">
+          <p class="text-sm text-gray-400 font-medium uppercase tracking-widest flex items-center justify-end gap-2">
+            <span class="w-2 h-2 rounded-full bg-green-500"></span>
+            {t("footer.available")}
+          </p>
+          <p class="text-xs text-gray-600 mt-2">
+            {t("footer.location")}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs md:text-sm text-gray-500 font-medium tracking-wide">
+      <p>
+        &copy; {year} Gabriel González. {t("footer.rights")}
+      </p>
+      <div class="flex gap-8">
+        <a href="#" class="hover:text-white transition-colors">{t("footer.privacy")}</a>
+        <a href="#" class="hover:text-white transition-colors">{t("footer.terms")}</a>
+        <a href="#top" class="hover:text-white transition-colors">{t("footer.backToTop")}</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Vanilla JS for WhatsApp Popup
+  const toggleBtn = document.getElementById('whatsapp-toggle');
+  const dropdown = document.getElementById('whatsapp-dropdown');
+  const container = document.getElementById('whatsapp-container');
+  let isOpen = false;
+
+  function toggleMenu(event) {
+    if (event) event.stopPropagation();
+    isOpen = !isOpen;
+    if (isOpen) {
+      dropdown.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+      dropdown.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
+      toggleBtn.classList.add('border-green-500', 'bg-green-500/10');
+    } else {
+      dropdown.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+      dropdown.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+      toggleBtn.classList.remove('border-green-500', 'bg-green-500/10');
+    }
+  }
+
+  toggleBtn?.addEventListener('click', toggleMenu);
+
+  // Close when clicking outside
+  document.addEventListener('click', (e) => {
+    if (isOpen && container && e.target instanceof Node && !container.contains(e.target)) {
+      toggleMenu(null);
+    }
+  });
+</script>
+
+<style>
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-up {
+    animation: fadeUp 0.8s ease-out forwards;
+    view-timeline-name: --footer-title;
+    view-timeline-axis: block;
+    animation-timeline: --footer-title; /* Modern browser support */
+    animation-range: entry 10% cover 30%;
+  }
+  
+  .delay-200 { animation-delay: 0.2s; }
+  
+  /* Fallback visibility for standard animations */
+  @media (prefers-reduced-motion: no-preference) {
+    .animate-fade-up {
+      opacity: 0; /* JS implementation for IntersectionObserver fallback if needed, but CSS Scroll Driven Animations are preferred */
+      animation-fill-mode: forwards;
+    }
+  }
+</style>

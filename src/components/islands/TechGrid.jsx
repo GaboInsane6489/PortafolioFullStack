@@ -8,7 +8,7 @@ import {
   useSpring,
   useMotionTemplate,
 } from "framer-motion";
-import Icon from "./Icon.jsx";
+import Icon from "../../components/ui/Icon.jsx";
 
 // Data Structure
 const techs = [

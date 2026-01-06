@@ -1,0 +1,103 @@
+---
+const { class: className = '' } = Astro.props;
+---
+
+<div class={`tilt-card group relative ${className}`} data-tilt>
+  <div 
+    class="tilt-inner relative w-full h-full transition-transform duration-100 ease-out will-change-transform"
+    style="transform-style: preserve-3d"
+  >
+    <!-- Layer 1: Standard Shine -->
+    <div 
+      class="shine absolute inset-0 z-20 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+      aria-hidden="true"
+    ></div>
+
+    <!-- Layer 2: Spectral Hologram (Staff Level) -->
+    <div 
+      class="spectral absolute inset-0 z-30 pointer-events-none opacity-0 group-hover:opacity-20 transition-opacity duration-700 mix-blend-color-dodge"
+      aria-hidden="true"
+    ></div>
+    
+    <slot />
+  </div>
+</div>
+
+<style>
+  .tilt-card {
+    perspective: 1200px;
+  }
+  .tilt-inner {
+    --rotate-x: 0deg;
+    --rotate-y: 0deg;
+    transform: rotateX(var(--rotate-x)) rotateY(var(--rotate-y));
+    transition: transform 0.15s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .shine {
+    background: radial-gradient(
+      400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(255, 255, 255, 0.1),
+      transparent 80%
+    );
+  }
+  .spectral {
+    background: radial-gradient(
+      600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(255, 0, 255, 0.1) 0%,
+      rgba(0, 255, 255, 0.1) 25%,
+      rgba(255, 255, 0, 0.1) 50%,
+      transparent 80%
+    );
+    filter: blur(20px);
+  }
+</style>
+
+<script>
+  function initTilt() {
+    const cards = document.querySelectorAll('[data-tilt]');
+    
+    cards.forEach(card => {
+      const inner = card.querySelector('.tilt-inner');
+      if (!(inner instanceof HTMLElement)) return;
+      
+      let frame;
+      
+      const handleMove = (/** @type {MouseEvent} */ e) => {
+        if (frame) cancelAnimationFrame(frame);
+        
+        frame = requestAnimationFrame(() => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            // Calculate rotation (max 10deg)
+            const rotateX = ((y - centerY) / centerY) * -10;
+            const rotateY = ((x - centerX) / centerX) * 10;
+            
+            inner.style.setProperty('--rotate-x', `${rotateX}deg`);
+            inner.style.setProperty('--rotate-y', `${rotateY}deg`);
+            
+            // Shine positioning
+            inner.style.setProperty('--mouse-x', `${x}px`);
+            inner.style.setProperty('--mouse-y', `${y}px`);
+        });
+      };
+      
+      const handleLeave = () => {
+        if (frame) cancelAnimationFrame(frame);
+        inner.style.setProperty('--rotate-x', '0deg');
+        inner.style.setProperty('--rotate-y', '0deg');
+      };
+      
+      card.addEventListener('mousemove', handleMove);
+      card.addEventListener('mouseleave', handleLeave);
+    });
+  }
+
+  // Initialize on load and view transitions
+  initTilt();
+  document.addEventListener('astro:page-load', initTilt);
+</script>

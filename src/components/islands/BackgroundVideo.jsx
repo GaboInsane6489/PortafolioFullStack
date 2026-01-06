@@ -8,10 +8,7 @@ export default function BackgroundVideo() {
   const [videoSrc, setVideoSrc] = useState("");
 
   useEffect(() => {
-    // Delay loading the video source to prioritize critical resources
-    const timer = setTimeout(() => {
-      setVideoSrc("https://play.vsthemes.org/fhd/12/73012.webm");
-    }, 1500); // 1.5 second delay
+    setVideoSrc("https://play.vsthemes.org/fhd/12/73012.webm");
 
     const video = videoRef.current;
     if (!video) return;
@@ -31,7 +28,6 @@ export default function BackgroundVideo() {
     observer.observe(video);
 
     return () => {
-      clearTimeout(timer);
       observer.disconnect();
     };
   }, []);
@@ -52,12 +48,12 @@ export default function BackgroundVideo() {
         muted
         playsInline
         webkit-playsinline="true"
-        preload="none"
+        preload="auto"
         poster="https://wallpapercave.com/wp/wp5338729.jpg"
         className="w-full h-full object-cover opacity-60"
         onError={() => setHasError(true)}
       >
-        {videoSrc && <source src={videoSrc} type="video/mp4" />}
+        {videoSrc && <source src={videoSrc} type="video/webm" />}
       </video>
     </div>
   );
